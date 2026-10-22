@@ -1,27 +1,25 @@
-{#- Slova klientů. Bez JavaScriptu se zobrazí všechny pod sebou;
-    se skriptem jako prohlížeč s tlačítky (bez automatického posouvání). -#}
+{#- Slova klientů: tři ukázky vedle sebe a odkaz na nekonečný pás
+    se všemi recenzemi na konci stránky O mně. Se `jenPobyty` ukáže
+    jen recenze z pobytů (v recenze.json mají "pobyt": true). -#}
 {% from "components/macros.njk" import oddelovac with context %}
+{%- set vyber = recenze | selectattr("pobyt") if jenPobyty else recenze.slice(0, 3) %}
 <section class="section recenze" aria-labelledby="recenze-nadpis">
   <div class="wrap">
     {{ oddelovac() }}
     <h2 id="recenze-nadpis" class="center">Není větší <em>vděčnosti,</em> než za slova<br> spokojených klientů.</h2>
-    <div class="recenze__ram" data-carousel>
-      <img class="recenze__mandala" src="assets/ikony/mandala-kvet.svg" alt="" width="80" height="80" aria-hidden="true">
-      <ul class="recenze__seznam" role="list" data-carousel-track>
-        {%- for r in recenze %}
-        <li class="recenze__polozka" data-carousel-item>
-          <figure>
-            <blockquote><p>{{ r.text }}</p></blockquote>
-            <figcaption>{{ r.autor }}</figcaption>
-          </figure>
-        </li>
-        {%- endfor %}
-      </ul>
-      <div class="recenze__ovladani" data-carousel-controls hidden>
-        <button class="recenze__sipka" type="button" data-carousel-prev><span class="visually-hidden">Předchozí recenze</span><svg viewBox="0 0 34.2 32.3" aria-hidden="true"><path d="M.5 16h33M.3 16.5 16.2.7M0 15.4l16.2 16.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
-        <p class="recenze__pocet" aria-live="polite" data-carousel-status></p>
-        <button class="recenze__sipka" type="button" data-carousel-next><span class="visually-hidden">Další recenze</span><svg viewBox="0 0 34.2 32.3" aria-hidden="true"><path d="M33.7 16H.7M33.9 16.5 18 .7M34.2 15.4 18 31.6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
-      </div>
+    <ul class="recenze__mrizka" role="list">
+      {%- for r in vyber %}
+      <li class="recenze__karta">
+        <figure>
+          <img class="recenze__mandala" src="assets/ikony/mandala-kvet.svg" alt="" width="48" height="48">
+          <blockquote><p>{{ r.text }}</p></blockquote>
+          <figcaption>{{ r.autor }}</figcaption>
+        </figure>
+      </li>
+      {%- endfor %}
+    </ul>
+    <div class="center tlacitka">
+      <a class="btn btn--obrys" href="o-mne.html#recenze">Zobrazit více recenzí</a>
     </div>
   </div>
 </section>

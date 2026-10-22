@@ -1,14 +1,9 @@
-{#- Kontakt: mapa (načte se až po kliknutí – bez cookies Googlu předem),
+{#- Kontakt: mapa Google,
     adresa a formulář se souhlasem se zpracováním osobních údajů. -#}
 <section class="section kontakt" id="kontakt" aria-labelledby="kontakt-nadpis">
   <div class="wrap kontakt__grid">
-    <div class="mapa" data-map="{{ site.mapaEmbed }}">
-      <img class="mapa__nahled" src="assets/img/studio-sal-podlozky.webp" alt="" width="1920" height="739" loading="lazy">
-      <div class="mapa__vyzva">
-        <p>Mapa se načte ze služby Google Maps, která může ukládat cookies.</p>
-        <button class="btn btn--plny" type="button" data-map-load>Zobrazit mapu</button>
-        <p class="mapa__odkazy">nebo otevřít v <a href="{{ site.mapaMapyCz }}" rel="noopener" target="_blank">Mapy.cz<span class="visually-hidden"> (otevře se v novém okně)</span></a> · <a href="{{ site.mapaGoogle }}" rel="noopener" target="_blank">Google Maps<span class="visually-hidden"> (otevře se v novém okně)</span></a></p>
-      </div>
+    <div class="mapa">
+      <iframe src="{{ site.mapaEmbed }}" title="Mapa: Muscle Factory Březnice, Rožmitálská 144" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
     <div class="kontakt__info">

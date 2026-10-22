@@ -87,6 +87,36 @@ ogImage: "iva-ceradska-joga-na-plazi"
   </div>
 </section>
 
+{#- Všechny recenze v nekonečném pásu. Bez JavaScriptu se dají posouvat ručně. -#}
+<section class="section recenze" id="recenze" aria-labelledby="recenze-nadpis">
+  <div class="wrap">
+    {{ oddelovac() }}
+    <h2 id="recenze-nadpis" class="center">Není větší <em>vděčnosti,</em> než za slova<br> spokojených klientů.</h2>
+  </div>
+  <div class="recenze-pas" data-recenze-pas role="region" aria-label="Recenze klientů">
+    <div class="recenze-pas__okno">
+      <div class="recenze-pas__stopa" data-pas-stopa>
+        <ul class="recenze-pas__skupina" role="list" data-pas-skupina>
+          {%- for r in recenze %}
+          <li class="recenze__karta">
+            <figure>
+              <img class="recenze__mandala" src="assets/ikony/mandala-kvet.svg" alt="" width="48" height="48">
+              <blockquote><p>{{ r.text }}</p></blockquote>
+              <figcaption>{{ r.autor }}</figcaption>
+            </figure>
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="recenze-pas__ovladani" data-pas-ovladani hidden>
+      <button class="recenze__sipka" type="button" data-pas-predchozi><span class="visually-hidden">Předchozí recenze</span><svg viewBox="0 0 34.2 32.3" aria-hidden="true"><path d="M.5 16h33M.3 16.5 16.2.7M0 15.4l16.2 16.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <button class="recenze__sipka" type="button" data-pas-pauza aria-pressed="false"><span class="visually-hidden" data-pas-pauza-text>Pozastavit posun</span><svg class="ikona-pauza" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><svg class="ikona-prehrat" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5l11 6.5-11 6.5z" fill="currentColor"/></svg></button>
+      <button class="recenze__sipka" type="button" data-pas-dalsi><span class="visually-hidden">Další recenze</span><svg viewBox="0 0 34.2 32.3" aria-hidden="true"><path d="M33.7 16H.7M33.9 16.5 18 .7M34.2 15.4 18 31.6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    </div>
+  </div>
+</section>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

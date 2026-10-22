@@ -97,7 +97,7 @@
   font-weight: 300;
   font-display: swap;
   src: url("../fonts/lato-300-latin-ext.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-017F;
 }
 @font-face {
   font-family: "Lato";
@@ -113,7 +113,7 @@
   font-weight: 400;
   font-display: swap;
   src: url("../fonts/lato-400-latin-ext.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-017F;
 }
 @font-face {
   font-family: "Lato";
@@ -129,7 +129,7 @@
   font-weight: 700;
   font-display: swap;
   src: url("../fonts/lato-700-latin-ext.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-017F;
 }
 @font-face {
   font-family: "Lato";
@@ -499,7 +499,9 @@ p { margin: 0 0 1em; }
     transform: translateX(-50%);
     display: flex;
     width: min(100% - 400px, 1000px);
+    pointer-events: none; /* menu překrývá logo – kliky propouští, zachytávají je jen položky */
   }
+  .nav__item { pointer-events: auto; }
   .nav__list { flex: 1; display: flex; align-items: center; gap: clamp(1.5rem, 2.4vw, 2.4rem); }
   .nav__list--vlevo { justify-content: flex-end; padding-right: 72px; }
   .nav__list--vpravo { justify-content: flex-start; padding-left: 72px; }
@@ -602,7 +604,7 @@ p { margin: 0 0 1em; }
 .hero__obsah {
   position: absolute;
   left: calc(var(--odsazeni) + clamp(1.5rem, 3.5vw, 3.2rem));
-  bottom: clamp(2rem, 6vw, 4.5rem);
+  bottom: clamp(5.5rem, 7.5vw, 6.5rem); /* nad ovládáním prezentace */
   z-index: 2;
   max-width: min(38rem, 56%);
   color: var(--bila);
@@ -633,6 +635,36 @@ p { margin: 0 0 1em; }
 .hero__citat p { margin: 0 0 0.3rem; }
 .hero__citat footer { font-style: normal; font-size: var(--step-0); font-family: var(--font-text); opacity: 0.95; }
 .hero .tlacitka { margin-top: 1.75rem; }
+
+/* Pozvánka do WhatsApp skupiny pod tlačítky: průsvitný oranžový podklad
+   s bílým textem, po najetí myší plně oranžový s tmavým textem (kontrast 6 : 1). */
+.hero__whatsapp {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: fit-content;
+  margin-top: 1.5rem;
+  padding: 0.65rem 1.25rem 0.65rem 0.65rem;
+  background: rgba(178, 74, 14, 0.7); /* --oranzova-text */
+  color: var(--bila);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background-color 0.25s, color 0.25s;
+}
+.hero__whatsapp:hover { background: var(--oranzova); color: #141810; }
+.hero__whatsapp-ikona {
+  flex: none;
+  display: grid; place-items: center;
+  width: 40px; height: 40px;
+  padding: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+}
+.hero__whatsapp-ikona .ikona { width: 100%; height: 100%; }
+.hero__whatsapp-odkaz { font-weight: 700; text-decoration: underline; text-underline-offset: 0.2em; }
+.hero__whatsapp:hover .hero__whatsapp-ikona { background: #141810; border-color: #141810; color: var(--bila); }
 
 /* Ovládání v pravém dolním rohu aktivní fotky. */
 .hero__ovladani {
@@ -733,6 +765,15 @@ p { margin: 0 0 1em; }
   background: var(--brand);
 }
 .oddelovac img { width: 37px; height: 37px; }
+/* Animace při scrollu: nejdřív se shora vykreslí čára, pak se objeví mandala.
+   Třídu data-animace přidává main.js, takže bez JS je oddělovač vidět hned. */
+.oddelovac[data-animace]::before { transform: scaleY(0); transform-origin: top; transition: transform 0.8s ease-out; }
+.oddelovac[data-animace] img { opacity: 0; transform: scale(0.6) rotate(-45deg); transition: opacity 0.6s ease-out 0.7s, transform 0.8s ease-out 0.7s; }
+.oddelovac[data-animace="videt"]::before { transform: scaleY(1); }
+.oddelovac[data-animace="videt"] img { opacity: 1; transform: none; }
+/* Samostatné fotky: jemné vyjetí zespodu a zprůhlednění (data-animace přidává main.js). */
+[data-animace]:not(.oddelovac) { opacity: 0; transform: translateY(30px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+[data-animace="videt"]:not(.oddelovac) { opacity: 1; transform: none; }
 .section .oddelovac { margin-top: calc(var(--section-y) * -0.5); }
 
 /* ==========================================================================
@@ -830,22 +871,39 @@ p { margin: 0 0 1em; }
 /* ==========================================================================
    13. Recenze
    ========================================================================== */
-.recenze__ram {
-  position: relative;
-  max-width: 846px;
-  margin: clamp(2.5rem, 6vw, 5rem) auto 0;
-  padding: clamp(2.5rem, 5vw, 3.6rem) clamp(1.25rem, 4vw, 2.5rem);
+.recenze .recenze__mrizka {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+@media (max-width: 900px) {
+  .recenze .recenze__mrizka { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+}
+.recenze__karta {
+  display: flex;
+  padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
   background: var(--krem);
   text-align: center;
 }
-.recenze__mandala { width: 84px; height: 84px; margin: 0 auto 1.5rem; opacity: 0.35; filter: grayscale(1) brightness(1.9); }
-.recenze__polozka + .recenze__polozka { margin-top: 2.5rem; }
-.recenze__ram.is-carousel .recenze__polozka + .recenze__polozka { margin-top: 0; }
+.recenze__karta figure { display: flex; flex-direction: column; justify-content: center; width: 100%; margin: 0; }
+.recenze__mandala { width: 48px; height: 48px; margin: 0 auto 1.25rem; opacity: 0.35; filter: grayscale(1) brightness(1.9); }
 .recenze blockquote { margin: 0; }
-.recenze blockquote p { font-family: var(--font-nadpis); font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem); line-height: 1.25; color: var(--nadpis); margin: 0; }
-.recenze figcaption { margin-top: 1.5rem; font-family: var(--font-nadpis); font-size: 1.375rem; color: var(--nadpis); }
-.recenze__ovladani { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; }
-.recenze__ovladani[hidden] { display: none; }
+.recenze blockquote p { font-family: var(--font-nadpis); font-size: clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem); line-height: 1.3; color: var(--nadpis); margin: 0; }
+.recenze figcaption { margin-top: 1.25rem; font-family: var(--font-nadpis); font-size: 1.25rem; color: var(--nadpis); }
+
+/* Nekonečný pás na stránce O mně. Bez JavaScriptu se okno posouvá ručně,
+   se skriptem se pás hýbe sám (skupina karet je zdvojená). */
+.recenze-pas { margin-top: clamp(2.5rem, 6vw, 4rem); }
+.recenze-pas__okno { overflow-x: auto; padding-inline: var(--gutter); }
+.recenze-pas.is-aktivni .recenze-pas__okno { overflow: hidden; padding-inline: 0; }
+.recenze-pas__stopa { display: flex; width: max-content; will-change: transform; touch-action: pan-y; }
+.recenze-pas .recenze-pas__skupina { display: flex; gap: 1.5rem; padding-right: 1.5rem; }
+.recenze-pas .recenze__karta { flex: 0 0 auto; width: clamp(270px, 30vw, 380px); }
+.recenze-pas__ovladani { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+.recenze-pas__ovladani[hidden] { display: none; }
+.recenze-pas .ikona-prehrat, .recenze-pas.is-zastaveno .ikona-pauza { display: none; }
+.recenze-pas.is-zastaveno .ikona-prehrat { display: block; }
 .recenze__sipka {
   display: grid; place-items: center;
   width: 48px; height: 48px;
@@ -856,7 +914,6 @@ p { margin: 0 0 1em; }
   cursor: pointer;
 }
 .recenze__sipka:hover { color: var(--brand-text); }
-.recenze__pocet { margin: 0; font-size: var(--step--1); }
 
 /* ==========================================================================
    14. Banner s mandalami
@@ -876,6 +933,13 @@ p { margin: 0 0 1em; }
 .banner-foto__pozadi::after { content: ""; position: absolute; inset: 0; background: rgba(25, 25, 20, 0.45); }
 .banner-foto__obsah { position: relative; }
 .banner-foto h2 { color: var(--bila); max-width: 40rem; margin-inline: auto; }
+
+/* pozvánka do WhatsApp skupiny (kurzy, pobyty) */
+.whatsapp {
+  max-width: var(--wrap-uzky);
+  margin: clamp(2rem, 4vw, 3rem) auto;
+  text-align: center;
+}
 
 /* ==========================================================================
    15. Karty (kurzy, pobyty, blog, videa, pozice)
@@ -958,18 +1022,6 @@ p { margin: 0 0 1em; }
 .kontakt__udaje p { margin: 0; }
 
 .mapa { position: relative; min-height: 460px; background: var(--krem); overflow: hidden; }
-.mapa__nahled { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; }
-.mapa__vyzva {
-  position: relative;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 1rem;
-  min-height: 460px;
-  padding: 2rem;
-  text-align: center;
-  color: var(--nadpis);
-}
-.mapa__vyzva p { margin: 0; max-width: 22rem; }
-.mapa__odkazy { font-size: var(--step--1); }
 .mapa iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 .form { display: grid; gap: 1.25rem; }
@@ -1000,7 +1052,7 @@ p { margin: 0 0 1em; }
 
 @media (max-width: 860px) {
   .kontakt__grid, .form__radek { grid-template-columns: 1fr; }
-  .mapa, .mapa__vyzva { min-height: 320px; }
+  .mapa { min-height: 320px; }
 }
 
 /* ==========================================================================

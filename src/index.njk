@@ -43,6 +43,10 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
       <a class="btn btn--plny" href="rozvrh.html">Rozvrh lekcí</a>
       <a class="btn btn--svetly" href="#jak-se-zapsat">Jak se zapsat</a>
     </div>
+    <a class="hero__whatsapp" href="{{ site.whatsapp }}" target="_blank" rel="noopener">
+      <span class="hero__whatsapp-ikona">{% include "components/ikona-whatsapp.njk" %}</span>
+      <span>Novinky o akcích a pobytech najdete <span class="hero__whatsapp-odkaz">ve WhatsApp skupině</span><span class="visually-hidden"> (otevře se v novém okně)</span></span>
+    </a>
   </div>
 
   <div class="hero__ovladani" data-hero-zona data-hero-ovladani hidden>
@@ -114,16 +118,6 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
       <a class="btn btn--obrys" href="kurzy.html">Všechny kurzy</a>
       <a class="btn btn--obrys" href="pobyty.html">Všechny pobyty</a>
     </div>
-  </div>
-</section>
-
-<section class="section textura" aria-labelledby="blog-nadpis">
-  <div class="wrap">
-    <h2 id="blog-nadpis" class="center">Z <em>blogu</em></h2>
-    {% set polozky = wp.clanky | prvnich(3) %}
-    {% set zadneText = 'Články najdete na <a href="' + wp.url + '/blog/">blogu</a>.' %}
-    {% include "components/karty-wp.njk" %}
-    <div class="center tlacitka"><a class="btn btn--obrys" href="{{ wp.url }}/blog/">Další články</a></div>
   </div>
 </section>
 

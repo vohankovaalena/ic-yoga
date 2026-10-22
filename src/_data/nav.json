@@ -8,31 +8,23 @@
         { "href": "lekce.html", "label": "Všechny lekce" },
         { "href": "cenik.html", "label": "Ceník" },
         { "href": "individualni-lekce.html", "label": "Individuální lekce" },
-        { "href": "jogova-terapie.html", "label": "Jógová terapie" }
+        { "href": "jogova-terapie.html", "label": "Jógová terapie" },
+        { "href": "abeceda-pozic.html", "label": "Abeceda pozic" }
       ]
     },
-    {
-      "label": "Kurzy a pobyty",
-      "href": "kurzy.html",
-      "deti": [
-        { "href": "kurzy.html", "label": "Kurzy" },
-        { "href": "pobyty.html", "label": "Pobyty" },
-        { "href": "videa.html", "label": "Videa z našich cest" }
-      ]
-    }
+    { "href": "kurzy.html", "label": "Kurzy/akce" },
+    { "href": "pobyty.html", "label": "Pobyty" }
   ],
   "vpravo": [
-    { "href": "studio.html", "label": "Studio" },
-    { "href": "o-mne.html", "label": "O mně" },
     {
-      "label": "Inspirace",
-      "href": "o-joze.html",
+      "label": "O mně",
+      "href": "o-mne.html",
       "deti": [
-        { "href": "o-joze.html", "label": "O józe" },
-        { "href": "abeceda-pozic.html", "label": "Abeceda pozic" },
-        { "href": "blog", "label": "Blog", "wp": true }
+        { "href": "studio.html", "label": "Studio" },
+        { "href": "o-mne.html", "label": "O mně" }
       ]
     },
+    { "href": "videa.html", "label": "Videa z cest" },
     { "href": "kontakt.html", "label": "Kontakt" }
   ]
 }

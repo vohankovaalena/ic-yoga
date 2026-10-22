@@ -24,7 +24,7 @@ const staticke = [
   ["nase-studio", "studio.html"],
   ["kontakt", "kontakt.html"],
   ["videa", "videa.html"],
-  ["o-joze", "o-joze.html"],
+  ["o-joze", "abeceda-pozic.html"],
   ["kurzy", "kurzy.html"],
   ["pobyty", "pobyty.html"],
   ["akce", "kurzy.html"],

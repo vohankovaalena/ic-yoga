@@ -11,6 +11,28 @@ const SITE = {
   email: "ivaceradska@seznam.cz"
 };
 
+/* Animace při scrollu: oddělovače s mandalou a samostatně stojící fotky
+   se objeví, až na ně návštěvník doscroluje. Fotky v galerii jdou postupně. */
+(function initAnimace() {
+  const prvky = document.querySelectorAll(".oddelovac, .split__foto, .omne-uvod__foto, .detail__foto, .galerie > picture, .prose img");
+  if (!prvky.length || !("IntersectionObserver" in window)) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const pozorovatel = new IntersectionObserver((zaznamy) => {
+    zaznamy.forEach((z) => {
+      if (!z.isIntersecting) return;
+      z.target.dataset.animace = "videt";
+      pozorovatel.unobserve(z.target);
+    });
+  }, { threshold: 0.2 });
+  prvky.forEach((p) => {
+    if (p.parentElement.classList.contains("galerie")) {
+      p.style.transitionDelay = `${[...p.parentElement.children].indexOf(p) * 0.15}s`;
+    }
+    p.dataset.animace = "";
+    pozorovatel.observe(p);
+  });
+})();
+
 (function initNav() {
   const toggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-nav]");
@@ -214,42 +236,122 @@ const SITE = {
   });
 })();
 
-(function initCarousel() {
-  document.querySelectorAll("[data-carousel]").forEach((ram) => {
-    const polozky = [...ram.querySelectorAll("[data-carousel-item]")];
-    const ovladani = ram.querySelector("[data-carousel-controls]");
-    const stav = ram.querySelector("[data-carousel-status]");
-    if (polozky.length < 2 || !ovladani) return;
-    let aktualni = 0;
+(function initRecenzePas() {
+  /* Nekonečný pás recenzí na stránce O mně.
+     Skupina karet je zdvojená (kopie je aria-hidden), takže smyčka navazuje
+     bez skoku. Posun řídí requestAnimationFrame. Zastaví se při najetí myší,
+     fokusu, tažení prstem a tlačítkem pauzy (WCAG 2.2.2); při „omezit pohyb“
+     se sám nerozjede. Šipky posunou o jednu kartu. */
+  const pas = document.querySelector("[data-recenze-pas]");
+  const stopa = pas && pas.querySelector("[data-pas-stopa]");
+  if (!stopa) return;
+  const skupina = stopa.querySelector("[data-pas-skupina]");
+  const pauzaBtn = pas.querySelector("[data-pas-pauza]");
+  const pauzaText = pas.querySelector("[data-pas-pauza-text]");
+  const RYCHLOST = 28;   // px za sekundu
+  const POSUN_MS = 450;  // délka posunu šipkou
 
-    const ukaz = (index) => {
-      aktualni = (index + polozky.length) % polozky.length;
-      polozky.forEach((p, i) => { p.hidden = i !== aktualni; });
-      if (stav) stav.textContent = `${aktualni + 1} / ${polozky.length}`;
-    };
+  const kopie = skupina.cloneNode(true);
+  kopie.setAttribute("aria-hidden", "true");
+  stopa.appendChild(kopie);
 
-    ram.classList.add("is-carousel");
-    ovladani.hidden = false;
-    ram.querySelector("[data-carousel-prev]").addEventListener("click", () => ukaz(aktualni - 1));
-    ram.querySelector("[data-carousel-next]").addEventListener("click", () => ukaz(aktualni + 1));
-    ukaz(0);
+  let delkaSmycky = 0;
+  let offset = 0;        // neomezený, zobrazuje se modulo délka smyčky
+  let animace = null;
+  let posledni = 0;
+  const duvodyPauzy = new Set();
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) duvodyPauzy.add("uzivatel");
+
+  const vykresli = () => {
+    const x = delkaSmycky ? ((offset % delkaSmycky) + delkaSmycky) % delkaSmycky : 0;
+    stopa.style.transform = `translate3d(${-x}px, 0, 0)`;
+  };
+  const zmer = () => { delkaSmycky = skupina.getBoundingClientRect().width; vykresli(); };
+
+  const posun = (smer) => {
+    const krok = skupina.firstElementChild.getBoundingClientRect().width + parseFloat(getComputedStyle(skupina).columnGap);
+    if (!krok) return;
+    const zaklad = animace ? animace.cil : offset;
+    animace = { od: offset, cil: (Math.round(zaklad / krok) + smer) * krok, start: null };
+  };
+
+  const snimek = (cas) => {
+    /* Strop kroku, aby pás po návratu do záložky neposkočil. */
+    const dt = posledni ? Math.min((cas - posledni) / 1000, 0.1) : 0;
+    posledni = cas;
+    if (animace) {
+      if (animace.start === null) animace.start = cas;
+      const t = Math.min(1, (cas - animace.start) / POSUN_MS);
+      offset = animace.od + (animace.cil - animace.od) * (1 - Math.pow(1 - t, 3));
+      if (t >= 1) animace = null;
+      vykresli();
+    } else if (!duvodyPauzy.size) {
+      offset += RYCHLOST * dt;
+      vykresli();
+    }
+    requestAnimationFrame(snimek);
+  };
+
+  const pauza = (duvod, ano) => {
+    if (ano) duvodyPauzy.add(duvod); else duvodyPauzy.delete(duvod);
+    pas.classList.toggle("is-zastaveno", duvodyPauzy.has("uzivatel"));
+  };
+
+  pas.querySelector("[data-pas-predchozi]").addEventListener("click", () => posun(-1));
+  pas.querySelector("[data-pas-dalsi]").addEventListener("click", () => posun(1));
+  pauzaBtn.addEventListener("click", () => {
+    const zastavit = !duvodyPauzy.has("uzivatel");
+    pauza("uzivatel", zastavit);
+    pauzaBtn.setAttribute("aria-pressed", String(zastavit));
+    pauzaText.textContent = zastavit ? "Spustit posun" : "Pozastavit posun";
   });
-})();
 
-(function initMap() {
-  document.querySelectorAll("[data-map]").forEach((mapa) => {
-    const tlacitko = mapa.querySelector("[data-map-load]");
-    if (!tlacitko) return;
-    tlacitko.addEventListener("click", () => {
-      const iframe = document.createElement("iframe");
-      iframe.src = mapa.dataset.map;
-      iframe.title = "Mapa: Muscle Factory Březnice, Rožmitálská 144";
-      iframe.loading = "lazy";
-      iframe.referrerPolicy = "no-referrer-when-downgrade";
-      mapa.replaceChildren(iframe);
-      iframe.focus();
-    });
-  });
+  pas.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") pauza("mys", true); });
+  pas.addEventListener("pointerleave", () => pauza("mys", false));
+  pas.addEventListener("focusin", () => pauza("fokus", true));
+  pas.addEventListener("focusout", (e) => { if (!pas.contains(e.relatedTarget)) pauza("fokus", false); });
+
+  /* Tažení prstem na mobilu; svislé gesto nechá stránce. */
+  let startX = 0;
+  let startY = 0;
+  let startOffset = 0;
+  let vodorovne = false;
+  stopa.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    startOffset = offset;
+    vodorovne = false;
+    animace = null;
+    pauza("tazeni", true);
+  }, { passive: true });
+  stopa.addEventListener("touchmove", (e) => {
+    if (!duvodyPauzy.has("tazeni")) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+    if (!vodorovne) {
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      if (Math.abs(dx) <= Math.abs(dy)) { pauza("tazeni", false); return; }
+      vodorovne = true;
+    }
+    offset = startOffset - dx;
+    vykresli();
+  }, { passive: true });
+  const konecTazeni = () => pauza("tazeni", false);
+  stopa.addEventListener("touchend", konecTazeni);
+  stopa.addEventListener("touchcancel", konecTazeni);
+
+  new ResizeObserver(zmer).observe(skupina);
+
+  if (duvodyPauzy.has("uzivatel")) {
+    pas.classList.add("is-zastaveno");
+    pauzaBtn.setAttribute("aria-pressed", "true");
+    pauzaText.textContent = "Spustit posun";
+  }
+  pas.classList.add("is-aktivni");
+  pas.querySelector("[data-pas-ovladani]").hidden = false;
+  zmer();
+  requestAnimationFrame(snimek);
 })();
 
 (function initVideo() {
