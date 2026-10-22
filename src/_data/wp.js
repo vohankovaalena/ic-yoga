@@ -12,9 +12,13 @@ const site = JSON.parse(
 const WP = site.wpUrl.replace(/\/$/, "");
 const TIMEOUT = 20000;
 
+/* Parametr navíc obejde případnou cache WordPressu, takže se nový
+   pobyt načte hned po zveřejnění. */
+const BEZ_CACHE = `v=${Date.now()}`;
+
 async function stahni(url) {
   try {
-    const res = await fetch(url, {
+    const res = await fetch(`${url}${url.includes("?") ? "&" : "?"}${BEZ_CACHE}`, {
       headers: { "User-Agent": "ic-yoga-web (Eleventy build)" },
       signal: AbortSignal.timeout(TIMEOUT)
     });

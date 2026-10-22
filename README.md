@@ -49,11 +49,32 @@ V šabloně: `{{ obrazek("nazev-souboru", "Popis, co je na fotce") }}`.
 Kurzy, pobyty, videa a blog Iva dál spravuje ve WordPressu. Při každém
 sestavení je `src/_data/wp.js` stáhne z RSS (`/kurzy/feed/`, `/pobyty/feed/`,
 `/videa/feed/`, `/feed/`) a náhledové obrázky z výpisových stránek.
-GitHub Actions web přestaví **každé ráno** (cron v `deploy.yml`), takže nový
-pobyt se na webu objeví nejpozději druhý den – nebo hned po ručním spuštění
-workflow (Actions → Nasazení na GitHub Pages → Run workflow).
-
 Když WordPress neodpovídá, build nespadne – sekce jen ukážou odkaz na WP.
+
+**Kdy se změna z WordPressu objeví na webu:**
+- **hned (do ~2 minut)** po zveřejnění / úpravě / smazání – zařídí to plugin
+  `wordpress/ic-yoga-aktualizace-webu.zip`, který pošle GitHubu signál
+  (`repository_dispatch` → workflow se spustí),
+- ručně: ve WordPressu *Nastavení → Aktualizace webu → Aktualizovat web teď*,
+  nebo na GitHubu *Actions → Nasazení na GitHub Pages → Run workflow*,
+- pojistka: každé ráno v 6:00 se web přestaví vždy.
+
+### Instalace pluginu (jednou)
+
+1. **Token na GitHubu:** github.com → vpravo nahoře profil → *Settings → Developer settings →
+   Personal access tokens → Fine-grained tokens → Generate new token*.
+   - Token name: `WordPress ic-yoga`, Expiration: 1 rok (pak vytvořit nový),
+   - Repository access: *Only select repositories* → `ic-yoga`,
+   - Permissions → Repository permissions → **Contents: Read and write**,
+   - *Generate token* a token zkopírovat (zobrazí se jen jednou).
+2. **Plugin do WordPressu:** *Pluginy → Instalace pluginů → Nahrát plugin* →
+   `wordpress/ic-yoga-aktualizace-webu.zip` → Instalovat → Aktivovat.
+3. *Nastavení → Aktualizace webu* → vložit token → Uložit → kliknout
+   **Aktualizovat web teď**. Má se objevit „Hotovo“ a na GitHubu v záložce
+   Actions nový běh.
+
+Token lze místo nastavení dát i do `wp-config.php`:
+`define('IC_YOGA_GITHUB_TOKEN', 'github_pat_…');`
 
 ## Spuštění na doméně ic-yoga.cz (zatím neprovedeno)
 
