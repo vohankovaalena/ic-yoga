@@ -26,6 +26,7 @@ Testovací verze: https://vohankovaalena.github.io/ic-yoga/ (nasazuje se při ka
 | Co | Soubor |
 | --- | --- |
 | Kontakty, adresa, sociální sítě, adresa WordPressu | `src/_data/site.json` |
+| Instagram na úvodní stránce (feed z Behold.so, `instagramFeed`) | `src/_data/site.json` → stahuje `src/_data/instagram.js` |
 | Lekce (texty, fotky, **časy v rozvrhu**) | `src/_data/lekce.json` – rozvrh se z nich skládá sám (`rozvrh.js`) |
 | Ceník | `src/_data/cenik.json` |
 | Recenze | `src/_data/recenze.json` |

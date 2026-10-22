@@ -458,3 +458,43 @@ const SITE = {
     });
   });
 })();
+
+/* Instagram na úvodní stránce: dlaždice ze sestavení webu se při otevření
+   stránky nahradí aktuálními příspěvky z feedu Behold.so, takže nový příspěvek
+   je vidět hned, ne až po ranní přestavbě. Když feed neodpoví, zůstane
+   původní obsah. */
+(function initInstagram() {
+  const mrizka = document.querySelector("[data-instagram-feed]");
+  if (!mrizka || !window.fetch) return;
+  const popis = (text = "") => {
+    const t = text.replace(/#[\p{L}\d_]+/gu, "").replace(/\s+/g, " ").trim();
+    if (!t) return "Příspěvek IC Yoga na Instagramu";
+    return t.length <= 120 ? t : t.slice(0, t.lastIndexOf(" ", 120)) + "…";
+  };
+  fetch(mrizka.dataset.instagramFeed)
+    .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+    .then((data) => {
+      const posty = (Array.isArray(data) ? data : data.posts || []).slice(0, mrizka.children.length || 6);
+      const polozky = posty.map((p) => {
+        const maly = p.sizes?.small?.mediaUrl || p.thumbnailUrl || p.mediaUrl;
+        if (!p.permalink || !maly) return null;
+        const li = document.createElement("li");
+        const a = Object.assign(document.createElement("a"), { href: p.permalink, rel: "noopener", target: "_blank" });
+        const img = Object.assign(document.createElement("img"), {
+          src: maly,
+          alt: `${popis(p.prunedCaption || p.caption)} – zobrazit na Instagramu`,
+          width: 400, height: 400, loading: "lazy", decoding: "async"
+        });
+        const velky = p.sizes?.medium?.mediaUrl;
+        if (velky) {
+          img.srcset = `${maly} 400w, ${velky} 700w`;
+          img.sizes = "(max-width: 860px) 33vw, 200px";
+        }
+        a.append(img);
+        li.append(a);
+        return li;
+      }).filter(Boolean);
+      if (polozky.length) mrizka.replaceChildren(...polozky);
+    })
+    .catch(() => {});
+})();

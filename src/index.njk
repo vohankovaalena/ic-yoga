@@ -124,10 +124,16 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
         <p>Co je nového ve studiu i na cestách</p>
       </div>
     </div>
-    <ul class="instagram__mrizka" role="list">
+    <ul class="instagram__mrizka" role="list"{% if site.instagramFeed %} data-instagram-feed="{{ site.instagramFeed }}"{% endif %}>
+      {%- if instagram.length %}
+      {%- for p in instagram %}
+      <li><a href="{{ p.odkaz }}" rel="noopener" target="_blank"><img src="{{ p.obrazek }}"{% if p.obrazek2x %} srcset="{{ p.obrazek }} 400w, {{ p.obrazek2x }} 700w" sizes="(max-width: 860px) 33vw, 200px"{% endif %} alt="{{ p.popis }} – zobrazit na Instagramu" width="400" height="400" loading="lazy" decoding="async"></a></li>
+      {%- endfor %}
+      {%- else %}
       {%- for f in [["studio-sal-podlozky", "Jógový sál s připravenými podložkami a pomůckami"], ["iva-ceradska-joga-na-plazi", "Iva Ceradská cvičí jógu na pláži"], ["iva-ceradska-meditace", "Iva Ceradská medituje u vody"], ["studio-logo-na-zdi", "Logo IC Yoga na zdi studia"], ["iva-ceradska-joga-v-lese", "Iva Ceradská v jógové pozici v lese"], ["meditace-pri-zapadu-slunce", "Meditace při západu slunce"]] %}
       <li><a href="{{ site.instagram }}" rel="noopener" target="_blank">{{ obrazek(f[0], f[1] + " – zobrazit Instagram IC Yoga") }}</a></li>
       {%- endfor %}
+      {%- endif %}
     </ul>
     <div class="center"><a class="btn btn--plny" href="{{ site.instagram }}" rel="noopener" target="_blank">Sledovat na Instagramu<span class="visually-hidden"> (otevře se v novém okně)</span></a></div>
   </div>
