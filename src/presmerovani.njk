@@ -1,0 +1,23 @@
+---
+pagination:
+  data: presmerovani
+  size: 1
+  alias: r
+permalink: "{{ r.z }}/index.html"
+layout: false
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<title>Stránka se přesunula | IC Yoga Březnice</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="{{ r.kanonicka }}">
+<meta http-equiv="refresh" content="0; url={{ r.na }}">
+<script>location.replace({{ r.na | dump | safe }});</script>
+</head>
+<body>
+<p>Stránka se přesunula na <a href="{{ r.na }}">novou adresu</a>.</p>
+</body>
+</html>

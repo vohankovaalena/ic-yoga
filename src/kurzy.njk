@@ -1,0 +1,20 @@
+---
+title: "Kurzy jógy v Březnici | IC Yoga"
+description: "Tematické kurzy a jednorázová setkání s jógou v Březnici a okolí: jóga pro emoce, jinová jóga se zvukovou relaxací, charitativní akce. Aktuální termíny."
+---
+{% from "components/macros.njk" import titulek with context %}
+{{ titulek("Kurzy", "titulek-podlozka", "Uzavřené kurzy a tematická setkání") }}
+
+<section class="section" aria-labelledby="kurzy-nadpis">
+  <div class="wrap">
+    <h2 id="kurzy-nadpis" class="center">Aktuální <em>kurzy</em></h2>
+    <p class="center lead">Uzavřené kurzy mají dané téma a počet setkání (zpravidla 10). Schází se v nich stále stejná skupina, takže je čas jít do hloubky. Na kurz se hlaste telefonicky nebo e-mailem.</p>
+    {% set polozky = wp.kurzy %}
+    {% set zadneText = 'Právě teď nejsou vypsané žádné kurzy. Novinky posílám v <a href="#newsletter">newsletteru</a> a na <a href="' + site.instagram + '">Instagramu</a>.' %}
+    {% include "components/karty-wp.njk" %}
+    <div class="center tlacitka">
+      <a class="btn btn--plny" href="tel:{{ site.telefonOdkaz }}">Přihlásit se: {{ site.telefon }}</a>
+      <a class="btn btn--obrys" href="rozvrh.html">Pravidelné lekce</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+{
+  "name": "IC Yoga Březnice",
+  "shortName": "IC Yoga",
+  "url": "https://ic-yoga.cz",
+  "wpUrl": "https://ic-yoga.cz",
+  "lektorka": "Iva Ceradská",
+  "telefon": "605 724 977",
+  "telefonOdkaz": "+420605724977",
+  "email": "ivaceradska@seznam.cz",
+  "misto": "Muscle Factory Březnice",
+  "ulice": "Rožmitálská 144",
+  "psc": "262 72",
+  "obec": "Březnice",
+  "geo": {
+    "lat": 49.5583,
+    "lng": 13.948
+  },
+  "mapaGoogle": "https://www.google.com/maps/search/?api=1&query=Muscle+Factory+B%C5%99eznice%2C+Ro%C5%BEmit%C3%A1lsk%C3%A1+144",
+  "mapaMapyCz": "https://mapy.cz/zakladni?q=Ro%C5%BEmit%C3%A1lsk%C3%A1%20144%2C%20B%C5%99eznice",
+  "mapaEmbed": "https://maps.google.com/maps?q=Muscle%20Factory%20B%C5%99eznice&t=m&z=16&output=embed&iwloc=near",
+  "facebook": "https://www.facebook.com/ICyogaBreznice",
+  "instagram": "https://www.instagram.com/ic_yoga/",
+  "instagramJmeno": "ic_yoga",
+  "basePath": "/ic-yoga/",
+  "ico": "67259669",
+  "sidlo": "Rožmitálská 144, 262 72 Březnice",
+  "indexovat": false
+}

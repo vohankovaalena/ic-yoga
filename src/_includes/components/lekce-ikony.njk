@@ -1,0 +1,11 @@
+{#- Mřížka lekcí s kreslenými ikonami v krémovém kruhu (jako na původním webu). -#}
+<ul class="ikony-lekci" role="list">
+  {%- for l in lekce %}
+  <li>
+    <a class="ikona-lekce" href="{{ l.slug }}.html">
+      <span class="ikona-lekce__kruh"><img src="assets/ikony/{{ l.ikona }}.svg" alt="" width="120" height="120" loading="lazy"></span>
+      <span class="ikona-lekce__nazev">{{ l.nazev }}</span>
+    </a>
+  </li>
+  {%- endfor %}
+</ul>

@@ -1,0 +1,55 @@
+---
+title: "Rozvrh lekcí jógy Březnice | IC Yoga"
+description: "Aktuální týdenní rozvrh lekcí jógy v Březnici: vinyasa, yin, yin yang, zdravá záda, dětská a teen jóga. Jak se na lekci zapsat a kolik stojí."
+---
+{% from "components/macros.njk" import titulek with context %}
+{{ titulek("Rozvrh lekcí", "titulek-podlozka", "Otevřené lekce každý týden v IC Yoga Březnice") }}
+
+<section class="section" aria-labelledby="tyden-nadpis">
+  <div class="wrap">
+    <h2 id="tyden-nadpis" class="center">Těším se <em>na</em> vás na těchto lekcích.</h2>
+    <p class="center lead">Klikněte na lekci a dozvíte se, pro koho je a co vás čeká. Lekce probíhají v Muscle Factory Březnice, Rožmitálská 144.</p>
+    {% include "components/rozvrh.njk" %}
+    <div class="detail__info">
+      <div class="info-box">
+        <h3>Otevřené lekce</h3>
+        <p>Do lekcí z rozvrhu můžete vstoupit kdykoliv. Stačí se předem zapsat.</p>
+      </div>
+      <div class="info-box">
+        <h3>Uzavřené kurzy</h3>
+        <p>Mají dané téma a zpravidla 10 setkání, obvykle v úterý, středu nebo čtvrtek. Aktuální nabídka je v sekci <a href="kurzy.html">Kurzy</a>.</p>
+      </div>
+      <div class="info-box">
+        <h3>Ceny</h3>
+        <p>Jednorázový vstup 110 Kč, permanentky od 80 Kč za lekci. Více v <a href="cenik.html">ceníku</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="textura">
+{% include "components/jak-se-zapsat.njk" %}
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Týdenní rozvrh lekcí jógy – IC Yoga Březnice",
+  "itemListElement": [
+    {%- for t in rozvrh.terminy %}
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "Course",
+        "name": "{{ t.nazev }}{% if t.pozn %} – {{ t.pozn }}{% endif %}",
+        "url": "{{ site.url }}/{{ t.slug }}.html",
+        "description": "Pravidelná lekce jógy v Březnici",
+        "provider": { "@id": "{{ site.url }}/#studio" }
+      }
+    }{% if not loop.last %},{% endif %}
+    {%- endfor %}
+  ]
+}
+</script>

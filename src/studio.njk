@@ -1,0 +1,41 @@
+---
+title: "Jógové studio Březnice | IC Yoga"
+description: "Studio IC Yoga Březnice v rodinném fitness centru Muscle Factory, Rožmitálská 144. Čistý sál pro lekce dětí i dospělých, pomůcky, šatny a toalety."
+---
+{% from "components/macros.njk" import titulek, obrazek, oddelovac with context %}
+{{ titulek("Naše studio", "studio-sal-podlozky", "Klidné a relaxační prostředí pro vaši praxi") }}
+
+<section class="section" aria-labelledby="studio-nadpis">
+  <div class="wrap split split--stred">
+    <div class="split__foto">
+      {{ obrazek("studio-logo-na-zdi", "Logo IC Yoga na světlé zdi jógového sálu") }}
+    </div>
+    <div class="split__text">
+      <h2 id="studio-nadpis">Otevřený prostor pro <em>všechny,</em> kdo mají rádi jógu</h2>
+      <p>Studio IC Yoga Březnice skýtá otevřený prostor pro všechny, kteří mají rádi jógu, zdravý pohyb a cestu k vnější i vnitřní rovnováze. Nabízíme energeticky laděný, čistý sál vhodný pro lekce dětí i dospělých.</p>
+      <p>V rozvrhu najdete otevřené lekce, do nichž můžete vstoupit kdykoliv, a také uzavřené tematické kurzy, v nichž se hlouběji zaměřujeme na různá pojetí jógy. Najdete zde klidné, jemné lekce pro uvolnění stresu a napětí i lekce pro ty, kteří chtějí pocítit účinky především na svém fyzickém těle.</p>
+      <p>Samozřejmostí je možnost využití rozmanitých pomůcek pro efektivnější praxi jógy. K dispozici jsou krásné, čisté šatny a toalety a vzdušný prostor k odpočinku před lekcemi.</p>
+      <div class="tlacitka">
+        <a class="btn btn--plny" href="rozvrh.html">Rozvrh lekcí</a>
+        <a class="btn btn--obrys" href="#kontakt">Jak k nám</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="banner-mandaly" aria-labelledby="studio-citat">
+  {{ oddelovac("oddelovac--nahore") }}
+  <div class="wrap center">
+    <h2 id="studio-citat">Přijďte a užijte si <em>klidné</em> a relaxační prostředí<br> našeho jóga studia.</h2>
+  </div>
+</section>
+
+<section class="section" aria-label="Fotografie studia">
+  <div class="wrap galerie galerie--2">
+    {{ obrazek("studio-sal-pohled", "Prostorný světlý jógový sál s dřevěnou podlahou a velkými okny") }}
+    {{ obrazek("studio-sal-podlozky", "Podložky s jógovými bloky a polštářky připravené na lekci") }}
+  </div>
+</section>
+
+{% set kontaktNadpis = "Kde nás najdete" %}
+{% include "components/kontakt.njk" %}

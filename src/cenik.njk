@@ -1,0 +1,55 @@
+---
+title: "Ceník lekcí jógy Březnice | IC Yoga"
+description: "Ceník lekcí jógy v IC Yoga Březnice: jednorázový vstup 110 Kč, permanentky 20× a 40×, individuální lekce 600 Kč, kurz dětské jógy. Dárkové poukazy."
+---
+{% from "components/macros.njk" import titulek with context %}
+{{ titulek("Ceník", "titulek-iva-prkno", "", "center 35%") }}
+
+<section class="section" aria-labelledby="cenik-nadpis">
+  <div class="wrap">
+    <h2 id="cenik-nadpis" class="visually-hidden">Ceny lekcí</h2>
+    <ul class="cenik" role="list">
+      {%- for c in cenik %}
+      <li class="cena cena--{{ c.barva }}">
+        {% if c.doporuceno %}<span class="cena__stitek">Nejvýhodnější</span>{% endif %}
+        <h3 class="cena__nazev">{{ c.nazev }}</h3>
+        <p class="cena__castka"><strong>{{ c.cena }} Kč</strong> <span>/ {{ c.jednotka }}</span></p>
+        <ul>
+          {%- for b in c.body %}<li>{{ b }}</li>{% endfor %}
+        </ul>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section textura" aria-labelledby="objednavky">
+  <div class="wrap wrap--uzky center">
+    <h2 id="objednavky">Objednávky a <em>poukazy</em></h2>
+    <p class="lead">Permanentku si můžete objednat telefonicky, e-mailem nebo osobně ve studiu. Na individuální lekce vám ráda vystavím i dárkový poukaz.</p>
+    <div class="tlacitka">
+      <a class="btn btn--plny" href="tel:{{ site.telefonOdkaz }}">Zavolat {{ site.telefon }}</a>
+      <a class="btn btn--obrys" href="mailto:{{ site.email }}?subject=Permanentka%20%2F%20poukaz">Napsat e-mail</a>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  "name": "Ceník lekcí jógy – IC Yoga Březnice",
+  "itemListElement": [
+    {%- for c in cenik %}
+    {
+      "@type": "Offer",
+      "name": "{{ c.nazev }}",
+      "price": "{{ c.cena | replace(' ', '') }}",
+      "priceCurrency": "CZK",
+      "description": "{{ c.body | join(', ') }}",
+      "seller": { "@id": "{{ site.url }}/#studio" }
+    }{% if not loop.last %},{% endif %}
+    {%- endfor %}
+  ]
+}
+</script>

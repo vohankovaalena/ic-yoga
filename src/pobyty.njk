@@ -1,0 +1,22 @@
+---
+title: "Pobyty s jógou 2026–2027 – Srí Lanka, La Palma, Mauricius | IC Yoga"
+description: "Pobyty s jógou a zdravým pohybem s lektorkou Ivou Ceradskou: víkendy v Česku, Srí Lanka 2027, La Palma, Mauricius. Program, termíny a přihlášky."
+---
+{% from "components/macros.njk" import titulek with context %}
+{{ titulek("Pobyty s jógou", "iva-ceradska-joga-na-plazi", "Jóga, poznávání a odpočinek v Čechách i ve světě", "center 30%") }}
+
+<section class="section" aria-labelledby="pobyty-nadpis">
+  <div class="wrap">
+    <h2 id="pobyty-nadpis" class="center">Kam se <em>chystáme</em></h2>
+    <p class="center lead">Pobyty spojují jógu a zdravý pohyb s poznáváním místního života a prostorem pro odpočinek. Řadu z nich připravuji ve spolupráci s Essence for life. Skupiny bývají malé, a tak se rychle zaplní.</p>
+    {% set polozky = wp.pobyty %}
+    {% set zadneText = 'Nabídku pobytů právě aktualizuji. Napište mi na <a href="mailto:' + site.email + '">' + site.email + '</a>.' %}
+    {% include "components/karty-wp.njk" %}
+    <div class="center tlacitka">
+      <a class="btn btn--plny" href="mailto:{{ site.email }}?subject=Pobyt%20s%20j%C3%B3gou">Mám zájem o pobyt</a>
+      <a class="btn btn--obrys" href="videa.html">Videa z našich cest</a>
+    </div>
+  </div>
+</section>
+
+{% include "components/recenze.njk" %}

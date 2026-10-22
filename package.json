@@ -1,0 +1,14 @@
+{
+  "name": "ic-yoga-web",
+  "version": "1.0.0",
+  "description": "Statický web IC Yoga Březnice",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  }
+}

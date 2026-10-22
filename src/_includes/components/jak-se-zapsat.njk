@@ -1,0 +1,32 @@
+{#- Jak se zapsat na lekci – rezervační systém záměrně není, zápis je osobní. -#}
+{% from "components/macros.njk" import oddelovac with context %}
+<section class="section zapis" id="jak-se-zapsat" aria-labelledby="zapis-nadpis">
+  <div class="wrap">
+    {{ oddelovac() }}
+    <div class="center hlavicka-sekce">
+      <h2 id="zapis-nadpis">Jak se <em>zapsat</em> na lekci</h2>
+      <p class="lead">Online rezervace nemáme – zakládáme si na osobním vztahu s vámi. Zápis je jednoduchý:</p>
+    </div>
+    <ol class="kroky" role="list">
+      <li class="krok">
+        <span class="krok__cislo" aria-hidden="true">1</span>
+        <h3 class="krok__nadpis">Vyberte si lekci</h3>
+        <p>Podívejte se do <a href="rozvrh.html">rozvrhu</a>. Nevíte, kterou zvolit? Začátečníkům doporučuji Zdravá záda nebo Yin jógu.</p>
+      </li>
+      <li class="krok">
+        <span class="krok__cislo" aria-hidden="true">2</span>
+        <h3 class="krok__nadpis">Ozvěte se mi</h3>
+        <p>Zavolejte nebo pošlete SMS na <a href="tel:{{ site.telefonOdkaz }}" class="nowrap">{{ site.telefon }}</a>, napište na <a href="mailto:{{ site.email }}">{{ site.email }}</a>, nebo se zapište osobně ve studiu. Zápis je možný až 4 týdny dopředu.</p>
+      </li>
+      <li class="krok">
+        <span class="krok__cislo" aria-hidden="true">3</span>
+        <h3 class="krok__nadpis">Přijďte si zacvičit</h3>
+        <p>Stačí pohodlné oblečení a láhev s vodou, pomůcky jsou ve studiu. Jednorázový vstup stojí 110 Kč, výhodnější jsou <a href="cenik.html">permanentky</a>.</p>
+      </li>
+    </ol>
+    <div class="center tlacitka">
+      <a class="btn btn--plny" href="tel:{{ site.telefonOdkaz }}">Zavolat {{ site.telefon }}</a>
+      <a class="btn btn--obrys" href="mailto:{{ site.email }}?subject=Z%C3%A1pis%20na%20lekci">Napsat e-mail</a>
+    </div>
+  </div>
+</section>

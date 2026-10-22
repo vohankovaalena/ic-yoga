@@ -1,0 +1,38 @@
+{
+  "vlevo": [
+    { "href": "rozvrh.html", "label": "Rozvrh" },
+    {
+      "label": "Lekce",
+      "href": "lekce.html",
+      "deti": [
+        { "href": "lekce.html", "label": "Všechny lekce" },
+        { "href": "cenik.html", "label": "Ceník" },
+        { "href": "individualni-lekce.html", "label": "Individuální lekce" },
+        { "href": "jogova-terapie.html", "label": "Jógová terapie" }
+      ]
+    },
+    {
+      "label": "Kurzy a pobyty",
+      "href": "kurzy.html",
+      "deti": [
+        { "href": "kurzy.html", "label": "Kurzy" },
+        { "href": "pobyty.html", "label": "Pobyty" },
+        { "href": "videa.html", "label": "Videa z našich cest" }
+      ]
+    }
+  ],
+  "vpravo": [
+    { "href": "studio.html", "label": "Studio" },
+    { "href": "o-mne.html", "label": "O mně" },
+    {
+      "label": "Inspirace",
+      "href": "o-joze.html",
+      "deti": [
+        { "href": "o-joze.html", "label": "O józe" },
+        { "href": "abeceda-pozic.html", "label": "Abeceda pozic" },
+        { "href": "blog", "label": "Blog", "wp": true }
+      ]
+    },
+    { "href": "kontakt.html", "label": "Kontakt" }
+  ]
+}

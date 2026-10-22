@@ -1,0 +1,44 @@
+---
+title: "Lekce jógy v Březnici – vinyasa, yin, zdravá záda | IC Yoga"
+description: "Přehled lekcí jógy v IC Yoga Březnice: vinyasa, yin yang, yin jóga, zdravá záda, dětská a teen jóga, individuální lekce a jógová terapie. Pro koho jsou a kdy probíhají."
+---
+{% from "components/macros.njk" import titulek, obrazek, oddelovac with context %}
+{{ titulek("Lekce", "titulek-iva-v-parku", "Klidné i dynamické, pro dospělé, teenagery i děti", "center 30%") }}
+
+<section class="section" aria-labelledby="lekce-uvod">
+  <div class="wrap">
+    <h2 id="lekce-uvod" class="center nadpis-uzky">Najděte <em>lekci,</em> která vám sedí</h2>
+    <p class="center lead">Ve studiu najdete klidné, jemné lekce pro uvolnění stresu a napětí i lekce pro ty, kdo chtějí pocítit účinky především na svém fyzickém těle. Samozřejmostí jsou rozmanité pomůcky pro efektivnější praxi.</p>
+
+    <ul class="karty" role="list">
+      {%- for l in lekce %}
+      <li class="karta">
+        <div class="karta__foto karta__foto--siroka">{{ obrazek(l.foto, "") }}</div>
+        <div class="karta__telo">
+          <p class="karta__meta">
+            {%- if l.rozvrh.length -%}
+              {%- for t in l.rozvrh %}{{ ["", "Po", "Út", "St", "Čt", "Pá", "So", "Ne"][t.den] }} {{ t.od | replace(":", ".") }}–{{ t.do | replace(":", ".") }}{% if not loop.last %} · {% endif %}{% endfor -%}
+            {%- else -%}Termín podle domluvy{%- endif -%}
+          </p>
+          <h3 class="karta__nadpis"><a href="{{ l.slug }}.html">{{ l.nazev }}</a></h3>
+          <p class="karta__perex">{{ l.perex }}</p>
+          <span class="btn btn--plny btn--maly karta__vice" aria-hidden="true">Více o lekci</span>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="banner-foto" aria-labelledby="investujte">
+  <div class="banner-foto__pozadi">{{ obrazek("lekce-skupina-meditace", "") }}</div>
+  <div class="wrap center banner-foto__obsah">
+    <h2 id="investujte">Investujte do svého těla, mysli a ducha.</h2>
+    <div class="tlacitka">
+      <a class="btn btn--plny" href="rozvrh.html">Rozvrh lekcí</a>
+      <a class="btn btn--svetly" href="cenik.html">Ceník</a>
+    </div>
+  </div>
+</section>
+
+{% include "components/jak-se-zapsat.njk" %}

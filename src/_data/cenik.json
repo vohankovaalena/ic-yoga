@@ -1,0 +1,38 @@
+[
+  {
+    "nazev": "Jednorázový vstup",
+    "cena": "110",
+    "jednotka": "vstup",
+    "body": ["Jedna lekce dle rozvrhu", "Bez závazku, ideální na vyzkoušení"],
+    "barva": "oranzova"
+  },
+  {
+    "nazev": "Permanentka 20×",
+    "cena": "90",
+    "jednotka": "vstup",
+    "body": ["20 vstupů na lekce dle rozvrhu", "Celková cena 1 800 Kč"],
+    "barva": "fialova"
+  },
+  {
+    "nazev": "Permanentka 40×",
+    "cena": "80",
+    "jednotka": "vstup",
+    "body": ["40 vstupů na lekce dle rozvrhu", "Celková cena 3 200 Kč"],
+    "barva": "oranzova",
+    "doporuceno": true
+  },
+  {
+    "nazev": "Individuální lekce",
+    "cena": "600",
+    "jednotka": "lekce",
+    "body": ["60 až 70 minut, 1 klient", "Termín podle domluvy"],
+    "barva": "fialova"
+  },
+  {
+    "nazev": "Dětská jóga – kurz",
+    "cena": "1 000",
+    "jednotka": "10 lekcí",
+    "body": ["Uzavřený kurz pro děti", "Čtvrtek, dvě skupiny"],
+    "barva": "oranzova"
+  }
+]

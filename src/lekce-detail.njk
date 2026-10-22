@@ -1,0 +1,72 @@
+---
+pagination:
+  data: lekce
+  size: 1
+  addAllPagesToCollections: true
+  alias: l
+permalink: "{{ l.slug }}.html"
+eleventyComputed:
+  title: "{{ l.nazev }} Březnice | IC Yoga"
+  description: "{{ l.perex }} {{ l.proKoho }}"
+  ogImage: "{{ l.foto }}"
+---
+{% from "components/macros.njk" import obrazek, oddelovac, drobecky with context %}
+{%- set DNY = ["", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"] -%}
+{{ drobecky([{ href: "lekce.html", label: "Lekce" }, { label: l.nazev }]) }}
+
+<article class="section detail">
+  <div class="wrap">
+    <div class="detail__foto">{{ obrazek(l.foto, l.fotoAlt, hlavni=true) }}</div>
+    <div class="prose">
+      <h1 class="center h2">{{ l.nazev }}</h1>
+      {%- for odstavec in l.obsah %}
+      <p>{{ odstavec }}</p>
+      {%- endfor %}
+    </div>
+
+    <div class="detail__info prose">
+      <div class="info-box">
+        <h2>Pro koho</h2>
+        <p>{{ l.proKoho }}</p>
+      </div>
+      <div class="info-box">
+        <h2>Kdy</h2>
+        {%- if l.rozvrh.length %}
+        <ul class="terminy">
+          {%- for t in l.rozvrh %}
+          <li>{{ DNY[t.den] }} {{ t.od | replace(":", ".") }}–{{ t.do | replace(":", ".") }}{% if t.pozn %} ({{ t.pozn }}){% endif %}</li>
+          {%- endfor %}
+        </ul>
+        {%- else %}
+        <p>Termín si domluvíme individuálně.</p>
+        {%- endif %}
+      </div>
+      <div class="info-box">
+        <h2>Cena</h2>
+        {%- if l.slug == "individualni-lekce" %}
+        <p>600 Kč / lekce (60–70 min)</p>
+        {%- elif l.slug == "detska-joga" %}
+        <p>1 000 Kč / kurz 10 lekcí</p>
+        {%- elif l.slug == "jogova-terapie" %}
+        <p>Podle domluvy</p>
+        {%- else %}
+        <p>110 Kč jednorázově, s permanentkou od 80 Kč. <a href="cenik.html">Ceník</a></p>
+        {%- endif %}
+      </div>
+    </div>
+
+    <div class="center tlacitka">
+      <a class="btn btn--plny" href="rozvrh.html#jak-se-zapsat">Jak se zapsat</a>
+      <a class="btn btn--obrys" href="tel:{{ site.telefonOdkaz }}">Zavolat {{ site.telefon }}</a>
+    </div>
+  </div>
+</article>
+
+<section class="section textura" aria-labelledby="dalsi-lekce">
+  <div class="wrap">
+    <h2 id="dalsi-lekce" class="center">Další <em>lekce</em></h2>
+    {% include "components/lekce-ikony.njk" %}
+  </div>
+</section>
+
+<script type="application/ld+json">{{ l | lekceSchema(site) | jsonld | safe }}</script>

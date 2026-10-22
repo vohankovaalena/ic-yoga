@@ -1,0 +1,46 @@
+---
+pagination:
+  data: pozice
+  size: 1
+  addAllPagesToCollections: true
+  alias: p
+permalink: "{{ p.slug }}.html"
+eleventyComputed:
+  title: "Pozice {{ p.nazev }} ({{ p.sanskrt }}) – nastavení a účinky | IC Yoga"
+  description: "{{ p.perex }} Jak pozici {{ p.nazev | lower }} ({{ p.sanskrt }}) správně nastavit a co vám přinese."
+  ogImage: "{{ p.foto }}"
+---
+{% from "components/macros.njk" import obrazek, drobecky with context %}
+{{ drobecky([{ href: "abeceda-pozic.html", label: "Abeceda pozic" }, { label: p.nazev }]) }}
+
+<article class="section detail">
+  <div class="wrap">
+    <div class="detail__foto">{{ obrazek(p.foto, p.fotoAlt, hlavni=true) }}</div>
+    <div class="prose">
+      <p class="center karta__meta">{{ p.sanskrt }}</p>
+      <h1 class="center h2">{{ p.nazev }}</h1>
+      {{ p.obsah | safe }}
+      <p class="poznamka">Autorka: {{ site.lektorka }} · <time datetime="{{ p.datum }}">{{ p.datum | datumCz }}</time></p>
+    </div>
+    <nav class="center tlacitka" aria-label="Další pozice">
+      {%- if pagination.href.previous %}<a class="btn btn--obrys" href="{{ pagination.href.previous | replace('/', '') }}">Předchozí pozice</a>{% endif %}
+      <a class="btn btn--plny" href="abeceda-pozic.html">Všechny pozice</a>
+      {%- if pagination.href.next %}<a class="btn btn--obrys" href="{{ pagination.href.next | replace('/', '') }}">Další pozice</a>{% endif %}
+    </nav>
+  </div>
+</article>
+
+<script type="application/ld+json">
+{{ {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Pozice " + p.nazev + " (" + p.sanskrt + ")",
+  "description": p.perex,
+  "image": site.url + "/assets/img/" + p.foto + ".jpg",
+  "datePublished": p.datum,
+  "inLanguage": "cs",
+  "author": { "@type": "Person", "@id": site.url + "/#iva", "name": site.lektorka },
+  "publisher": { "@id": site.url + "/#studio" },
+  "mainEntityOfPage": site.url + "/" + p.slug + ".html"
+} | jsonld | safe }}
+</script>

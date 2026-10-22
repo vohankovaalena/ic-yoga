@@ -1,0 +1,26 @@
+---
+title: "Abeceda jógových pozic – nastavení a účinky ásan | IC Yoga"
+description: "Jak správně provádět základní jógové pozice: hora (tadásana), kočka, pes hlavou dolů, kobra, prkno a bojovník. Nastavení, účinky a tipy od lektorky Ivy Ceradské."
+---
+{% from "components/macros.njk" import titulek, obrazek with context %}
+{{ titulek("Abeceda jógových pozic", "pozice-tadasana", "Nastavení a účinky základních ásan", "center 40%") }}
+
+<section class="section" aria-labelledby="pozice-nadpis">
+  <div class="wrap">
+    <h2 id="pozice-nadpis" class="center">Ásany <em>krok</em> za krokem</h2>
+    <p class="center lead">Každá pozice má své nastavení, záměr i účinek na tělo, mysl a emoce. Pokud máte zdravotní obtíže, poraďte se před cvičením s lektorem nebo lékařem.</p>
+    <ul class="karty" role="list">
+      {%- for p in pozice %}
+      <li class="karta">
+        <div class="karta__foto karta__foto--siroka">{{ obrazek(p.foto, "") }}</div>
+        <div class="karta__telo">
+          <p class="karta__meta">{{ p.sanskrt }}</p>
+          <h3 class="karta__nadpis"><a href="{{ p.slug }}.html">{{ p.nazev }}</a></h3>
+          <p class="karta__perex">{{ p.perex }}</p>
+          <span class="btn btn--plny btn--maly karta__vice" aria-hidden="true">Číst více</span>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>

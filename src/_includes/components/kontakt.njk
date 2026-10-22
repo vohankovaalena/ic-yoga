@@ -1,0 +1,59 @@
+{#- Kontakt: mapa (načte se až po kliknutí – bez cookies Googlu předem),
+    adresa a formulář se souhlasem se zpracováním osobních údajů. -#}
+<section class="section kontakt" id="kontakt" aria-labelledby="kontakt-nadpis">
+  <div class="wrap kontakt__grid">
+    <div class="mapa" data-map="{{ site.mapaEmbed }}">
+      <img class="mapa__nahled" src="assets/img/studio-sal-podlozky.webp" alt="" width="1920" height="739" loading="lazy">
+      <div class="mapa__vyzva">
+        <p>Mapa se načte ze služby Google Maps, která může ukládat cookies.</p>
+        <button class="btn btn--plny" type="button" data-map-load>Zobrazit mapu</button>
+        <p class="mapa__odkazy">nebo otevřít v <a href="{{ site.mapaMapyCz }}" rel="noopener" target="_blank">Mapy.cz<span class="visually-hidden"> (otevře se v novém okně)</span></a> · <a href="{{ site.mapaGoogle }}" rel="noopener" target="_blank">Google Maps<span class="visually-hidden"> (otevře se v novém okně)</span></a></p>
+      </div>
+    </div>
+
+    <div class="kontakt__info">
+      <h2 id="kontakt-nadpis" class="h3">{{ kontaktNadpis or "IC Yoga Březnice" }}</h2>
+      <p>Všechny lekce jógy probíhají v klidném prostředí rodinného fitness centra Muscle Factory Březnice.</p>
+      <div class="kontakt__udaje">
+        <address>
+          {{ site.misto }}<br>
+          {{ site.ulice }}<br>
+          {{ site.psc }} {{ site.obec }}
+        </address>
+        <p>
+          <a href="tel:{{ site.telefonOdkaz }}">{{ site.telefon }}</a><br>
+          <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        </p>
+      </div>
+
+      <form class="form" data-form="kontakt" action="mailto:{{ site.email }}" method="post" enctype="text/plain" novalidate>
+        <input type="hidden" name="subject" value="Zpráva z webu IC Yoga">
+        <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="form__radek">
+          <div class="field">
+            <label for="k-jmeno">Jméno</label>
+            <input id="k-jmeno" name="name" type="text" autocomplete="name" required aria-describedby="k-jmeno-chyba">
+            <p class="field__error" id="k-jmeno-chyba" hidden></p>
+          </div>
+          <div class="field">
+            <label for="k-email">E-mail</label>
+            <input id="k-email" name="email" type="email" autocomplete="email" required aria-describedby="k-email-chyba">
+            <p class="field__error" id="k-email-chyba" hidden></p>
+          </div>
+        </div>
+        <div class="field">
+          <label for="k-zprava">Zpráva</label>
+          <textarea id="k-zprava" name="message" rows="5" required aria-describedby="k-zprava-chyba"></textarea>
+          <p class="field__error" id="k-zprava-chyba" hidden></p>
+        </div>
+        <div class="field field--check">
+          <input id="k-souhlas" name="souhlas" type="checkbox" required aria-describedby="k-souhlas-chyba">
+          <label for="k-souhlas">Souhlasím se <a href="ochrana-osobnich-udaju.html">zpracováním osobních údajů</a> za účelem odpovědi na mou zprávu.</label>
+          <p class="field__error" id="k-souhlas-chyba" hidden></p>
+        </div>
+        <button class="btn btn--plny" type="submit">Odeslat</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>

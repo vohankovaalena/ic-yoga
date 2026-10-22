@@ -1,0 +1,9 @@
+---
+permalink: robots.txt
+layout: false
+eleventyExcludeFromCollections: true
+---
+User-agent: *
+{% if site.indexovat %}Allow: /{% else %}# Testovací verze – vyhledávače zatím nepouštíme (site.json → indexovat){{ "\n" }}Disallow: /{% endif %}
+
+Sitemap: {{ site.url }}/sitemap.xml

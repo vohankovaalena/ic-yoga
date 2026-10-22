@@ -1,0 +1,21 @@
+{#- Karty kurzů, pobytů a článků z WordPressu.
+    Použití: {% set polozky = wp.pobyty %}{% set zadneText = "…" %}{% include "components/karty-wp.njk" %} -#}
+{%- if polozky.length %}
+<ul class="karty" role="list">
+  {%- for p in polozky %}
+  <li class="karta">
+    {%- if p.obrazek %}
+    <div class="karta__foto"><img src="{{ p.obrazek }}" alt="" loading="lazy" decoding="async" width="768" height="512"></div>
+    {%- endif %}
+    <div class="karta__telo">
+      <p class="karta__meta"><time datetime="{{ p.datum | datumIso }}">{{ p.datum | datumCz }}</time></p>
+      <h3 class="karta__nadpis"><a href="{{ p.odkaz }}">{{ p.nazev }}</a></h3>
+      {% if p.perex %}<p class="karta__perex">{{ p.perex }}</p>{% endif %}
+      <span class="btn btn--plny btn--maly karta__vice" aria-hidden="true">Číst více</span>
+    </div>
+  </li>
+  {%- endfor %}
+</ul>
+{%- else %}
+<p class="center prazdne">{{ zadneText | safe }}</p>
+{%- endif %}

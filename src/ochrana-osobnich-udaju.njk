@@ -1,0 +1,42 @@
+---
+title: "Ochrana osobních údajů | IC Yoga Březnice"
+description: "Jak IC Yoga Březnice zpracovává osobní údaje z kontaktního formuláře a newsletteru, jaká máte práva a jak je uplatnit."
+---
+{% from "components/macros.njk" import drobecky with context %}
+{{ drobecky([{ label: "Ochrana osobních údajů" }]) }}
+
+<article class="section">
+  <div class="wrap prose">
+    <h1 class="h2">Ochrana osobních údajů</h1>
+    <p>Vážím si vaší důvěry. Na tomto webu sbírám jen ty údaje, které mi sami pošlete, a používám je jen k tomu, k čemu jste mi je svěřili.</p>
+
+    <h2 class="h3">Kdo údaje zpracovává</h2>
+    <p>Správcem osobních údajů je {{ site.lektorka }}{% if site.ico %}, IČO {{ site.ico }}{% endif %}, provozovatelka {{ site.name }}{% if site.sidlo %}, se sídlem {{ site.sidlo }}{% endif %}.<br>
+    Kontakt: <a href="mailto:{{ site.email }}">{{ site.email }}</a>, tel. <a href="tel:{{ site.telefonOdkaz }}">{{ site.telefon }}</a>.</p>
+
+    <h2 class="h3">Jaké údaje a proč</h2>
+    <ul>
+      <li><strong>Kontaktní formulář</strong> – jméno, e-mail a text zprávy. Slouží jen k odpovědi na váš dotaz nebo k zápisu na lekci. Právní základ: váš souhlas a jednání o smlouvě (čl. 6 odst. 1 písm. a) a b) GDPR). Zprávy uchovávám po dobu nezbytnou k vyřízení, nejdéle 2 roky.</li>
+      <li><strong>Newsletter</strong> – e-mailová adresa. Posílám na ni občasné novinky o kurzech, pobytech a akcích. Právní základ: váš souhlas (čl. 6 odst. 1 písm. a) GDPR). Adresu uchovávám, dokud souhlas neodvoláte – stačí odpovědět na kterýkoliv e-mail nebo napsat na {{ site.email }}.</li>
+      <li><strong>Zápis na lekce, permanentky a pobyty</strong> – jméno a kontakt, které mi sdělíte telefonicky, e-mailem nebo osobně. Právní základ: plnění smlouvy. Účetní doklady uchovávám po dobu stanovenou zákonem.</li>
+    </ul>
+
+    <h2 class="h3">Komu údaje předávám</h2>
+    <p>Vaše údaje neprodávám ani nepředávám k marketingu. Pro technický provoz webu využívám tyto zpracovatele:</p>
+    <ul>
+      <li><strong>Web3Forms</strong> – doručení zprávy z formuláře do mé e-mailové schránky.</li>
+      <li><strong>Seznam.cz</strong> – e-mailová schránka, do které zprávy přicházejí.</li>
+      <li><strong>GitHub (GitHub Pages)</strong> – hosting webu; při návštěvě zpracovává technické údaje (IP adresa) kvůli zabezpečení a provozu.</li>
+    </ul>
+
+    <h2 class="h3">Cookies a obsah třetích stran</h2>
+    <p>Tento web nepoužívá analytické ani reklamní cookies a nesleduje vás. Písma jsou uložena přímo na webu.</p>
+    <p>Mapa (Google Maps) a videa (YouTube v režimu bez sledovacích cookies) se načtou až ve chvíli, kdy na ně sami kliknete. Teprve tehdy se mohou na vaše zařízení uložit cookies těchto služeb podle jejich vlastních podmínek. Odkazy na Instagram a Facebook vedou na stránky těchto sítí.</p>
+
+    <h2 class="h3">Vaše práva</h2>
+    <p>Máte právo na přístup ke svým údajům, jejich opravu nebo výmaz, omezení zpracování, přenositelnost a právo vznést námitku. Souhlas můžete kdykoliv odvolat, aniž by to ovlivnilo zpracování před jeho odvoláním. Stačí mi napsat na <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+    <p>Pokud se domníváte, že s vašimi údaji nezacházím správně, můžete podat stížnost u Úřadu pro ochranu osobních údajů (<a href="https://uoou.gov.cz" rel="noopener">uoou.gov.cz</a>).</p>
+
+    <p class="poznamka">Platné od {{ "2026-10-22" | datumCz }}.</p>
+  </div>
+</article>

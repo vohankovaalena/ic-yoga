@@ -1,0 +1,126 @@
+---
+title: "Jóga Březnice | IC Yoga – lekce jógy s Ivou Ceradskou"
+description: "Lekce jógy v Březnici: vinyasa, yin, yin yang, zdravá záda, dětská a teen jóga. Rozvrh, ceník a jak se zapsat. Kurzy a pobyty s jógou s lektorkou Ivou Ceradskou."
+ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
+---
+{% from "components/macros.njk" import obrazek, oddelovac with context %}
+
+<section class="hero" aria-labelledby="hero-nadpis">
+  <div class="hero__foto">
+    {{ obrazek("iva-ceradska-joga-v-parku", "Lektorka Iva Ceradská sedí na jógové podložce v parku a usmívá se", hlavni=true) }}
+  </div>
+  <div class="hero__nahled" aria-hidden="true">
+    {{ obrazek("iva-ceradska-pozice-v-prirode", "") }}
+  </div>
+  <div class="hero__obsah">
+    <p class="hero__nadtitulek">IC Yoga · Březnice</p>
+    <h1 id="hero-nadpis">Jóga v Březnici pro dospělé, teenagery i&nbsp;děti</h1>
+    <blockquote class="hero__citat">
+      <p>„Jóga vám umožní najít nový druh svobody, o které ani nevíte, že existovala.“</p>
+      <footer>B. K. S. Iyengar</footer>
+    </blockquote>
+    <div class="tlacitka">
+      <a class="btn btn--plny" href="rozvrh.html">Rozvrh lekcí</a>
+      <a class="btn btn--svetly" href="#jak-se-zapsat">Jak se zapsat</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="lekce-nadpis">
+  <div class="wrap">
+    {{ oddelovac() }}
+    <h2 id="lekce-nadpis" class="center nadpis-uzky">Jóga nám <em>otevírá</em> nový prostor, otevírá oči a učí nás správně vidět sebe i ostatní.</h2>
+    <p class="center lead">Vyberte si lekci, která sedí vašemu tělu i náladě.</p>
+    {% include "components/lekce-ikony.njk" %}
+  </div>
+</section>
+
+{% include "components/jak-se-zapsat.njk" %}
+
+<section class="section textura" aria-labelledby="omne-nadpis">
+  <div class="wrap split">
+    <div class="split__text">
+      <h2 id="omne-nadpis">Jóga mi nasměrovala život</h2>
+      <p class="odrazka">Jmenuji se Iva a moc ráda tvořím smysluplné věci a měním skrze jógu pohled svůj i ostatních tak, aby byli maximálně zdraví, šťastní a spokojení, sebejistí a v rovnováze fyzické i emoční.</p>
+      <p>Jógu učím od roku 2004 – dospělé, děti i teenagery. Jsem certifikovaná lektorka se specializací na zdravá záda, dětskou a jinovou jógu.</p>
+      <a class="btn btn--obrys" href="o-mne.html">Více o mně</a>
+      <p class="velky-citat">Nabízím vám možnost hledat vnitřní klid a rovnováhu v propojení zdravého pohybu tak, abyste se cítili nejlépe, jak jenom můžete a sami sobě dovolíte.</p>
+    </div>
+    <div class="split__foto">
+      {{ obrazek("iva-ceradska-pozice-orla", "Iva Ceradská v pozici orla na podložce na nádvoří zámku") }}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="rozvrh" aria-labelledby="rozvrh-nadpis">
+  <div class="wrap">
+    {{ oddelovac() }}
+    <h2 id="rozvrh-nadpis" class="center">Těším se <em>na</em> vás na těchto lekcích.</h2>
+    {% include "components/rozvrh.njk" %}
+    <p class="center poznamka">Kromě otevřených lekcí vypisuji i uzavřené <a href="kurzy.html">kurzy</a>. Ceny najdete v <a href="cenik.html">ceníku</a>.</p>
+  </div>
+</section>
+
+{% include "components/recenze.njk" %}
+
+<section class="banner-mandaly" aria-labelledby="studio-nadpis">
+  {{ oddelovac("oddelovac--nahore") }}
+  <div class="wrap center">
+    <h2 id="studio-nadpis">V našem domě vznikl nový, prostorný jógový sál,<br> v&nbsp;němž <em>načerpáte množství</em> vjemů, zážitků i okamžiků poznání sebe i ostatních.</h2>
+    <a class="btn btn--obrys" href="studio.html">Prohlédnout studio</a>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="aktualne-nadpis">
+  <div class="wrap">
+    {{ oddelovac() }}
+    <h2 id="aktualne-nadpis" class="center">Kurzy a <em>pobyty</em> s jógou</h2>
+    <p class="center lead">Tematické kurzy v Březnici a pobyty v Čechách i v zahraničí.</p>
+    {% set polozky = (wp.kurzy | prvnich(3)).concat(wp.pobyty | prvnich(3)) %}
+    {% set zadneText = 'Aktuální nabídku najdete na stránkách <a href="kurzy.html">Kurzy</a> a <a href="pobyty.html">Pobyty</a>.' %}
+    {% include "components/karty-wp.njk" %}
+    <div class="center tlacitka">
+      <a class="btn btn--obrys" href="kurzy.html">Všechny kurzy</a>
+      <a class="btn btn--obrys" href="pobyty.html">Všechny pobyty</a>
+    </div>
+  </div>
+</section>
+
+<section class="section textura" aria-labelledby="blog-nadpis">
+  <div class="wrap">
+    <h2 id="blog-nadpis" class="center">Z <em>blogu</em></h2>
+    {% set polozky = wp.clanky | prvnich(3) %}
+    {% set zadneText = 'Články najdete na <a href="' + wp.url + '/blog/">blogu</a>.' %}
+    {% include "components/karty-wp.njk" %}
+    <div class="center tlacitka"><a class="btn btn--obrys" href="{{ wp.url }}/blog/">Další články</a></div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="faq-nadpis">
+  <div class="wrap wrap--uzky">
+    {{ oddelovac() }}
+    <h2 id="faq-nadpis" class="center">Časté <em>dotazy</em></h2>
+    {% include "components/faq.njk" %}
+    <p class="center poznamka">Nenašli jste odpověď? <a href="tel:{{ site.telefonOdkaz }}">Zavolejte</a> nebo <a href="mailto:{{ site.email }}">napište</a>.</p>
+  </div>
+</section>
+
+<section class="section instagram" aria-labelledby="ig-nadpis">
+  <div class="wrap">
+    <div class="instagram__hlavicka">
+      <img src="assets/img/ic-yoga-logo.webp" alt="" width="392" height="366" loading="lazy">
+      <div>
+        <h2 id="ig-nadpis" class="h4"><a href="{{ site.instagram }}" rel="noopener" target="_blank">@{{ site.instagramJmeno }}<span class="visually-hidden"> na Instagramu (otevře se v novém okně)</span></a></h2>
+        <p>Co je nového ve studiu i na cestách</p>
+      </div>
+    </div>
+    <ul class="instagram__mrizka" role="list">
+      {%- for f in [["studio-sal-podlozky", "Jógový sál s připravenými podložkami a pomůckami"], ["iva-ceradska-joga-na-plazi", "Iva Ceradská cvičí jógu na pláži"], ["iva-ceradska-meditace", "Iva Ceradská medituje u vody"], ["studio-logo-na-zdi", "Logo IC Yoga na zdi studia"], ["iva-ceradska-joga-v-lese", "Iva Ceradská v jógové pozici v lese"], ["meditace-pri-zapadu-slunce", "Meditace při západu slunce"]] %}
+      <li><a href="{{ site.instagram }}" rel="noopener" target="_blank">{{ obrazek(f[0], f[1] + " – zobrazit Instagram IC Yoga") }}</a></li>
+      {%- endfor %}
+    </ul>
+    <div class="center"><a class="btn btn--plny" href="{{ site.instagram }}" rel="noopener" target="_blank">Sledovat na Instagramu<span class="visually-hidden"> (otevře se v novém okně)</span></a></div>
+  </div>
+</section>
+
+{% include "components/kontakt.njk" %}

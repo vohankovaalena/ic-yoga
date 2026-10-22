@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Zelené tlačítko v panelu Run and Debug (nebo klávesa F5).
+      // Spustí vývojový server a jakmile Eleventy vypíše adresu,
+      // VS Code ji sám otevře v prohlížeči.
+      "name": "Spustit web",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm start",
+      "cwd": "${workspaceFolder}",
+      "serverReadyAction": {
+        "pattern": "Server at (https?://\\S+)",
+        "uriFormat": "%s",
+        "action": "openExternally"
+      }
+    }
+  ]
+}

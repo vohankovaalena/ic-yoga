@@ -1,0 +1,26 @@
+---
+title: "Kontakt – IC Yoga Březnice, Rožmitálská 144 | Iva Ceradská"
+description: "Kontakt na IC Yoga Březnice: Muscle Factory Březnice, Rožmitálská 144, 262 72 Březnice. Telefon 605 724 977, e-mail ivaceradska@seznam.cz. Mapa a kontaktní formulář."
+---
+{% from "components/macros.njk" import titulek with context %}
+{{ titulek("Kontakt", "titulek-podlozka", "Ráda vám odpovím na jakoukoliv otázku") }}
+
+{% set kontaktNadpis = "IC Yoga Březnice" %}
+{% include "components/kontakt.njk" %}
+
+<section class="section textura" aria-labelledby="dalsi-info">
+  <div class="wrap grid-3">
+    <div class="info-box info-box--bila">
+      <h2 id="dalsi-info">Zápis na lekce</h2>
+      <p>Telefonicky, SMS, e-mailem nebo osobně ve studiu, až 4 týdny dopředu. <a href="rozvrh.html#jak-se-zapsat">Jak se zapsat</a></p>
+    </div>
+    <div class="info-box info-box--bila">
+      <h2>Sociální sítě</h2>
+      <p>Novinky ze studia i z cest: <a href="{{ site.instagram }}" rel="noopener" target="_blank">Instagram<span class="visually-hidden"> (otevře se v novém okně)</span></a> a <a href="{{ site.facebook }}" rel="noopener" target="_blank">Facebook<span class="visually-hidden"> (otevře se v novém okně)</span></a>.</p>
+    </div>
+    <div class="info-box info-box--bila">
+      <h2>Časté dotazy</h2>
+      <p>Co si vzít s sebou, co když přijdu pozdě a další odpovědi najdete v <a href="caste-dotazy.html">častých dotazech</a>.</p>
+    </div>
+  </div>
+</section>

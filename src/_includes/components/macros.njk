@@ -1,0 +1,43 @@
+{#- Sdílené kousky šablon. Import vždy „with context“, aby makra viděla globální data:
+    {% from "components/macros.njk" import obrazek, oddelovac, titulek with context %} -#}
+
+{#- Fotka jako <picture> s webp a jpg. Rozměry se berou z _data/obrazky.json,
+    takže se layout při načítání neposouvá. alt je povinný: popiš, co je
+    na fotce; čistě dekorativní fotka dostane alt="". -#}
+{% macro obrazek(jmeno, alt, trida="", hlavni=false) -%}
+{%- set r = obrazky[jmeno] or [1200, 800] -%}
+<picture>
+  <source type="image/webp" srcset="assets/img/{{ jmeno }}.webp">
+  <img class="{{ trida }}" src="assets/img/{{ jmeno }}.jpg" alt="{{ alt }}" width="{{ r[0] }}" height="{{ r[1] }}"{% if hlavni %} fetchpriority="high"{% else %} loading="lazy" decoding="async"{% endif %}>
+</picture>
+{%- endmacro %}
+
+{#- Svislá oranžová linka s mandalou – typický předěl sekcí. -#}
+{% macro oddelovac(trida="") -%}
+<div class="oddelovac {{ trida }}" aria-hidden="true"><img src="assets/ikony/mandala-kvet.svg" alt="" width="37" height="37"></div>
+{%- endmacro %}
+
+{#- Titulek podstránky s fotkou v pozadí (jako na původním webu). -#}
+{% macro titulek(nadpis, foto, perex="", pozice="center") -%}
+<header class="titulek">
+  <div class="titulek__foto" style="--pozice: {{ pozice }}">
+    {{ obrazek(foto, "", hlavni=true) }}
+  </div>
+  <div class="wrap titulek__obsah">
+    <h1>{{ nadpis }}</h1>
+    {% if perex %}<p class="titulek__perex">{{ perex }}</p>{% endif %}
+  </div>
+</header>
+{%- endmacro %}
+
+{#- Drobečková navigace pro detailové stránky. -#}
+{% macro drobecky(polozky) -%}
+<nav class="drobecky wrap" aria-label="Drobečková navigace">
+  <ol>
+    <li><a href="index.html">Domů</a></li>
+    {%- for p in polozky %}
+    <li>{% if p.href %}<a href="{{ p.href }}">{{ p.label }}</a>{% else %}<span aria-current="page">{{ p.label }}</span>{% endif %}</li>
+    {%- endfor %}
+  </ol>
+</nav>
+{%- endmacro %}

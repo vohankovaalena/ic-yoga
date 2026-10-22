@@ -1,0 +1,148 @@
+[
+  {
+    "slug": "vinyasa-joga",
+    "stary": "events/vinyasa-yoga",
+    "nazev": "Vinyasa jóga",
+    "ikona": "ikona-velbloud",
+    "barva": "oranzova",
+    "foto": "lekce-vinyasa-joga",
+    "fotoAlt": "Žena v lotosovém sedu medituje při západu slunce",
+    "perex": "Plynulé přecházení z pozice do pozice na vlně dechu. Pro ty, kdo mají rádi pestrost a lehkou dynamiku.",
+    "proKoho": "Pro dospělé, kteří mají rádi plynulost, pestrost a lehkou dynamiku. Hodí se i pro mírně pokročilé.",
+    "obsah": [
+      "Lekce typická kontrolovaným plynulým přecházením z pozice do pozice na vlně dechu. Nádech i výdech je spojen s určitým pohybem, což umožňuje udržení pozornosti, nedovolí ztratit se v kontaktu sami se sebou.",
+      "Vinyasa je spojena s dechem udžájí, který napomáhá k zahřátí těla, lekce je tedy možná překvapivě lehce dynamická a naše tělo vybízí k vyššímu výkonu. Lekce je vhodná pro ty, kteří mají rádi plynulost, pestrost a lehkou dynamiku.",
+      "Při vinyasa józe není čas na jiné myšlenky. Rozhodující jsou pohyb, náš dech a pohled, koncentrace."
+    ],
+    "rozvrh": [
+      { "den": 1, "od": "17:45", "do": "18:45" }
+    ]
+  },
+  {
+    "slug": "yin-yang-joga",
+    "stary": "events/yin-yang-yoga",
+    "nazev": "Yin Yang jóga",
+    "ikona": "ikona-kobra",
+    "barva": "fialova",
+    "foto": "lekce-yin-yang-joga",
+    "fotoAlt": "Ruce na jógové podložce se zlatým symbolem slunce a měsíce",
+    "perex": "Spojení jemné jinové práce s pojivovými tkáněmi a jangového posílení svalů.",
+    "proKoho": "Pro dospělé, kteří chtějí uvolnit unavené, stažené svaly a zároveň posílit vnitřní sílu a stabilitu.",
+    "obsah": [
+      "Lekce snoubící symbiózu svalů, které jsou yangové, a pojivové tkáně, jež představují jemnou, yinovou část našeho těla.",
+      "V lekci uvolňujeme unavené, stažené svaly yinovým nastavením pozic. Neopomeneme posílit a podpořit vnitřní sílu a stabilitu yangovým pojetím."
+    ],
+    "rozvrh": [
+      { "den": 3, "od": "17:45", "do": "18:45" }
+    ]
+  },
+  {
+    "slug": "yin-joga",
+    "stary": "events/yin-yoga",
+    "nazev": "Yin jóga",
+    "ikona": "ikona-lotos",
+    "barva": "oranzova",
+    "foto": "lekce-yin-joga",
+    "fotoAlt": "Iva Ceradská sedí v pozici motýla na modré podložce na trávě",
+    "perex": "Klidná lekce s delšími výdržemi v pozicích. Uvolní fascie, klouby i mysl.",
+    "proKoho": "Pro každého, kdo potřebuje zpomalit, uvolnit napětí a stres. Vhodná i pro úplné začátečníky.",
+    "obsah": [
+      "Yin jóga oslovuje ty části těla (kosti, klouby, pojiva a zejména povázky – fascie), které jsou jinové. Zatímco svaly jsou silové, jangové, ovlivňované především pohybem, jinové tkáně oslovujeme klidem, vnitřním tichem.",
+      "Dosáhneme-li optimální pozice pro daný okamžik, uvolňujeme svaly v oblasti, s níž daná pozice pracuje, a přirozeně tak podpoříme přítok výživy do tkáně.",
+      "V těchto lekcích používáme nejrůznější jógové pomůcky, které umožňují nastavit pozici a dovolují dosáhnout uvolnění na všech úrovních našeho těla."
+    ],
+    "rozvrh": [
+      { "den": 5, "od": "16:45", "do": "17:45" }
+    ]
+  },
+  {
+    "slug": "zdrava-zada",
+    "stary": "events/zdrava-zada",
+    "nazev": "Zdravá záda",
+    "ikona": "ikona-lotos",
+    "barva": "tyrkysova",
+    "foto": "lekce-zdrava-zada",
+    "fotoAlt": "Žena v předklonu v sedu se dotýká chodidel na jógové podložce",
+    "perex": "Klidná lekce zaměřená na hluboký stabilizační systém a uvolnění svalů zad.",
+    "proKoho": "Pro všechny cvičence, i s onemocněním pohybového systému, zejména páteře.",
+    "obsah": [
+      "Klidná lekce jógy v pomalém plynutí dechu v pozicích je zaměřená na posílení hlubokého stabilizačního systému těla a na protažení a uvolnění svalů zad.",
+      "Cvičení je vhodné pro všechny cvičence i s onemocněním pohybového systému, zejména páteře. Náplň vychází z poznatků v oblasti fyzioterapie, jógy a funkčního cvičení."
+    ],
+    "rozvrh": [
+      { "den": 7, "od": "19:00", "do": "20:00" }
+    ]
+  },
+  {
+    "slug": "detska-joga",
+    "stary": "events/detska-joga",
+    "nazev": "Dětská jóga",
+    "ikona": "ikona-kobra",
+    "barva": "tyrkysova",
+    "foto": "lekce-detska-joga",
+    "fotoAlt": "Holčička cvičí pozici kobry na podložce",
+    "perex": "Hravé cvičení s prvky jógy, které rozvíjí pozornost, fantazii i sebevědomí dětí.",
+    "proKoho": "Pro děti. Probíhá formou uzavřeného kurzu (10 lekcí) ve dvou skupinách.",
+    "obsah": [
+      "Cvičení s prvky jógy využívá zajímavých pomůcek, oslovuje tělo, působí ve svém celkovém pojetí na dítě i jeho okolí, na vnímání sebe sama.",
+      "Dítě se hravou formou stává ohebnějším a silnějším, učí se lépe udržet pozornost. Je vhodnou doplňkovou aktivitou i pro děti, které se věnují výkonnostnímu sportu.",
+      "Učí děti odpočívat, rozvíjí jejich fantazii, radost ze života a sebevědomí, nenásilnou formou je vybízí přemýšlet o sobě samém a svém okolí. Napomáhá dětem lépe zvládat stresové situace."
+    ],
+    "rozvrh": [
+      { "den": 4, "od": "15:45", "do": "16:25", "pozn": "Kurz I." },
+      { "den": 4, "od": "16:30", "do": "17:10", "pozn": "Kurz II." }
+    ]
+  },
+  {
+    "slug": "teen-joga",
+    "stary": "events/teen-yoga",
+    "nazev": "Teen jóga",
+    "ikona": "ikona-bojovnik",
+    "barva": "oranzova",
+    "foto": "lekce-teen-joga",
+    "fotoAlt": "Usměvavá dívka v záklonu na podložce u okna",
+    "perex": "Jóga pro teenagery: síla, ohebnost, soustředění a umění odpočívat.",
+    "proKoho": "Pro dospívající. Vhodná i jako doplněk k výkonnostnímu sportu.",
+    "obsah": [
+      "Cvičení s prvky jógy využívá zajímavých pomůcek, oslovuje tělo a působí na vnímání sebe sama.",
+      "Je vhodnou doplňkovou aktivitou i pro dospívající, kteří se věnují výkonnostnímu sportu. Učí odpočívat, rozvíjí fantazii, radost ze života a sebevědomí, nenásilnou formou vybízí přemýšlet o sobě samém a svém okolí.",
+      "Napomáhá lépe zvládat stresové situace, které s sebou dospívání přináší."
+    ],
+    "rozvrh": [
+      { "den": 1, "od": "16:00", "do": "16:50" }
+    ]
+  },
+  {
+    "slug": "individualni-lekce",
+    "stary": "individualni-lekce",
+    "nazev": "Individuální lekce",
+    "ikona": "ikona-bojovnik",
+    "barva": "fialova",
+    "foto": "lekce-individualni",
+    "fotoAlt": "Detail rukou v jógové mudře při meditaci",
+    "perex": "Lekce jen pro vás nebo vaši skupinu, v termínu, který vám vyhovuje.",
+    "proKoho": "Pro jednotlivce i soukromé skupiny dětí a dospělých, kterým nevyhovují časy v rozvrhu.",
+    "obsah": [
+      "Pro ty z vás, kteří nemáte možnost navštívit lekce stanovené rozvrhem, nabízím možnost individuálních lekcí nebo soukromé lekce pro skupiny dětí i dospělých.",
+      "Individuální lekce trvá 60 až 70 minut a stojí 600 Kč. Termín si domluvíme telefonicky nebo e-mailem. Lekce je možné darovat i formou poukazu."
+    ],
+    "rozvrh": []
+  },
+  {
+    "slug": "jogova-terapie",
+    "stary": "jogova-terapie",
+    "nazev": "Jógová terapie",
+    "ikona": "ikona-velbloud",
+    "barva": "fialova",
+    "foto": "lekce-jogova-terapie",
+    "fotoAlt": "Ženy sedí na podložkách a drží se za ruce při jógové relaxaci",
+    "perex": "Ucelená práce s tělem, dechem, myslí i emocemi. Pro jednotlivce i skupiny.",
+    "proKoho": "Pro každého, kdo vnímá jógu jako cestu k očištění, ozdravení a posílení. Individuálně i ve skupině.",
+    "obsah": [
+      "Jógová terapie představuje ucelený komplex všeho, co jóga nabízí pro práci s tělem na všech úrovních – na úrovni fyzického těla, mysli i našich emocí. A nejen jich.",
+      "Pracuje s dechem jako základním nástrojem dechových technik, s tělesným nastavením a relaxací. Je vhodná pro každého, kdo cestu jógy vnímá jako možnost očištění, ozdravení a posílení, jako cestu k rovnováze na všech úrovních.",
+      "Je vhodná pro jednotlivce, ale i pro skupinovou terapii. Termín a podobu terapie si domluvíme osobně."
+    ],
+    "rozvrh": []
+  }
+]

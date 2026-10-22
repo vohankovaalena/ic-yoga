@@ -1,0 +1,11 @@
+{#- Časté dotazy jako rozbalovací <details> + strukturovaná data FAQPage
+    (pomáhají Googlu i AI vyhledávačům odpovídat přímo z webu). -#}
+<div class="faq">
+  {%- for f in faq %}
+  <details class="faq__polozka">
+    <summary class="faq__otazka">{{ f.otazka }}</summary>
+    <div class="faq__odpoved"><p>{{ f.odpoved }}</p></div>
+  </details>
+  {%- endfor %}
+</div>
+<script type="application/ld+json">{{ faq | faqSchema | jsonld | safe }}</script>

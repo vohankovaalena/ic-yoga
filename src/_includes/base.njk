@@ -1,0 +1,182 @@
+{%- set kanonicka = site.url + page.url -%}
+{%- set ogObrazek = site.url + "/assets/img/" + (ogImage or "iva-ceradska-joga-v-parku") + ".jpg" -%}
+{%- macro polozkaMenu(item) -%}
+  {%- if item.deti -%}
+    {%- set aktivni = false -%}
+    {%- for d in item.deti %}{% if page.filePathStem + ".html" == "/" + d.href %}{% set aktivni = true %}{% endif %}{% endfor -%}
+    <li class="nav__item nav__item--rodic">
+      <button class="nav__link nav__rodic{% if aktivni %} is-aktivni{% endif %}" type="button" aria-expanded="false" aria-controls="sub-{{ item.label | slugify }}" data-submenu>{{ item.label }}<svg class="nav__sipka" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+      <ul class="nav__sub" id="sub-{{ item.label | slugify }}">
+        {%- for d in item.deti %}
+        <li><a class="nav__sublink" href="{% if d.wp %}{{ wp.url }}/{{ d.href }}/{% else %}{{ d.href }}{% endif %}"{% if page.filePathStem + ".html" == "/" + d.href %} aria-current="page"{% endif %}>{{ d.label }}</a></li>
+        {%- endfor %}
+      </ul>
+    </li>
+  {%- else -%}
+    <li class="nav__item"><a class="nav__link" href="{{ item.href }}"{% if page.filePathStem + ".html" == "/" + item.href %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+  {%- endif -%}
+{%- endmacro -%}
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+{%- if page.url == "/404.html" %}
+<base href="{{ site.basePath }}">
+{%- endif %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ kanonicka }}">
+<meta property="og:title" content="{{ ogTitle or title }}">
+<meta property="og:description" content="{{ ogDescription or description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ kanonicka }}">
+<meta property="og:image" content="{{ ogObrazek }}">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#fdf8f4">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/cormorant-garamond-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/lato-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+{%- if noindex or not site.indexovat %}
+<meta name="robots" content="noindex">
+{%- endif %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["SportsActivityLocation", "LocalBusiness"],
+  "@id": "{{ site.url }}/#studio",
+  "name": "{{ site.name }}",
+  "alternateName": "{{ site.shortName }}",
+  "description": "Jóga v Březnici: otevřené lekce vinyasa, yin, yin yang, zdravá záda, dětská a teen jóga, individuální lekce, jógová terapie, kurzy a pobyty s jógou. Lektorka {{ site.lektorka }}.",
+  "url": "{{ site.url }}/",
+  "image": "{{ site.url }}/assets/img/iva-ceradska-joga-v-parku.jpg",
+  "logo": "{{ site.url }}/assets/img/ic-yoga-logo.png",
+  "telephone": "{{ site.telefonOdkaz }}",
+  "email": "{{ site.email }}",
+  "priceRange": "110–600 Kč",
+  "currenciesAccepted": "CZK",
+  "address": {
+    "@type": "PostalAddress",
+    "name": "{{ site.misto }}",
+    "streetAddress": "{{ site.ulice }}",
+    "postalCode": "{{ site.psc }}",
+    "addressLocality": "{{ site.obec }}",
+    "addressRegion": "Středočeský kraj",
+    "addressCountry": "CZ"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": {{ site.geo.lat }}, "longitude": {{ site.geo.lng }} },
+  "hasMap": "{{ site.mapaGoogle }}",
+  "areaServed": ["Březnice", "Příbram", "Rožmitál pod Třemšínem", "Blatná"],
+  "employee": { "@id": "{{ site.url }}/#iva" },
+  "sameAs": ["{{ site.facebook }}", "{{ site.instagram }}"]
+}
+</script>
+</head>
+<body{% if theme %} data-theme="{{ theme }}"{% endif %}>
+<a class="skip-link" href="#obsah">Přeskočit na obsah</a>
+
+<header class="site-header" data-header>
+  <div class="site-header__inner">
+    <ul class="social social--header" aria-label="Sociální sítě">
+      <li><a href="{{ site.facebook }}" rel="noopener" target="_blank"><span class="visually-hidden">Facebook IC Yoga (otevře se v novém okně)</span>{% include "components/ikona-facebook.njk" %}</a></li>
+      <li><a href="{{ site.instagram }}" rel="noopener" target="_blank"><span class="visually-hidden">Instagram IC Yoga (otevře se v novém okně)</span>{% include "components/ikona-instagram.njk" %}</a></li>
+    </ul>
+
+    <a class="logo" href="index.html">
+      <img src="assets/img/ic-yoga-logo.webp" alt="IC Yoga Březnice – úvodní stránka" width="392" height="366">
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hlavni-menu" data-nav-toggle>
+      <span class="visually-hidden">Menu</span>
+      <span class="nav-toggle__cary" aria-hidden="true"></span>
+    </button>
+
+    <nav class="nav" id="hlavni-menu" aria-label="Hlavní menu" data-nav>
+      <ul class="nav__list nav__list--vlevo">
+        {%- for item in nav.vlevo %}{{ polozkaMenu(item) }}{% endfor %}
+      </ul>
+      <ul class="nav__list nav__list--vpravo">
+        {%- for item in nav.vpravo %}{{ polozkaMenu(item) }}{% endfor %}
+      </ul>
+      <a class="btn btn--plny nav__cta-mobil" href="rozvrh.html#jak-se-zapsat">Jak se zapsat</a>
+    </nav>
+
+    <a class="btn btn--plny btn--maly header-cta" href="rozvrh.html#jak-se-zapsat">Jak se zapsat</a>
+  </div>
+</header>
+
+<main id="obsah" tabindex="-1">
+{{ content | safe -}}
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__grid">
+    <section class="site-footer__newsletter" id="newsletter" aria-labelledby="newsletter-nadpis">
+      <h2 id="newsletter-nadpis" class="h3">Newsletter</h2>
+      <p>Novinky o kurzech, pobytech a akcích. Píšu jen občas a odhlásit se můžete kdykoliv.</p>
+      <form class="form form--newsletter" data-form="newsletter" action="mailto:{{ site.email }}?subject=Newsletter" method="post" enctype="text/plain" novalidate>
+        <input type="hidden" name="subject" value="Přihláška k newsletteru IC Yoga">
+        <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="field">
+          <label for="nl-email">Váš e-mail</label>
+          <input id="nl-email" name="email" type="email" autocomplete="email" required aria-describedby="nl-email-chyba">
+          <p class="field__error" id="nl-email-chyba" hidden></p>
+        </div>
+        <div class="field field--check">
+          <input id="nl-souhlas" name="souhlas" type="checkbox" required aria-describedby="nl-souhlas-chyba">
+          <label for="nl-souhlas">Souhlasím se zasíláním newsletteru a se <a href="ochrana-osobnich-udaju.html">zpracováním osobních údajů</a>.</label>
+          <p class="field__error" id="nl-souhlas-chyba" hidden></p>
+        </div>
+        <button class="btn btn--plny" type="submit">Odebírat</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section aria-labelledby="pata-kontakt">
+      <h2 id="pata-kontakt" class="h3">Kontakt</h2>
+      <address>
+        <strong>{{ site.name }}</strong><br>
+        {{ site.misto }}<br>
+        {{ site.ulice }}, {{ site.psc }} {{ site.obec }}<br>
+        <a href="tel:{{ site.telefonOdkaz }}">{{ site.telefon }}</a><br>
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      </address>
+    </section>
+
+    <nav aria-labelledby="pata-odkazy">
+      <h2 id="pata-odkazy" class="h3">Kam dál</h2>
+      <ul class="site-footer__odkazy">
+        <li><a href="rozvrh.html">Rozvrh lekcí</a></li>
+        <li><a href="lekce.html">Lekce</a></li>
+        <li><a href="cenik.html">Ceník</a></li>
+        <li><a href="kurzy.html">Kurzy</a></li>
+        <li><a href="pobyty.html">Pobyty</a></li>
+        <li><a href="caste-dotazy.html">Časté dotazy</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-footer__znacka">
+      <a class="logo logo--pata" href="index.html"><img src="assets/img/ic-yoga-logo.webp" alt="IC Yoga Březnice – úvodní stránka" width="392" height="366" loading="lazy"></a>
+      <ul class="social" aria-label="Sociální sítě">
+        <li><a href="{{ site.facebook }}" rel="noopener" target="_blank"><span class="visually-hidden">Facebook IC Yoga (otevře se v novém okně)</span>{% include "components/ikona-facebook.njk" %}</a></li>
+        <li><a href="{{ site.instagram }}" rel="noopener" target="_blank"><span class="visually-hidden">Instagram IC Yoga (otevře se v novém okně)</span>{% include "components/ikona-instagram.njk" %}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap site-footer__spodek">
+    <p>© <span data-year>2026</span> {{ site.name }} · {{ site.lektorka }}</p>
+    <ul>
+      <li><a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a></li>
+      <li><a href="pristupnost.html">Prohlášení o přístupnosti</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

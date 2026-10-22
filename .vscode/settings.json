@@ -1,0 +1,5 @@
+{
+  // Soubory .njk jsou obyčejné HTML se šablonovacími značkami.
+  // Bez tohoto řádku by se zobrazovaly jako čistý text bez zvýraznění.
+  "files.associations": { "*.njk": "html" }
+}

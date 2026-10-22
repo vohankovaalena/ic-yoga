@@ -1,0 +1,36 @@
+---
+title: "Prohlášení o přístupnosti | IC Yoga Březnice"
+description: "Prohlášení o přístupnosti webu IC Yoga Březnice podle standardu WCAG 2.1 úrovně AA a evropského aktu o přístupnosti."
+---
+{% from "components/macros.njk" import drobecky with context %}
+{{ drobecky([{ label: "Prohlášení o přístupnosti" }]) }}
+
+<article class="section">
+  <div class="wrap prose">
+    <h1 class="h2">Prohlášení o přístupnosti</h1>
+    <p>Chci, aby web {{ site.name }} mohl pohodlně používat každý, včetně lidí se zdravotním postižením. Web je navržen tak, aby splňoval požadavky standardu <strong>WCAG 2.1 na úrovni AA</strong>, na který odkazuje evropská norma EN 301 549 a evropský akt o přístupnosti.</p>
+
+    <h2 class="h3">Co web splňuje</h2>
+    <ul>
+      <li>Celý web lze ovládat klávesnicí, aktuální prvek je zřetelně zvýrazněný a na začátku každé stránky je odkaz „Přeskočit na obsah“.</li>
+      <li>Barvy textu splňují minimální kontrast 4,5 : 1, informace nejsou předávány jen barvou.</li>
+      <li>Fotografie mají textové popisy, dekorativní obrázky jsou pro čtečky skryté.</li>
+      <li>Stránky mají logickou strukturu nadpisů a orientačních oblastí (hlavička, menu, obsah, patička).</li>
+      <li>Rozvrh je skutečná tabulka se záhlavími řádků i sloupců, text se nikde neskrývá po najetí myší. Na mobilu se zobrazí jako seznam po dnech.</li>
+      <li>Formuláře mají viditelné popisky, chyby se oznamují textem a čtečkám obrazovky.</li>
+      <li>Nic se na webu samo nepohybuje ani nepřehrává; respektujeme nastavení „omezit pohyb“.</li>
+      <li>Text lze zvětšit na 200 % bez ztráty obsahu, web funguje na mobilu i při zvětšení.</li>
+    </ul>
+
+    <h2 class="h3">Známá omezení</h2>
+    <ul>
+      <li>Obsah vložený z jiných služeb (mapa Google, videa YouTube) nemusí plně odpovídat standardu. Adresa je proto vždy uvedena i textem a ke každému videu je název.</li>
+      <li>Kurzy, pobyty a články blogu se načítají z redakčního systému WordPress; jejich detailní stránky mohou obsahovat starší obrázky bez textového popisu. Postupně je doplňuji.</li>
+    </ul>
+
+    <h2 class="h3">Zpětná vazba</h2>
+    <p>Narazili jste na něco, co vám brání web používat? Dejte mi prosím vědět na <a href="mailto:{{ site.email }}">{{ site.email }}</a> nebo na telefonu <a href="tel:{{ site.telefonOdkaz }}">{{ site.telefon }}</a>. Požadované informace vám ráda pošlu i jinou formou.</p>
+
+    <p class="poznamka">Prohlášení bylo vypracováno {{ "2026-10-22" | datumCz }} na základě vlastního posouzení.</p>
+  </div>
+</article>

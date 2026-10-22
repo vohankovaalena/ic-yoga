@@ -1,0 +1,63 @@
+name: Nasazení na GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Umožní spustit nasazení ručně z karty Actions.
+  workflow_dispatch:
+  # Každé ráno se web přestaví, aby se načetly nové kurzy, pobyty,
+  # videa a články, které Iva přidala ve WordPressu (čas je v UTC).
+  schedule:
+    - cron: "0 4 * * *"
+
+# Číst zdrojový kód, zapisovat na Pages a podepsat nasazení.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Naráz běží jedno nasazení. Rozpracované se nechá doběhnout,
+# aby se web nikdy nenahrál jen z poloviny.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Sestavení webu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stažení repozitáře
+        uses: actions/checkout@v4
+
+      - name: Příprava Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalace závislostí
+        run: npm ci
+
+      - name: Nastavení GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Sestavení Eleventy
+        run: npm run build
+
+      - name: Odeslání složky _site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Nasazení
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publikování na Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
