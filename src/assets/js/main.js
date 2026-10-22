@@ -73,6 +73,11 @@ const SITE = {
     }
   });
 
+  /* Odkaz na kotvu na stejné stránce (např. #newsletter) menu zavře, aby se stránka posunula. */
+  nav.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", () => nastavMenu(false));
+  });
+
   /* Na desktopu se podmenu zavře, když z něj odejde fokus klávesnice. */
   nav.querySelectorAll(".nav__item--rodic").forEach((li) => {
     li.addEventListener("focusout", (e) => {

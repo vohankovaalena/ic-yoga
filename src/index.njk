@@ -106,21 +106,6 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
   </div>
 </section>
 
-<section class="section" aria-labelledby="aktualne-nadpis">
-  <div class="wrap">
-    {{ oddelovac() }}
-    <h2 id="aktualne-nadpis" class="center">Kurzy a <em>pobyty</em> s jógou</h2>
-    <p class="center lead">Tematické kurzy v Březnici a pobyty v Čechách i v zahraničí.</p>
-    {% set polozky = (wp.kurzy | prvnich(3)).concat(wp.pobyty | prvnich(3)) %}
-    {% set zadneText = 'Aktuální nabídku najdete na stránkách <a href="kurzy.html">Kurzy</a> a <a href="pobyty.html">Pobyty</a>.' %}
-    {% include "components/karty-wp.njk" %}
-    <div class="center tlacitka">
-      <a class="btn btn--obrys" href="kurzy.html">Všechny kurzy</a>
-      <a class="btn btn--obrys" href="pobyty.html">Všechny pobyty</a>
-    </div>
-  </div>
-</section>
-
 <section class="section" aria-labelledby="faq-nadpis">
   <div class="wrap wrap--uzky">
     {{ oddelovac() }}
