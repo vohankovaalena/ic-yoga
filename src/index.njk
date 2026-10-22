@@ -5,24 +5,55 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
 ---
 {% from "components/macros.njk" import obrazek, oddelovac with context %}
 
-<section class="hero" aria-labelledby="hero-nadpis">
-  <div class="hero__foto">
-    {{ obrazek("iva-ceradska-joga-v-parku", "Lektorka Iva Ceradská sedí na jógové podložce v parku a usmívá se", hlavni=true) }}
-  </div>
-  <div class="hero__nahled" aria-hidden="true">
-    {{ obrazek("iva-ceradska-pozice-v-prirode", "") }}
-  </div>
-  <div class="hero__obsah">
+{#- Hero: nekonečný carousel fotek. Pás se posouvá jen přes transform
+    (plynule na grafické kartě), nadpis a tlačítka zůstávají na místě,
+    citát se prolíná. Bez JavaScriptu zůstane první fotka s náhledem druhé. -#}
+{%- set heroSnimky = [
+  { foto: "iva-ceradska-joga-v-parku", alt: "Lektorka Iva Ceradská sedí na jógové podložce v parku a usmívá se", pozice: "35% 30%",
+    citat: "Jóga vám umožní najít nový druh svobody, o které ani nevíte, že existovala.", autor: "B. K. S. Iyengar" },
+  { foto: "iva-ceradska-pozice-v-prirode", alt: "Iva Ceradská v pozici bojovníka na kameni v lese", pozice: "50% 30%",
+    citat: "Jóga neznamená jen stát na hlavě, ale naučit se postavit na vlastní nohy.", autor: "Swami Satchidananda" },
+  { foto: "iva-ceradska-joga-v-lese", alt: "Iva Ceradská v jógové pozici na kameni v lese", pozice: "45% 35%",
+    citat: "Jóga mění nejen způsob, kterým vidíme věci, ale transformuje člověka, který vidí.", autor: "B. K. S. Iyengar" }
+] %}
+<section class="hero" aria-labelledby="hero-nadpis" aria-roledescription="prezentace" data-hero>
+  <ul class="hero__pas" role="list" data-hero-pas>
+    {%- for s in heroSnimky %}
+    <li class="hero__snimek{% if loop.first %} is-aktivni{% endif %}" aria-roledescription="snímek" aria-label="Fotka {{ loop.index }} ze {{ heroSnimky.length }}"{% if not loop.first %} aria-hidden="true"{% endif %}>
+      <picture>
+        <source type="image/webp" srcset="assets/img/{{ s.foto }}.webp">
+        <img src="assets/img/{{ s.foto }}.jpg" alt="{{ s.alt }}" width="{{ obrazky[s.foto][0] }}" height="{{ obrazky[s.foto][1] }}" style="object-position: {{ s.pozice }}" decoding="async"{% if loop.first %} fetchpriority="high"{% else %} fetchpriority="low"{% endif %}>
+      </picture>
+    </li>
+    {%- endfor %}
+  </ul>
+
+  <div class="hero__obsah" data-hero-zona>
     <p class="hero__nadtitulek">IC Yoga · Březnice</p>
     <h1 id="hero-nadpis">Jóga v Březnici pro dospělé, teenagery i&nbsp;děti</h1>
-    <blockquote class="hero__citat">
-      <p>„Jóga vám umožní najít nový druh svobody, o které ani nevíte, že existovala.“</p>
-      <footer>B. K. S. Iyengar</footer>
-    </blockquote>
+    <div class="hero__citaty">
+      {%- for s in heroSnimky %}
+      <blockquote class="hero__citat{% if loop.first %} is-aktivni{% endif %}" data-hero-citat{% if not loop.first %} aria-hidden="true"{% endif %}>
+        <p>„{{ s.citat }}“</p>
+        <footer>{{ s.autor }}</footer>
+      </blockquote>
+      {%- endfor %}
+    </div>
     <div class="tlacitka">
       <a class="btn btn--plny" href="rozvrh.html">Rozvrh lekcí</a>
       <a class="btn btn--svetly" href="#jak-se-zapsat">Jak se zapsat</a>
     </div>
+  </div>
+
+  <div class="hero__ovladani" data-hero-zona data-hero-ovladani hidden>
+    <button class="hero__tlacitko" type="button" data-hero-predchozi><span class="visually-hidden">Předchozí fotka</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    <div class="hero__tecky">
+      {%- for s in heroSnimky %}
+      <button class="hero__tecka{% if loop.first %} is-aktivni{% endif %}" type="button" data-hero-tecka><span class="visually-hidden">Fotka {{ loop.index }}</span><span class="hero__vypln" aria-hidden="true"></span></button>
+      {%- endfor %}
+    </div>
+    <button class="hero__tlacitko" type="button" data-hero-dalsi><span class="visually-hidden">Další fotka</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    <button class="hero__tlacitko" type="button" data-hero-pauza aria-pressed="false"><span class="visually-hidden" data-hero-pauza-text>Pozastavit prezentaci</span><svg class="ikona-pauza" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><svg class="ikona-prehrat" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5l11 6.5-11 6.5z" fill="currentColor"/></svg></button>
   </div>
 </section>
 
@@ -41,7 +72,7 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
   <div class="wrap split">
     <div class="split__text">
       <h2 id="omne-nadpis">Jóga mi nasměrovala život</h2>
-      <p class="odrazka">Jmenuji se Iva a moc ráda tvořím smysluplné věci a měním skrze jógu pohled svůj i ostatních tak, aby byli maximálně zdraví, šťastní a spokojení, sebejistí a v rovnováze fyzické i emoční.</p>
+      <p>Jmenuji se Iva a moc ráda tvořím smysluplné věci a měním skrze jógu pohled svůj i ostatních tak, aby byli maximálně zdraví, šťastní a spokojení, sebejistí a v rovnováze fyzické i emoční.</p>
       <p>Jógu učím od roku 2004 – dospělé, děti i teenagery. Jsem certifikovaná lektorka se specializací na zdravá záda, dětskou a jinovou jógu.</p>
       <a class="btn btn--obrys" href="o-mne.html">Více o mně</a>
       <p class="velky-citat">Nabízím vám možnost hledat vnitřní klid a rovnováhu v propojení zdravého pohybu tak, abyste se cítili nejlépe, jak jenom můžete a sami sobě dovolíte.</p>

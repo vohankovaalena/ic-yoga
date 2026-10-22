@@ -555,26 +555,53 @@ p { margin: 0 0 1em; }
    8. Hero a titulky podstránek
    ========================================================================== */
 .hero {
+  --odsazeni: clamp(1rem, 5.5vw, 5rem);
+  --mezera: 55px;
+  --sirka-snimku: 70%;
+  --interval: 6500ms;
+  --prejezd: 1600ms;
   position: relative;
-  display: flex;
-  gap: 55px;
   height: clamp(460px, 75vh, 640px);
-  padding-left: clamp(1rem, 5.5vw, 5rem);
+  padding-left: var(--odsazeni);
   background: var(--krem) url("../img/textura-papir.jpg") repeat;
   overflow: hidden;
 }
-.hero__foto { position: relative; flex: 0 0 66.5%; }
-.hero__nahled { flex: 1 0 30%; }
-.hero__foto img, .hero__nahled img { width: 100%; height: 100%; object-fit: cover; }
-.hero__foto img { object-position: 35% 30%; }
-.hero__foto::after {
+
+/* Pás fotek. Hýbe se jen transform → animace běží na grafické kartě
+   a nevynucuje přepočet layoutu, proto je plynulá. */
+.hero__pas {
+  display: flex;
+  gap: var(--mezera);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform: translate3d(0, 0, 0);
+  transition: transform var(--prejezd) cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
+}
+.hero__snimek {
+  position: relative;
+  flex: 0 0 var(--sirka-snimku);
+  height: 100%;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+.hero__snimek img { width: 100%; height: 100%; object-fit: cover; }
+/* Ztmavení pod textem má jen aktivní fotka; náhled vpravo zůstává světlý. */
+.hero__snimek::after {
   content: "";
   position: absolute; inset: 0;
   background: linear-gradient(90deg, rgba(20, 24, 16, 0.62) 0%, rgba(20, 24, 16, 0.35) 45%, rgba(20, 24, 16, 0) 75%);
+  opacity: 0;
+  transition: opacity var(--prejezd) ease;
 }
+.hero__snimek.is-aktivni::after { opacity: 1; }
+.hero__pas.bez-prechodu, .hero__pas.bez-prechodu *, .hero__pas.bez-prechodu *::after { transition: none !important; }
+
 .hero__obsah {
   position: absolute;
-  left: calc(clamp(1rem, 5.5vw, 5rem) + clamp(1.5rem, 3.5vw, 3.2rem));
+  left: calc(var(--odsazeni) + clamp(1.5rem, 3.5vw, 3.2rem));
   bottom: clamp(2rem, 6vw, 4.5rem);
   z-index: 2;
   max-width: min(38rem, 56%);
@@ -588,17 +615,81 @@ p { margin: 0 0 1em; }
   text-transform: uppercase;
 }
 .hero h1 { color: var(--bila); font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.6rem); margin-bottom: 0.5em; }
-.hero__citat { margin: 0; font-family: var(--font-nadpis); font-style: italic; font-size: var(--step-1); line-height: 1.3; }
+
+/* Citáty leží přes sebe a prolínají se. */
+.hero__citaty { display: grid; }
+.hero__citat {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-family: var(--font-nadpis);
+  font-style: italic;
+  font-size: var(--step-1);
+  line-height: 1.3;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.hero__citat.is-aktivni { opacity: 1; transform: none; transition-delay: 0.35s; }
 .hero__citat p { margin: 0 0 0.3rem; }
 .hero__citat footer { font-style: normal; font-size: var(--step-0); font-family: var(--font-text); opacity: 0.95; }
 .hero .tlacitka { margin-top: 1.75rem; }
 
+/* Ovládání v pravém dolním rohu aktivní fotky. */
+.hero__ovladani {
+  position: absolute;
+  z-index: 3;
+  left: calc(var(--odsazeni) + (100% - var(--odsazeni)) * 0.7 - 1.5rem);
+  bottom: clamp(1.25rem, 3vw, 2rem);
+  transform: translateX(-100%);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--bila);
+}
+.hero__ovladani[hidden] { display: none; }
+.hero__tlacitko {
+  display: grid; place-items: center;
+  width: 40px; height: 40px;
+  padding: 9px;
+  color: inherit;
+  background: rgba(20, 24, 16, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.hero__tlacitko:hover { background: rgba(20, 24, 16, 0.5); border-color: var(--bila); }
+.hero__tlacitko svg { width: 100%; height: 100%; }
+.hero__tlacitko .ikona-prehrat, .hero.is-zastaveno .ikona-pauza { display: none; }
+.hero.is-zastaveno .ikona-prehrat { display: block; }
+.hero__tecky { display: flex; gap: 6px; padding-inline: 0.4rem; }
+.hero__tecka {
+  position: relative;
+  width: 34px; height: 24px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.hero__tecka::before, .hero__vypln {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: calc(50% - 1px);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.4);
+}
+.hero__vypln { background: var(--bila); transform: scaleX(0); transform-origin: left; }
+/* Průběh do další fotky; při pauze se zastaví spolu s časovačem. */
+.hero__tecka.is-aktivni .hero__vypln { animation: hero-prubeh var(--interval) linear forwards; }
+.hero.is-pozastaveno .hero__vypln { animation-play-state: paused; }
+.hero.is-zastaveno .hero__tecka.is-aktivni .hero__vypln { animation: none; transform: scaleX(1); }
+@keyframes hero-prubeh { to { transform: scaleX(1); } }
+
 @media (max-width: 860px) {
-  .hero { display: block; height: auto; padding: 0; }
-  .hero__nahled { display: none; }
-  .hero__foto { height: clamp(520px, 92vh, 640px); }
-  .hero__foto::after { background: linear-gradient(0deg, rgba(20, 24, 16, 0.78) 0%, rgba(20, 24, 16, 0.45) 55%, rgba(20, 24, 16, 0.1) 100%); }
-  .hero__obsah { left: var(--gutter); right: var(--gutter); max-width: none; }
+  .hero { --mezera: 0px; --sirka-snimku: 100%; height: clamp(520px, 92vh, 640px); padding: 0; }
+  .hero__snimek::after { background: linear-gradient(0deg, rgba(20, 24, 16, 0.78) 0%, rgba(20, 24, 16, 0.45) 55%, rgba(20, 24, 16, 0.1) 100%); }
+  .hero__obsah { left: var(--gutter); right: var(--gutter); max-width: none; bottom: 2rem; }
+  .hero__ovladani { left: auto; right: var(--gutter); top: 1rem; bottom: auto; transform: none; }
 }
 
 .titulek {
