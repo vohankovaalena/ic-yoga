@@ -21,7 +21,8 @@
   {
     "slug": "yin-yang-joga",
     "stary": "events/yin-yang-yoga",
-    "nazev": "Yin Yang jóga",
+    "nazev": "Jin jang jóga",
+    "hledani": "Jin jang (yin yang) jóga v Březnici.",
     "ikona": "ikona-kobra",
     "barva": "fialova",
     "foto": "lekce-yin-yang-joga",
@@ -29,8 +30,8 @@
     "perex": "Spojení jemné jinové práce s pojivovými tkáněmi a jangového posílení svalů.",
     "proKoho": "Pro dospělé, kteří chtějí uvolnit unavené, stažené svaly a zároveň posílit vnitřní sílu a stabilitu.",
     "obsah": [
-      "Lekce snoubící symbiózu svalů, které jsou yangové, a pojivové tkáně, jež představují jemnou, yinovou část našeho těla.",
-      "V lekci uvolňujeme unavené, stažené svaly yinovým nastavením pozic. Neopomeneme posílit a podpořit vnitřní sílu a stabilitu yangovým pojetím."
+      "Lekce snoubící symbiózu svalů, které jsou jangové, a pojivové tkáně, jež představují jemnou, jinovou část našeho těla.",
+      "V lekci uvolňujeme unavené, stažené svaly jinovým nastavením pozic. Neopomeneme posílit a podpořit vnitřní sílu a stabilitu jangovým pojetím."
     ],
     "rozvrh": [
       { "den": 3, "od": "17:45", "do": "18:45" }
@@ -39,7 +40,8 @@
   {
     "slug": "yin-joga",
     "stary": "events/yin-yoga",
-    "nazev": "Yin jóga",
+    "nazev": "Jin jóga",
+    "hledani": "Jin (yin) jóga v Březnici.",
     "ikona": "ikona-lotos",
     "barva": "oranzova",
     "foto": "lekce-yin-joga",
@@ -47,7 +49,7 @@
     "perex": "Klidná lekce s delšími výdržemi v pozicích. Uvolní fascie, klouby i mysl.",
     "proKoho": "Pro každého, kdo potřebuje zpomalit, uvolnit napětí a stres. Vhodná i pro úplné začátečníky.",
     "obsah": [
-      "Yin jóga oslovuje ty části těla (kosti, klouby, pojiva a zejména povázky – fascie), které jsou jinové. Zatímco svaly jsou silové, jangové, ovlivňované především pohybem, jinové tkáně oslovujeme klidem, vnitřním tichem.",
+      "Jin jóga oslovuje ty části těla (kosti, klouby, pojiva a zejména povázky – fascie), které jsou jinové. Zatímco svaly jsou silové, jangové, ovlivňované především pohybem, jinové tkáně oslovujeme klidem, vnitřním tichem.",
       "Dosáhneme-li optimální pozice pro daný okamžik, uvolňujeme svaly v oblasti, s níž daná pozice pracuje, a přirozeně tak podpoříme přítok výživy do tkáně.",
       "V těchto lekcích používáme nejrůznější jógové pomůcky, které umožňují nastavit pozici a dovolují dosáhnout uvolnění na všech úrovních našeho těla."
     ],
@@ -82,15 +84,14 @@
     "foto": "lekce-detska-joga",
     "fotoAlt": "Holčička cvičí pozici kobry na podložce",
     "perex": "Hravé cvičení s prvky jógy, které rozvíjí pozornost, fantazii i sebevědomí dětí.",
-    "proKoho": "Pro děti. Probíhá formou uzavřeného kurzu (10 lekcí) ve dvou skupinách.",
+    "proKoho": "Pro děti. Probíhá formou uzavřeného kurzu (10 lekcí).",
     "obsah": [
       "Cvičení s prvky jógy využívá zajímavých pomůcek, oslovuje tělo, působí ve svém celkovém pojetí na dítě i jeho okolí, na vnímání sebe sama.",
       "Dítě se hravou formou stává ohebnějším a silnějším, učí se lépe udržet pozornost. Je vhodnou doplňkovou aktivitou i pro děti, které se věnují výkonnostnímu sportu.",
       "Učí děti odpočívat, rozvíjí jejich fantazii, radost ze života a sebevědomí, nenásilnou formou je vybízí přemýšlet o sobě samém a svém okolí. Napomáhá dětem lépe zvládat stresové situace."
     ],
     "rozvrh": [
-      { "den": 4, "od": "15:45", "do": "16:25", "pozn": "Kurz I." },
-      { "den": 4, "od": "16:30", "do": "17:10", "pozn": "Kurz II." }
+      { "den": 4, "od": "15:45", "do": "16:25" }
     ]
   },
   {
@@ -100,7 +101,7 @@
     "ikona": "ikona-bojovnik",
     "barva": "oranzova",
     "foto": "lekce-teen-joga",
-    "fotoAlt": "Usměvavá dívka v záklonu na podložce u okna",
+    "fotoAlt": "Děti odpočívají vleže na podložkách v sále IC Yoga",
     "perex": "Jóga pro teenagery: síla, ohebnost, soustředění a umění odpočívat.",
     "proKoho": "Pro dospívající. Vhodná i jako doplněk k výkonnostnímu sportu.",
     "obsah": [
@@ -108,9 +109,7 @@
       "Je vhodnou doplňkovou aktivitou i pro dospívající, kteří se věnují výkonnostnímu sportu. Učí odpočívat, rozvíjí fantazii, radost ze života a sebevědomí, nenásilnou formou vybízí přemýšlet o sobě samém a svém okolí.",
       "Napomáhá lépe zvládat stresové situace, které s sebou dospívání přináší."
     ],
-    "rozvrh": [
-      { "den": 1, "od": "16:00", "do": "16:50" }
-    ]
+    "rozvrh": []
   },
   {
     "slug": "individualni-lekce",

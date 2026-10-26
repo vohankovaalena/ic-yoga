@@ -800,6 +800,8 @@ p { margin: 0 0 1em; }
 .ikona-lekce:hover .ikona-lekce__kruh { background: var(--tint); transform: translateY(-4px); }
 .ikona-lekce:hover .ikona-lekce__nazev { color: var(--brand-text); }
 @media (max-width: 860px) { .ikony-lekci { grid-template-columns: repeat(2, 1fr); } }
+.ikony-lekci--dve { grid-template-columns: repeat(2, minmax(0, 16rem)); justify-content: center; }
+.ikona-lekce__pocet { margin-top: -0.6rem; font-size: var(--step--1); color: var(--brand-text); }
 
 /* ==========================================================================
    11. Jak se zapsat – kroky

@@ -6,19 +6,24 @@
    a stránky místo výpisu ukážou odkaz na WordPress. */
 import { readFileSync } from "node:fs";
 
-const site = JSON.parse(
-  readFileSync(new URL("./site.json", import.meta.url), "utf8")
-);
+const nacti = (soubor) =>
+  JSON.parse(readFileSync(new URL(soubor, import.meta.url), "utf8"));
+
+const site = nacti("./site.json");
+/* Rozdělení článků blogu: blog.json vyjmenovává adresy (poslední část URL)
+   zážitků z cest a skrytých článků, všechno ostatní patří do „O józe“. */
+const blog = nacti("./blog.json");
 const WP = site.wpUrl.replace(/\/$/, "");
 const TIMEOUT = 20000;
 
 /* Parametr navíc obejde případnou cache WordPressu, takže se nový
-   pobyt načte hned po zveřejnění. */
+   pobyt načte hned po zveřejnění. Jen u adres bez jiných parametrů:
+   u ?paged=2 by WordPress s dalším parametrem přesměrovával dokola. */
 const BEZ_CACHE = `v=${Date.now()}`;
 
 async function stahni(url) {
   try {
-    const res = await fetch(`${url}${url.includes("?") ? "&" : "?"}${BEZ_CACHE}`, {
+    const res = await fetch(url.includes("?") ? url : `${url}?${BEZ_CACHE}`, {
       headers: { "User-Agent": "ic-yoga-web (Eleventy build)" },
       signal: AbortSignal.timeout(TIMEOUT)
     });
@@ -99,10 +104,20 @@ export default async function () {
     sekce("kurzy", "kurzy"),
     sekce("pobyty", "pobyty"),
     sekce("videa", "videa", 3),
-    sekce("", "blog")
+    sekce("", "blog", 3)
   ]);
   console.log(
     `[wp] kurzy ${kurzy.length}, pobyty ${pobyty.length}, videa ${videa.length}, články ${clanky.length}`
   );
-  return { url: WP, kurzy, pobyty, videa, clanky };
+  const adresa = (p) => new URL(p.odkaz).pathname.split("/").filter(Boolean).pop();
+  const viditelne = clanky.filter((p) => !blog.skryte.includes(adresa(p)));
+  return {
+    url: WP,
+    kurzy,
+    pobyty,
+    videa,
+    clanky,
+    oJoze: viditelne.filter((p) => !blog.zazitkyZCest.includes(adresa(p))),
+    zazitkyZCest: viditelne.filter((p) => blog.zazitkyZCest.includes(adresa(p)))
+  };
 }

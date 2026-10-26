@@ -1,0 +1,51 @@
+---
+title: "Blog o józe a zážitky z cest | IC Yoga Březnice"
+description: "Články Ivy Ceradské o józe, zdravých zádech a cestě k psychické pohodě a zážitky z pobytů s jógou na Bali, Madeiře, ve Vietnamu, Jordánsku, na Korfu a Karpathosu."
+---
+{% from "components/macros.njk" import titulek with context %}
+{% macro pocetClanku(n) %}{{ n }} {{ "článek" if n == 1 else ("články" if n > 1 and n < 5 else "článků") }}{% endmacro %}
+{{ titulek("Blog", "joga-u-more", "O józe a zážitky z našich cest", "center 40%") }}
+
+<section class="section" aria-labelledby="blog-rozcestnik">
+  <div class="wrap">
+    <h2 id="blog-rozcestnik" class="center">Co si <em>přečtete</em></h2>
+    <ul class="ikony-lekci ikony-lekci--dve" role="list">
+      <li>
+        <a class="ikona-lekce" href="#o-joze">
+          <span class="ikona-lekce__kruh"><img src="assets/ikony/ikona-lotos.svg" alt="" width="120" height="120" loading="lazy"></span>
+          <span class="ikona-lekce__nazev">O józe</span>
+          <span class="ikona-lekce__pocet">{{ pocetClanku(wp.oJoze.length) }}</span>
+        </a>
+      </li>
+      <li>
+        <a class="ikona-lekce" href="#zazitky-z-cest">
+          <span class="ikona-lekce__kruh"><img src="assets/ikony/ikona-velbloud.svg" alt="" width="120" height="120" loading="lazy"></span>
+          <span class="ikona-lekce__nazev">Zážitky z cest</span>
+          <span class="ikona-lekce__pocet">{{ pocetClanku(wp.zazitkyZCest.length) }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section textura" id="o-joze" aria-labelledby="o-joze-nadpis">
+  <div class="wrap">
+    <h2 id="o-joze-nadpis" class="center">O <em>józe</em></h2>
+    {% set polozky = wp.oJoze %}
+    {% set zadneText = 'Články najdete na <a href="' + wp.url + '/blog/">původním blogu</a>.' %}
+    {% include "components/karty-wp.njk" %}
+  </div>
+</section>
+
+<section class="section" id="zazitky-z-cest" aria-labelledby="cesty-nadpis">
+  <div class="wrap">
+    <h2 id="cesty-nadpis" class="center">Zážitky z <em>cest</em></h2>
+    {% set polozky = wp.zazitkyZCest %}
+    {% set zadneText = 'Články najdete na <a href="' + wp.url + '/blog/">původním blogu</a>.' %}
+    {% include "components/karty-wp.njk" %}
+    <div class="center tlacitka">
+      <a class="btn btn--plny" href="pobyty.html">Aktuální pobyty</a>
+      <a class="btn btn--obrys" href="videa.html">Videa z našich cest</a>
+    </div>
+  </div>
+</section>

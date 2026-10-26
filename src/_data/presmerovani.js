@@ -24,6 +24,7 @@ const staticke = [
   ["nase-studio", "studio.html"],
   ["kontakt", "kontakt.html"],
   ["videa", "videa.html"],
+  ["blog", "blog.html"],
   ["o-joze", "abeceda-pozic.html"],
   ["kurzy", "kurzy.html"],
   ["pobyty", "pobyty.html"],
@@ -48,10 +49,10 @@ export default async function () {
   const wpUrl = site.wpUrl.replace(/\/$/, "");
   if (wpUrl !== site.url) {
     /* WordPress už neběží na hlavní doméně: staré adresy obsahu z WP
-       (blog, články, kurzy, pobyty, videa) pošleme na novou adresu. */
+       (články, kurzy, pobyty, videa) pošleme na novou adresu. */
     const wp = await (await import("./wp.js")).default();
     const obsah = [...wp.clanky, ...wp.kurzy, ...wp.pobyty, ...wp.videa];
-    const cesty = new Set(["blog"]);
+    const cesty = new Set();
     for (const p of obsah) {
       const cesta = new URL(p.odkaz).pathname.replace(/^\/|\/$/g, "");
       if (cesta) cesty.add(cesta);

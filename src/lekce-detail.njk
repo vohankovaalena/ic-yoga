@@ -7,7 +7,7 @@ pagination:
 permalink: "{{ l.slug }}.html"
 eleventyComputed:
   title: "{{ l.nazev }} Březnice | IC Yoga"
-  description: "{{ l.perex }} {{ l.proKoho }}"
+  description: "{% if l.hledani %}{{ l.hledani }} {% endif %}{{ l.perex }} {{ l.proKoho }}"
   ogImage: "{{ l.foto }}"
 ---
 {% from "components/macros.njk" import obrazek, oddelovac, drobecky with context %}

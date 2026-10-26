@@ -22,7 +22,8 @@
       "deti": [
         { "href": "studio.html", "label": "Studio" },
         { "href": "caste-dotazy.html", "label": "Časté dotazy" },
-        { "href": "o-mne.html", "label": "O mně" }
+        { "href": "o-mne.html", "label": "O mně" },
+        { "href": "blog.html", "label": "Blog" }
       ]
     },
     { "href": "videa.html", "label": "Videa z cest" },

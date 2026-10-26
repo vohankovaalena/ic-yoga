@@ -52,6 +52,11 @@ sestavení je `src/_data/wp.js` stáhne z RSS (`/kurzy/feed/`, `/pobyty/feed/`,
 `/videa/feed/`, `/feed/`) a náhledové obrázky z výpisových stránek.
 Když WordPress neodpovídá, build nespadne – sekce jen ukážou odkaz na WP.
 
+Stránka Blog (`blog.njk`) dělí články na „O józe“ a „Zážitky z cest“.
+Rozdělení je v `src/_data/blog.json` podle poslední části adresy článku:
+`zazitkyZCest` = cesty, `skryte` = na webu se nezobrazí (staré pozvánky),
+všechno ostatní (i nový článek) spadne do „O józe“.
+
 **Kdy se změna z WordPressu objeví na webu:**
 - **hned (do ~2 minut)** po zveřejnění / úpravě / smazání – zařídí to plugin
   `wordpress/ic-yoga-aktualizace-webu.zip`, který pošle GitHubu signál
