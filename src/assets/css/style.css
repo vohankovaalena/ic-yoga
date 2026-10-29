@@ -970,6 +970,9 @@ p { margin: 0 0 1em; }
 .prazdne { padding: 2rem; background: var(--krem); }
 .karta__nadpis--maly { font-size: var(--step-1); }
 .textura .krok, .textura .prazdne { background: var(--bila); }
+/* Karta z WordPressu bez úvodního obrázku (nebo s nenačteným). */
+.karta__foto--zadna { background: var(--krem) url("../ikony/mandala-kvet.svg") center / 45% no-repeat; }
+.textura .karta__foto--zadna { background-color: var(--bila); }
 
 /* ==========================================================================
    16. Časté dotazy
@@ -1117,6 +1120,12 @@ p { margin: 0 0 1em; }
 .detail__foto { max-width: 720px; margin: 0 auto 2.5rem; }
 .detail__foto img { width: 100%; height: auto; max-height: 560px; object-fit: cover; }
 .detail { padding-top: clamp(1.5rem, 4vw, 3rem); }
+.detail__meta { margin-top: -0.4em; font-size: var(--step--1); color: var(--brand-text); }
+/* Text kurzu, pobytu nebo článku z WordPressu (wp-detail.njk). */
+.wp-obsah img { height: auto; margin: 1.5rem auto; }
+.wp-obsah iframe { width: 100%; border: 0; margin-block: 1.5rem; }
+.wp-obsah iframe[src*="youtube"] { height: auto; aspect-ratio: 16 / 9; }
+.wp-obsah figure { margin: 1.5rem 0; }
 .detail__info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

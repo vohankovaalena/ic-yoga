@@ -4,8 +4,9 @@
    starou adresu vyrobí malá stránka /stara-adresa/index.html, která
    prohlížeč i vyhledávač pošle dál (meta refresh + canonical).
 
-   Až bude WordPress na vlastní subdoméně (site.json → wpUrl), přidají se
-   automaticky i přesměrování článků, kurzů, pobytů a videí. */
+   Staré adresy obsahu z WordPressu se skládají podle schématu původního
+   webu (/kurzy/slug/, /pobyty/slug/, /videa/slug/, články /rok/měsíc/den/slug/).
+   Platí pro příspěvky, které se do nového WP přenesly se stejným slugem a datem. */
 import { readFileSync } from "node:fs";
 
 const nacti = (soubor) =>
@@ -46,20 +47,11 @@ export default async function () {
     kanonicka: `${site.url}/${na.split("#")[0]}`
   }));
 
-  const wpUrl = site.wpUrl.replace(/\/$/, "");
-  if (wpUrl !== site.url) {
-    /* WordPress už neběží na hlavní doméně: staré adresy obsahu z WP
-       (články, kurzy, pobyty, videa) pošleme na novou adresu. */
-    const wp = await (await import("./wp.js")).default();
-    const obsah = [...wp.clanky, ...wp.kurzy, ...wp.pobyty, ...wp.videa];
-    const cesty = new Set();
-    for (const p of obsah) {
-      const cesta = new URL(p.odkaz).pathname.replace(/^\/|\/$/g, "");
-      if (cesta) cesty.add(cesta);
-    }
-    for (const cesta of cesty) {
-      polozky.push({ z: cesta, na: `${wpUrl}/${cesta}/`, kanonicka: `${wpUrl}/${cesta}/` });
-    }
+  const wp = await (await import("./wp.js")).default();
+  for (const p of [...wp.detaily, ...wp.videa]) {
+    const z = p.typ === "blog" ? `${p.datum.slice(0, 10).replaceAll("-", "/")}/${p.slug}` : `${p.typ}/${p.slug}`;
+    const na = p.url || "videa.html";
+    polozky.push({ z, na: doKorene(z) + na, kanonicka: `${site.url}/${na}` });
   }
   return polozky;
 }

@@ -1,0 +1,35 @@
+---js
+/* Stránka detailu pro každý článek, kurz a pobyt z WordPressu
+   (clanek-….html, kurz-….html, pobyt-….html). Data a vyčištěný obsah
+   připraví _data/wp.js. */
+const pagination = { data: "wp.detaily", size: 1, alias: "d", addAllPagesToCollections: true };
+const permalink = (data) => data.d.url;
+const eleventyComputed = {
+  title: (data) => `${data.d.nazev} | IC Yoga Březnice`,
+  description: (data) => data.d.perex,
+  ogImage: (data) => data.d.obrazek?.full
+};
+---
+{% from "components/macros.njk" import drobecky, wpMeta with context %}
+{{ drobecky([{ href: d.sekce.odkaz, label: d.sekce.nazev }, { label: d.nazev }]) }}
+
+<article class="section detail">
+  <div class="wrap">
+    {%- if d.obrazek %}
+    <div class="detail__foto"><img src="{{ d.obrazek.full }}" alt="{{ d.obrazek.alt }}" fetchpriority="high" onerror="this.parentNode.remove()"></div>
+    {%- endif %}
+    <div class="prose">
+      <h1 class="center h2">{{ d.nazev }}</h1>
+      {{ wpMeta(d, "center detail__meta") }}
+      <div class="wp-obsah">
+        {{ d.obsah | safe }}
+      </div>
+    </div>
+    <div class="center tlacitka">
+      {%- if d.prihlaska %}
+      <a class="btn btn--plny" href="{{ d.prihlaska }}" target="_blank" rel="noopener">Přihláška</a>
+      {%- endif %}
+      <a class="btn btn--obrys" href="{{ d.sekce.odkaz }}">Zpět: {{ d.sekce.nazev }}</a>
+    </div>
+  </div>
+</article>

@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: IC Yoga – aktualizace webu
- * Description: Po zveřejnění, úpravě nebo smazání kurzu, pobytu, videa či článku pošle signál GitHubu a nový web ic-yoga.cz se během 1–2 minut přestaví. V Nastavení → Aktualizace webu je tlačítko pro ruční aktualizaci.
- * Version: 1.0.0
+ * Description: Po zveřejnění, úpravě nebo smazání příspěvku (kurzu, pobytu, videa či článku) spustí na GitHubu sestavení webu a nový web ic-yoga.cz se během 1–2 minut přestaví. V Nastavení → Aktualizace webu je tlačítko pro ruční aktualizaci.
+ * Version: 1.1.0
  * Author: IC Yoga
  * Requires PHP: 7.4
  */
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 }
 
 const ICY_REPO = 'vohankovaalena/ic-yoga';
-const ICY_TYPY = ['post', 'pobyty', 'kurzy', 'videa'];
+const ICY_WORKFLOW = 'deploy.yml';
 
 /** Token z wp-config.php (define('IC_YOGA_GITHUB_TOKEN', '…')) má přednost před nastavením. */
 function icy_token() {
@@ -22,29 +22,27 @@ function icy_token() {
     return (string) get_option('icy_github_token', '');
 }
 
-/** Pošle GitHubu signál „wordpress-zmena“. Vrací true / text chyby. */
+/** Spustí na GitHubu workflow nasazení webu. Token stačí s oprávněním
+    „Actions: Read and write“, do kódu webu zapisovat nemůže. Vrací true / text chyby. */
 function icy_aktualizuj_web($duvod = '') {
     $token = icy_token();
     if ($token === '') {
         return 'Chybí GitHub token (Nastavení → Aktualizace webu).';
     }
-    $odpoved = wp_remote_post('https://api.github.com/repos/' . ICY_REPO . '/dispatches', [
+    $odpoved = wp_remote_post('https://api.github.com/repos/' . ICY_REPO . '/actions/workflows/' . ICY_WORKFLOW . '/dispatches', [
         'timeout' => 10,
         'headers' => [
             'Authorization' => 'Bearer ' . $token,
             'Accept'        => 'application/vnd.github+json',
             'User-Agent'    => 'ic-yoga-wordpress',
         ],
-        'body' => wp_json_encode([
-            'event_type'     => 'wordpress-zmena',
-            'client_payload' => ['duvod' => mb_substr((string) $duvod, 0, 200)],
-        ]),
+        'body' => wp_json_encode(['ref' => 'main']),
     ]);
     if (is_wp_error($odpoved)) {
         $vysledek = $odpoved->get_error_message();
     } else {
         $kod = wp_remote_retrieve_response_code($odpoved);
-        $vysledek = ($kod === 204) ? true : 'GitHub odpověděl kódem ' . $kod . ' – zkontrolujte token.';
+        $vysledek = ($kod === 204 || $kod === 200) ? true : 'GitHub odpověděl kódem ' . $kod . ' – zkontrolujte token.';
     }
     update_option('icy_posledni', [
         'cas'      => current_time('mysql'),
@@ -57,7 +55,7 @@ function icy_aktualizuj_web($duvod = '') {
 /* Automaticky: cokoliv, co se týká zveřejněného obsahu (zveřejnění, úprava,
    stažení, smazání). Koncepty a automatické ukládání se ignorují. */
 add_action('transition_post_status', function ($novy, $stary, $post) {
-    if (!in_array($post->post_type, ICY_TYPY, true)) {
+    if ($post->post_type !== 'post') {
         return;
     }
     if (wp_is_post_revision($post) || wp_is_post_autosave($post)) {
@@ -66,7 +64,7 @@ add_action('transition_post_status', function ($novy, $stary, $post) {
     if ($novy !== 'publish' && $stary !== 'publish') {
         return;
     }
-    // Jeden signál na jeden požadavek (Elementor ukládá i vícekrát za sebou).
+    // Jeden signál na jeden požadavek (editor WP ukládá i vícekrát za sebou).
     static $odeslano = false;
     if ($odeslano) {
         return;
@@ -81,7 +79,11 @@ add_action('admin_menu', function () {
 });
 
 add_action('admin_init', function () {
-    register_setting('icy', 'icy_github_token', ['sanitize_callback' => 'sanitize_text_field']);
+    /* Prázdné pole při uložení = ponechat dosavadní token (stránka ho nikdy nevypisuje). */
+    register_setting('icy', 'icy_github_token', ['sanitize_callback' => function ($token) {
+        $token = sanitize_text_field((string) $token);
+        return $token !== '' ? $token : (string) get_option('icy_github_token', '');
+    }]);
 });
 
 add_action('admin_post_icy_aktualizovat', function () {
@@ -100,7 +102,7 @@ function icy_stranka() {
     ?>
     <div class="wrap">
         <h1>Aktualizace webu ic-yoga.cz</h1>
-        <p>Po zveřejnění nebo úpravě kurzu, pobytu, videa či článku se nový web přestaví sám, obvykle do 2 minut.</p>
+        <p>Po zveřejnění nebo úpravě příspěvku (kurzu, pobytu, videa či článku) se nový web přestaví sám, obvykle do 2 minut.</p>
 
         <?php if (isset($_GET['icy'])) : ?>
             <div class="notice notice-<?php echo $_GET['icy'] === 'ok' ? 'success' : 'error'; ?>"><p>
@@ -125,8 +127,9 @@ function icy_stranka() {
         <?php else : ?>
             <form method="post" action="options.php">
                 <?php settings_fields('icy'); ?>
-                <input type="password" name="icy_github_token" value="<?php echo esc_attr(get_option('icy_github_token', '')); ?>" class="regular-text" autocomplete="off">
-                <p class="description">Fine-grained token z GitHubu jen pro repozitář <?php echo esc_html(ICY_REPO); ?>, oprávnění „Contents: Read and write“.</p>
+                <p><?php echo get_option('icy_github_token') ? 'Token je uložený. Nový vložte jen při výměně.' : 'Token zatím není uložený.'; ?></p>
+                <input type="password" name="icy_github_token" value="" class="regular-text" autocomplete="off">
+                <p class="description">Fine-grained token z GitHubu jen pro repozitář <?php echo esc_html(ICY_REPO); ?>, oprávnění „Actions: Read and write“ (nic jiného).</p>
                 <?php submit_button('Uložit token'); ?>
             </form>
         <?php endif; ?>

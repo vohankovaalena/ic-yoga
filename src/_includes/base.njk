@@ -1,5 +1,6 @@
 {%- set kanonicka = site.url + page.url -%}
-{%- set ogObrazek = site.url + "/assets/img/" + (ogImage or "iva-ceradska-joga-v-parku") + ".jpg" -%}
+{#- ogImage je jméno fotky z assets/img, nebo celá adresa (obrázek z WordPressu). -#}
+{%- set ogObrazek = ogImage if (ogImage and "://" in ogImage) else site.url + "/assets/img/" + (ogImage or "iva-ceradska-joga-v-parku") + ".jpg" -%}
 {%- macro polozkaMenu(item) -%}
   {%- if item.deti -%}
     {%- set aktivni = false -%}
@@ -8,7 +9,7 @@
       <button class="nav__link nav__rodic{% if aktivni %} is-aktivni{% endif %}" type="button" aria-expanded="false" aria-controls="sub-{{ item.label | slugify }}" data-submenu>{{ item.label }}<svg class="nav__sipka" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
       <ul class="nav__sub" id="sub-{{ item.label | slugify }}">
         {%- for d in item.deti %}
-        <li><a class="nav__sublink" href="{% if d.wp %}{{ wp.url }}/{{ d.href }}/{% else %}{{ d.href }}{% endif %}"{% if page.filePathStem + ".html" == "/" + d.href %} aria-current="page"{% endif %}>{{ d.label }}</a></li>
+        <li><a class="nav__sublink" href="{{ d.href }}"{% if page.filePathStem + ".html" == "/" + d.href %} aria-current="page"{% endif %}>{{ d.label }}</a></li>
         {%- endfor %}
       </ul>
     </li>

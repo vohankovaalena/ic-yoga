@@ -3,14 +3,11 @@ name: Nasazení na GitHub Pages
 on:
   push:
     branches: [main]
-  # Umožní spustit nasazení ručně z karty Actions.
+  # Ručně z karty Actions, nebo z WordPressu (plugin
+  # wordpress/ic-yoga-aktualizace-webu.php) po zveřejnění či úpravě
+  # příspěvku. Víc rychlých úprav za sebou = nejvýš jedno sestavení navíc,
+  # GitHub ve skupině „pages“ drží jen jeden čekající běh.
   workflow_dispatch:
-  # Signál z WordPressu (plugin wordpress/ic-yoga-aktualizace-webu.php):
-  # po zveřejnění nebo úpravě kurzu, pobytu, videa či článku se web
-  # přestaví hned. Víc rychlých úprav za sebou = jedno sestavení navíc,
-  # GitHub v jedné skupině drží jen jeden čekající běh.
-  repository_dispatch:
-    types: [wordpress-zmena]
   # Pojistka: každé ráno se web přestaví i bez signálu (čas je v UTC).
   schedule:
     - cron: "0 4 * * *"

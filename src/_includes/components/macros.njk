@@ -41,3 +41,16 @@
   </ol>
 </nav>
 {%- endmacro %}
+
+{#- Řádek pod nadpisem obsahu z WordPressu (karta i detail):
+    u článku datum zveřejnění, u kurzu termín, čas a cena.
+    Pobyty mají termín v nadpisu, takže řádek nedostanou. -#}
+{% macro wpMeta(p, trida) -%}
+{%- if p.typ == "blog" -%}
+<p class="{{ trida }}"><time datetime="{{ p.datum | datumIso }}">{{ p.datum | datumCz }}</time></p>
+{%- elif p.kurz and p.kurz.datum -%}
+<p class="{{ trida }}"><time datetime="{{ p.kurz.datum }}">{{ p.kurz.datum | datumCz }}</time>
+  {%- if p.kurz.od %} · {{ p.kurz.od }}–{{ p.kurz.do }}{% endif %}
+  {%- if p.kurz.cena %} · {{ p.kurz.cena }} Kč{% endif %}</p>
+{%- endif -%}
+{%- endmacro %}

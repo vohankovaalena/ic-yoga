@@ -13,21 +13,18 @@ description: "Videa z pobytů s jógou s Ivou Ceradskou: Norsko, Keňa, Ischia, 
     <ul class="karty" role="list">
       {%- for v in wp.videa %}
       <li class="karta karta--video">
-        {%- if v.youtube %}
         <div class="video" data-video="{{ v.youtube }}" data-title="{{ v.nazev }}">
-          <img src="{{ v.obrazek or ('https://i.ytimg.com/vi/' + v.youtube + '/hqdefault.jpg') }}" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <img src="{{ v.obrazek.medium }}" alt="" loading="lazy" decoding="async" width="480" height="360">
           <button class="video__play" type="button"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4l15 8-15 8z"/></svg></span><span class="visually-hidden">Přehrát video: {{ v.nazev }}</span></button>
         </div>
-        {%- endif %}
         <div class="karta__telo">
           <h3 class="karta__nadpis karta__nadpis--maly">{{ v.nazev }}</h3>
-          {% if not v.youtube %}<p><a href="{{ v.odkaz }}">Zobrazit video</a></p>{% endif %}
         </div>
       </li>
       {%- endfor %}
     </ul>
     {%- else %}
-    <p class="center prazdne">Videa najdete na <a href="{{ wp.url }}/videa/">stránce s videi</a>.</p>
+    <p class="center prazdne">Videa z cest právě připravuji. Mezitím je najdete na <a href="{{ site.instagram }}">Instagramu</a>.</p>
     {%- endif %}
     <div class="center tlacitka"><a class="btn btn--plny" href="pobyty.html">Aktuální pobyty</a></div>
   </div>

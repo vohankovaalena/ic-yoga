@@ -1,15 +1,18 @@
-{#- Karty kurzů, pobytů a článků z WordPressu.
+{#- Karty článků, kurzů a pobytů z WordPressu, vedou na jejich stránku detailu.
     Použití: {% set polozky = wp.pobyty %}{% set zadneText = "…" %}{% include "components/karty-wp.njk" %} -#}
+{% from "components/macros.njk" import wpMeta with context %}
 {%- if polozky.length %}
 <ul class="karty" role="list">
   {%- for p in polozky %}
   <li class="karta">
-    {%- if p.obrazek %}
-    <div class="karta__foto"><img src="{{ p.obrazek }}" alt="" loading="lazy" decoding="async" width="768" height="512"></div>
-    {%- endif %}
+    <div class="karta__foto{% if not p.obrazek %} karta__foto--zadna{% endif %}">
+      {%- if p.obrazek %}
+      <img src="{{ p.obrazek.medium }}" alt="" loading="lazy" decoding="async" width="768" height="512" onerror="this.parentNode.classList.add('karta__foto--zadna');this.remove()">
+      {%- endif %}
+    </div>
     <div class="karta__telo">
-      <p class="karta__meta"><time datetime="{{ p.datum | datumIso }}">{{ p.datum | datumCz }}</time></p>
-      <h3 class="karta__nadpis"><a href="{{ p.odkaz }}">{{ p.nazev }}</a></h3>
+      {{ wpMeta(p, "karta__meta") }}
+      <h3 class="karta__nadpis"><a href="{{ p.url }}">{{ p.nazev }}</a></h3>
       {% if p.perex %}<p class="karta__perex">{{ p.perex }}</p>{% endif %}
       <span class="btn btn--plny btn--maly karta__vice" aria-hidden="true">Číst více</span>
     </div>

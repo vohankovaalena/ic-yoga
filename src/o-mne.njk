@@ -73,7 +73,9 @@ ogImage: "iva-ceradska-joga-na-plazi"
       </ul>
       <div class="tlacitka">
         <a class="btn btn--plny" href="lekce.html">Moje lekce</a>
-        <a class="btn btn--obrys" href="{{ wp.url }}/2023/11/11/joga-v-mem-zivote-aneb-jak-to-cele-zacalo/">Jak to celé začalo (blog)</a>
+        {%- for p in wp.detaily %}{% if p.slug == "joga-v-mem-zivote-aneb-jak-to-cele-zacalo" %}
+        <a class="btn btn--obrys" href="{{ p.url }}">Jak to celé začalo (blog)</a>
+        {%- endif %}{% endfor %}
       </div>
     </div>
   </div>

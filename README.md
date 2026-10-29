@@ -47,10 +47,24 @@ V šabloně: `{{ obrazek("nazev-souboru", "Popis, co je na fotce") }}`.
 
 ## Napojení na WordPress
 
-Kurzy, pobyty, videa a blog Iva dál spravuje ve WordPressu. Při každém
-sestavení je `src/_data/wp.js` stáhne z RSS (`/kurzy/feed/`, `/pobyty/feed/`,
-`/videa/feed/`, `/feed/`) a náhledové obrázky z výpisových stránek.
-Když WordPress neodpovídá, build nespadne – sekce jen ukážou odkaz na WP.
+Kurzy, pobyty, videa a blog Iva spravuje ve WordPressu na `wp.ic-yoga.cz`
+(`site.json` → `wpUrl`). Jsou to běžné příspěvky rozdělené do rubrik
+`blog`, `kurzy_akce`, `pobyty` a `videa`. Při každém sestavení je
+`src/_data/wp.js` stáhne z REST API (`/categories`, `/posts`, `/media`),
+vyčistí obsah z editoru a sjednotí data pro šablony.
+
+- Výpisy: `blog.njk`, `kurzy.njk`, `pobyty.njk` (karty `components/karty-wp.njk`), `videa.njk`.
+- Detail článku, kurzu a pobytu: `wp-detail.njk` → `clanek-….html`, `kurz-….html`,
+  `pobyt-….html`. U kurzů s Google Formulářem je tlačítko Přihláška.
+- Datum, čas a cena kurzu se čtou z titulku a textu (pole `date` je jen datum zveřejnění).
+  Cenu zapisovat ve tvaru `Cena: 320,- Kč`.
+- Video: do příspěvku v rubrice `videa` vložit odkaz na YouTube (blok Vložit/YouTube).
+- Úvodní obrázek: „Náhledový obrázek“ příspěvku.
+
+Když WordPress neodpovídá, sestavení na GitHubu selže a online zůstane
+předchozí verze webu (v Actions je vidět červený běh). Lokálně build
+nespadne – vypíše varování `[wp] …` a sekce ukážou náhradní text.
+Chybějící rubrika je jen varování.
 
 Stránka Blog (`blog.njk`) dělí články na „O józe“ a „Zážitky z cest“.
 Rozdělení je v `src/_data/blog.json` podle poslední části adresy článku:
@@ -59,8 +73,8 @@ všechno ostatní (i nový článek) spadne do „O józe“.
 
 **Kdy se změna z WordPressu objeví na webu:**
 - **hned (do ~2 minut)** po zveřejnění / úpravě / smazání – zařídí to plugin
-  `wordpress/ic-yoga-aktualizace-webu.zip`, který pošle GitHubu signál
-  (`repository_dispatch` → workflow se spustí),
+  `wordpress/ic-yoga-aktualizace-webu.zip`, který na GitHubu spustí workflow
+  nasazení (`workflow_dispatch`),
 - ručně: ve WordPressu *Nastavení → Aktualizace webu → Aktualizovat web teď*,
   nebo na GitHubu *Actions → Nasazení na GitHub Pages → Run workflow*,
 - pojistka: každé ráno v 6:00 se web přestaví vždy.
@@ -71,7 +85,8 @@ všechno ostatní (i nový článek) spadne do „O józe“.
    Personal access tokens → Fine-grained tokens → Generate new token*.
    - Token name: `WordPress ic-yoga`, Expiration: 1 rok (pak vytvořit nový),
    - Repository access: *Only select repositories* → `ic-yoga`,
-   - Permissions → Repository permissions → **Contents: Read and write**,
+   - Permissions → Repository permissions → **Actions: Read and write** (nic jiného –
+     token umí jen spustit sestavení, do kódu webu zapisovat nemůže),
    - *Generate token* a token zkopírovat (zobrazí se jen jednou).
 2. **Plugin do WordPressu:** *Pluginy → Instalace pluginů → Nahrát plugin* →
    `wordpress/ic-yoga-aktualizace-webu.zip` → Instalovat → Aktivovat.
@@ -89,10 +104,11 @@ Token lze místo nastavení dát i do `wp-config.php`:
    vyhledávači (`site.json` → `"indexovat": false` = noindex + `Disallow` v robots.txt),
    aby nevznikl duplicitní obsah se starým webem.
    **Při spuštění na doméně přepnout `"indexovat": true` a `"basePath": "/"`.**
-3. Přesunout WordPress na subdoménu, např. `blog.ic-yoga.cz` (u hostingu + v nastavení WP
-   změnit adresu webu), sjednotit vzhled blogu s novým webem.
-4. V `site.json` změnit `wpUrl` na novou adresu WP → automaticky se vygenerují
-   přesměrování starých adres článků, kurzů, pobytů a videí.
+3. ✅ WordPress běží na `wp.ic-yoga.cz` (`site.json` → `wpUrl`), plugin
+   `wordpress/ic-yoga-aktualizace-webu.zip` je nainstalovaný.
+4. Přenést obsah ze starého WP se stejnými slugy a daty → staré adresy
+   (`/kurzy/slug/`, `/pobyty/slug/`, `/videa/slug/`, `/rok/měsíc/den/slug/`)
+   se automaticky přesměrují na nové stránky (`src/_data/presmerovani.js`).
 5. Přidat soubor `src/CNAME` s `ic-yoga.cz` (+ passthrough v configu), u DNS nastavit
    záznamy pro GitHub Pages, v Pages zapnout „Enforce HTTPS“. E-mail se nemění.
 6. Google Search Console + Seznam Webmaster: ověřit doménu, odeslat `sitemap.xml`.
