@@ -101,20 +101,21 @@ všechno ostatní (i nový článek) spadne do „O józe“.
 Token lze místo nastavení dát i do `wp-config.php`:
 `define('IC_YOGA_GITHUB_TOKEN', 'github_pat_…');`
 
-## Spuštění na doméně ic-yoga.cz (zatím neprovedeno)
+## Spuštění na doméně ic-yoga.cz (6. 11. 2026)
 
 1. ✅ Repozitář `vohankovaalena/ic-yoga`, GitHub Pages ze zdroje GitHub Actions.
-2. ✅ Testovací verze na `https://vohankovaalena.github.io/ic-yoga/`. Je schovaná před
-   vyhledávači (`site.json` → `"indexovat": false` = noindex + `Disallow` v robots.txt),
-   aby nevznikl duplicitní obsah se starým webem.
-   **Při spuštění na doméně přepnout `"indexovat": true` a `"basePath": "/"`.**
+2. ✅ Web je na doméně a vyhledávače ho indexují (`site.json` → `"indexovat": true`,
+   `"basePath": "/"`). Pro testovací kopii jinde nastavit `"indexovat": false`
+   (= noindex + `Disallow` v robots.txt) a `basePath` podle adresy.
 3. ✅ WordPress běží na `wp.ic-yoga.cz` (`site.json` → `wpUrl`), plugin
    `wordpress/ic-yoga-aktualizace-webu.zip` je nainstalovaný.
-4. Přenést obsah ze starého WP se stejnými slugy a daty → staré adresy
-   (`/kurzy/slug/`, `/pobyty/slug/`, `/videa/slug/`, `/rok/měsíc/den/slug/`)
-   se automaticky přesměrují na nové stránky (`src/_data/presmerovani.js`).
-5. Přidat soubor `src/CNAME` s `ic-yoga.cz` (+ passthrough v configu), u DNS nastavit
-   záznamy pro GitHub Pages, v Pages zapnout „Enforce HTTPS“. E-mail se nemění.
+4. ✅ Obsah starého WP (zveřejněné články, kurzy, pobyty, videa) je přenesený
+   se stejnými slugy a daty → staré adresy (`/kurzy/slug/`, `/pobyty/slug/`,
+   `/videa/slug/`, `/rok/měsíc/den/slug/`) se přesměrují na nové stránky
+   (`src/_data/presmerovani.js`). Koncepty ze starého WP přenesené nejsou.
+5. ✅ DNS vede na GitHub Pages, vlastní doména je nastavená v Pages (při nasazení
+   přes Actions není potřeba soubor CNAME). ⏳ V *Settings → Pages* zapnout
+   „Enforce HTTPS“ (http://ic-yoga.cz zatím nepřesměrovává na https). E-mail se nemění.
 6. Google Search Console + Seznam Webmaster: ověřit doménu, odeslat `sitemap.xml`.
 7. Zkontrolovat / založit Google Business Profile, Mapy.cz a Firmy.cz se stejným
    názvem, adresou a telefonem jako v `site.json`.
