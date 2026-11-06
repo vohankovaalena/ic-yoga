@@ -4,3 +4,6 @@ _site/
 
 # Interní poznámky ke klientovi – nepatří do veřejného repozitáře
 *.pages
+
+# Soubory k importu do WordPressu – vyrábí scripts/import-blogu-do-wp.mjs
+wordpress/import-blogu/
