@@ -1126,6 +1126,12 @@ p { margin: 0 0 1em; }
 .wp-obsah iframe { width: 100%; border: 0; margin-block: 1.5rem; }
 .wp-obsah iframe[src*="youtube"] { height: auto; aspect-ratio: 16 / 9; }
 .wp-obsah figure { margin: 1.5rem 0; }
+/* Víc fotek za sebou seskupených do mřížky a video z YouTube (lib/wp-obsah.js). */
+.wp-obsah .galerie,
+.wp-obsah .video { margin-block: 1.5rem; }
+.wp-obsah .video img { margin: 0; }
+.wp-obsah .galerie img { margin: 0; }
+.wp-obsah .galerie a { display: block; }
 .detail__info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

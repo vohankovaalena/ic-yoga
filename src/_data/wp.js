@@ -8,7 +8,7 @@
    v předchozí verzi). Lokálně nespadne: sekce zůstanou prázdné a stránky
    ukážou náhradní text. */
 import { readFileSync } from "node:fs";
-import { parseHTML } from "linkedom";
+import { naText, zkrat, vycisti, youtube } from "../../lib/wp-obsah.js";
 
 const nacti = (soubor) =>
   JSON.parse(readFileSync(new URL(soubor, import.meta.url), "utf8"));
@@ -29,12 +29,17 @@ const RUBRIKY = {
   videa: { slug: "videa" }
 };
 
+/* CDN hostingu (WEDOS) drží odpovědi API až 10 minut (a pak ještě hodinu
+   vydává starou verzi). Sestavení se spouští hned po úpravě ve WP, takže by
+   dostalo obsah před úpravou. Jedinečný parametr v adrese mezipaměť obejde. */
+const BEZ_MEZIPAMETI = `_=${Date.now()}`;
+
 /* Všechny položky z adresy API, po stránkách po 100 (víc API nevrátí). */
 async function stahni(cesta) {
   const polozky = [];
   for (let strana = 1, stran = 1; strana <= stran; strana++) {
-    const res = await fetch(`${API}/${cesta}&per_page=100&page=${strana}`, {
-      headers: { "User-Agent": "ic-yoga-web (Eleventy build)" },
+    const res = await fetch(`${API}/${cesta}&per_page=100&page=${strana}&${BEZ_MEZIPAMETI}`, {
+      headers: { "User-Agent": "ic-yoga-web (Eleventy build)", "Cache-Control": "no-cache" },
       signal: AbortSignal.timeout(TIMEOUT)
     });
     if (!res.ok) throw new Error(`${cesta} → HTTP ${res.status}`);
@@ -53,63 +58,14 @@ async function obrazky(prispevky) {
     const media = await stahni(`media?include=${ids.slice(i, i + 100)}&_fields=id,source_url,alt_text,media_details`);
     for (const m of media) {
       mapa[m.id] = {
-        full: m.source_url,
+        /* Originál z mobilu má i 2560 px a přes 1 MB, na web stačí 1536 px. */
+        full: m.media_details?.sizes?.["1536x1536"]?.source_url || m.source_url,
         medium: m.media_details?.sizes?.medium_large?.source_url || m.source_url,
         alt: m.alt_text
       };
     }
   }
   return mapa;
-}
-
-const dokument = (html = "") =>
-  parseHTML(`<!doctype html><html><body>${html}</body></html>`).document;
-
-/* HTML → čistý text (s dekódovanými entitami). Za konec bloku přidá
-   mezeru, aby se slova ze sousedních odstavců neslepila. */
-const naText = (html = "") =>
-  dokument(html.replace(/<\/(p|h\d|li|div)>|<br\s*\/?>/gi, "$& ")).body
-    .textContent.replace(/\s+/g, " ").trim();
-
-function zkrat(text, max = 200) {
-  const t = text.replace(/\s*\[…\]\s*$/, "").trim();
-  return t.length <= max ? t : t.slice(0, t.lastIndexOf(" ", max)) + "…";
-}
-
-/* Obsah z editoru WP: ponechá jen základní značky textu, odkazy, obrázky
-   a iframy (YouTube, přihlašovací Google Formuláře). Třídy a styly WP pryč. */
-const POVOLENE = new Set(["H1", "H2", "H3", "H4", "H5", "H6", "P", "UL", "OL", "LI", "A", "STRONG", "EM", "B", "I", "BR", "IMG", "IFRAME", "FIGURE", "FIGCAPTION", "BLOCKQUOTE"]);
-const ZAHODIT = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE", "SVG", "FORM", "BUTTON", "INPUT", "SELECT", "TEXTAREA"]);
-const ATRIBUTY = {
-  A: ["href", "target", "rel"],
-  IMG: ["src", "alt", "width", "height"],
-  IFRAME: ["src", "width", "height", "title", "allow", "allowfullscreen"]
-};
-const BEZPECNE = { href: /^(https?:|mailto:|tel:|#)/i, src: /^https:/i };
-
-function vycisti(html) {
-  const koren = dokument(html).body;
-  (function projdi(uzel) {
-    for (const el of [...uzel.childNodes]) {
-      if (el.nodeType === 3) continue; // text
-      if (el.nodeType !== 1 || ZAHODIT.has(el.tagName.toUpperCase())) { el.remove(); continue; }
-      projdi(el);
-      if (!POVOLENE.has(el.tagName)) { el.replaceWith(...el.childNodes); continue; }
-      const nechat = ATRIBUTY[el.tagName] || [];
-      for (const { name, value } of [...el.attributes]) {
-        if (!nechat.includes(name) || (BEZPECNE[name] && !BEZPECNE[name].test(value.trim()))) el.removeAttribute(name);
-      }
-      if (el.tagName === "A" && el.getAttribute("target")) el.setAttribute("rel", "noopener");
-    }
-  })(koren);
-
-  koren.querySelectorAll("img:not([src]), iframe:not([src])").forEach((el) => el.remove());
-  koren.querySelectorAll("p, h1, h2, h3, h4, h5, h6").forEach((el) => {
-    if (!el.textContent.replace(/ /g, " ").trim() && !el.querySelector("img, iframe")) el.remove();
-  });
-  koren.querySelectorAll("img").forEach((el) => { el.setAttribute("loading", "lazy"); el.setAttribute("decoding", "async"); });
-  koren.querySelectorAll("iframe").forEach((el) => { el.textContent = ""; el.setAttribute("loading", "lazy"); });
-  return koren.innerHTML.replace(/\n\s*\n+/g, "\n").trim();
 }
 
 /* Datum, čas a cena kurzu jsou jen v textu titulku a obsahu
@@ -135,9 +91,6 @@ function prihlaska(html) {
   return url.toString();
 }
 
-/* YouTube video z obsahu (blok Vložit/Embed nebo odkaz). */
-const youtube = (html) =>
-  (html.match(/(?:youtube(?:-nocookie)?\.com\/(?:embed\/|watch\?v=|shorts\/)|youtu\.be\/)([\w-]{11})/) || [])[1] || null;
 
 /* Adresa detailu s předponou rubriky (kurz-…), ale bez zdvojení (pobyt-pobyt-…). */
 const adresa = (predpona, slug) => (slug.startsWith(`${predpona}-`) ? slug : `${predpona}-${slug}`);
@@ -161,7 +114,7 @@ function polozka(typ, p, obrazek) {
     url: `${adresa(RUBRIKY[typ].stranka, p.slug)}.html`,
     sekce: RUBRIKY[typ].sekce,
     perex: zkrat(naText(p.excerpt.rendered)),
-    obsah: vycisti(html),
+    obsah: vycisti(html, nazev),
     kurz: typ === "kurzy" ? kurz(nazev, naText(html)) : null,
     prihlaska: prihlaska(html)
   };
@@ -200,7 +153,9 @@ export default async function () {
     console.warn(`[wp] obsah z WordPressu se nepodařilo stáhnout: ${err.message}`);
     rubriky = { blog: [], kurzy: [], pobyty: [], videa: [] };
   }
-  const { blog: clanky, kurzy, pobyty, videa } = rubriky;
+  const { blog: clanky, kurzy, pobyty } = rubriky;
+  /* Video bez odkazu na YouTube nemá co přehrát. */
+  const videa = rubriky.videa.filter((v) => v.youtube);
   kurzy.sort(podleTerminu);
   console.log(`[wp] články ${clanky.length}, kurzy ${kurzy.length}, pobyty ${pobyty.length}, videa ${videa.length}`);
 
@@ -208,8 +163,7 @@ export default async function () {
   return {
     kurzy,
     pobyty,
-    /* Video bez odkazu na YouTube nemá co přehrát. */
-    videa: videa.filter((v) => v.youtube),
+    videa,
     oJoze: viditelne.filter((p) => !blog.zazitkyZCest.includes(p.slug)),
     zazitkyZCest: viditelne.filter((p) => blog.zazitkyZCest.includes(p.slug)),
     /* Všechno, co má vlastní stránku detailu (wp-detail.njk). */

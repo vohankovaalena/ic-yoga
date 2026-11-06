@@ -66,6 +66,10 @@ předchozí verze webu (v Actions je vidět červený běh). Lokálně build
 nespadne – vypíše varování `[wp] …` a sekce ukážou náhradní text.
 Chybějící rubrika je jen varování.
 
+Obsah z WP čistí `lib/wp-obsah.js`: víc fotek za sebou → mřížka `.galerie`,
+video z YouTube (vložené nebo odkaz v samostatném odstavci) → přehrávač, který
+YouTube načte až po kliknutí.
+
 Stránka Blog (`blog.njk`) dělí články na „O józe“ a „Zážitky z cest“.
 Rozdělení je v `src/_data/blog.json` podle poslední části adresy článku:
 `zazitkyZCest` = cesty, `skryte` = na webu se nezobrazí (staré pozvánky),
