@@ -4,7 +4,7 @@ pagination:
   size: 1
   addAllPagesToCollections: true
   alias: l
-permalink: "{{ l.slug }}.html"
+permalink: "/{{ l.slug }}/"
 eleventyComputed:
   title: "{{ l.nazev }} Březnice | IC Yoga"
   description: "{% if l.hledani %}{{ l.hledani }} {% endif %}{{ l.perex }} {{ l.proKoho }}"
@@ -12,7 +12,7 @@ eleventyComputed:
 ---
 {% from "components/macros.njk" import obrazek, oddelovac, drobecky with context %}
 {%- set DNY = ["", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"] -%}
-{{ drobecky([{ href: "lekce.html", label: "Lekce" }, { label: l.nazev }]) }}
+{{ drobecky([{ href: "/lekce/", label: "Lekce" }, { label: l.nazev }]) }}
 
 <article class="section detail">
   <div class="wrap">
@@ -50,13 +50,13 @@ eleventyComputed:
         {%- elif l.slug == "jogova-terapie" %}
         <p>Podle domluvy</p>
         {%- else %}
-        <p>110 Kč jednorázově, s permanentkou od 80 Kč. <a href="cenik.html">Ceník</a></p>
+        <p>110 Kč jednorázově, s permanentkou od 80 Kč. <a href="/cenik/">Ceník</a></p>
         {%- endif %}
       </div>
     </div>
 
     <div class="center tlacitka">
-      <a class="btn btn--plny" href="rozvrh.html#jak-se-zapsat">Jak se zapsat</a>
+      <a class="btn btn--plny" href="/rozvrh/#jak-se-zapsat">Jak se zapsat</a>
       <a class="btn btn--obrys" href="tel:{{ site.telefonOdkaz }}">Zavolat {{ site.telefon }}</a>
     </div>
   </div>

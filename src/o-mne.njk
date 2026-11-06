@@ -72,7 +72,7 @@ ogImage: "iva-ceradska-joga-na-plazi"
         <li><strong>ZUŠ</strong><span>Učitelka tanečního oboru ZUŠ Březnice</span></li>
       </ul>
       <div class="tlacitka">
-        <a class="btn btn--plny" href="lekce.html">Moje lekce</a>
+        <a class="btn btn--plny" href="/lekce/">Moje lekce</a>
         {%- for p in wp.detaily %}{% if p.slug == "joga-v-mem-zivote-aneb-jak-to-cele-zacalo" %}
         <a class="btn btn--obrys" href="{{ p.url }}">Jak to celé začalo (blog)</a>
         {%- endif %}{% endfor %}
@@ -102,7 +102,7 @@ ogImage: "iva-ceradska-joga-na-plazi"
           {%- for r in recenze %}
           <li class="recenze__karta">
             <figure>
-              <img class="recenze__mandala" src="assets/ikony/mandala-kvet.svg" alt="" width="48" height="48">
+              <img class="recenze__mandala" src="/assets/ikony/mandala-kvet.svg" alt="" width="48" height="48">
               <blockquote><p>{{ r.text }}</p></blockquote>
               <figcaption>{{ r.autor }}</figcaption>
             </figure>
@@ -128,7 +128,7 @@ ogImage: "iva-ceradska-joga-na-plazi"
   "jobTitle": "Lektorka jógy",
   "description": "Lektorka jógy pro dospělé, děti a teenagery v Březnici. Učí od roku 2004, specializace na jógu pro zdravá záda, jinovou a dětskou jógu.",
   "image": "{{ site.url }}/assets/img/iva-ceradska-joga-na-plazi.jpg",
-  "url": "{{ site.url }}/o-mne.html",
+  "url": "{{ site.url }}/o-mne/",
   "telephone": "{{ site.telefonOdkaz }}",
   "email": "{{ site.email }}",
   "worksFor": { "@id": "{{ site.url }}/#studio" },

@@ -38,7 +38,9 @@ Testovací verze: https://vohankovaalena.github.io/ic-yoga/ (nasazuje se při ka
 | Vzhled | `src/assets/css/style.css` (tokeny barev nahoře v bloku 2) |
 
 Každá stránka = jeden `.njk` v `src/`, název souboru = adresa (`rozvrh.njk` →
-`rozvrh.html`). Detaily lekcí a pozic se generují z dat (`lekce-detail.njk`,
+`/rozvrh/`, bez `.html`). Odkazy uvnitř webu se píšou od kořene (`/rozvrh/`,
+`/assets/…`); předponu pro testovací kopii v podsložce (`site.json` → `basePath`)
+doplní při sestavení HtmlBasePlugin. Detaily lekcí a pozic se generují z dat (`lekce-detail.njk`,
 `pozice-detail.njk`) – nová lekce = nový záznam v `lekce.json`.
 
 Fotky: `src/assets/img/` vždy dvojice `.webp` + `.jpg` s popisným názvem.
@@ -54,8 +56,8 @@ Kurzy, pobyty, videa a blog Iva spravuje ve WordPressu na `wp.ic-yoga.cz`
 vyčistí obsah z editoru a sjednotí data pro šablony.
 
 - Výpisy: `blog.njk`, `kurzy.njk`, `pobyty.njk` (karty `components/karty-wp.njk`), `videa.njk`.
-- Detail článku, kurzu a pobytu: `wp-detail.njk` → `clanek-….html`, `kurz-….html`,
-  `pobyt-….html`. U kurzů s Google Formulářem je tlačítko Přihláška.
+- Detail článku, kurzu a pobytu: `wp-detail.njk` → `/clanek-…/`, `/kurz-…/`,
+  `/pobyt-…/`. U kurzů s Google Formulářem je tlačítko Přihláška.
 - Datum, čas a cena kurzu se čtou z titulku a textu (pole `date` je jen datum zveřejnění).
   Cenu zapisovat ve tvaru `Cena: 320,- Kč`.
 - Video: do příspěvku v rubrice `videa` vložit odkaz na YouTube (blok Vložit/YouTube).

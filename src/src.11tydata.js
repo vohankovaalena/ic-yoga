@@ -1,7 +1,8 @@
 /* Společné nastavení pro všechny stránky ve složce src/.
-   Díky permalinku zůstávají adresy ve tvaru /rozvrh.html, takže
-   odkazy uvnitř webu nepotřebují žádnou úpravu. */
+   Adresy jsou „čisté“ bez .html: rozvrh.njk → /rozvrh/ (soubor
+   rozvrh/index.html, výchozí chování Eleventy). Odkazy uvnitř webu se
+   píšou od kořene (/rozvrh/, /assets/…); předponu pro testovací kopii
+   v podsložce (site.json → basePath) doplní HtmlBasePlugin v configu. */
 export default {
-  layout: "base.njk",
-  permalink: (data) => `${data.page.filePathStem}.html`
+  layout: "base.njk"
 };

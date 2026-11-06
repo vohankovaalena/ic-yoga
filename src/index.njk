@@ -21,8 +21,8 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
     {%- for s in heroSnimky %}
     <li class="hero__snimek{% if loop.first %} is-aktivni{% endif %}" aria-roledescription="snímek" aria-label="Fotka {{ loop.index }} ze {{ heroSnimky.length }}"{% if not loop.first %} aria-hidden="true"{% endif %}>
       <picture>
-        <source type="image/webp" srcset="assets/img/{{ s.foto }}.webp">
-        <img src="assets/img/{{ s.foto }}.jpg" alt="{{ s.alt }}" width="{{ obrazky[s.foto][0] }}" height="{{ obrazky[s.foto][1] }}" style="object-position: {{ s.pozice }}" decoding="async"{% if loop.first %} fetchpriority="high"{% else %} fetchpriority="low"{% endif %}>
+        <source type="image/webp" srcset="/assets/img/{{ s.foto }}.webp">
+        <img src="/assets/img/{{ s.foto }}.jpg" alt="{{ s.alt }}" width="{{ obrazky[s.foto][0] }}" height="{{ obrazky[s.foto][1] }}" style="object-position: {{ s.pozice }}" decoding="async"{% if loop.first %} fetchpriority="high"{% else %} fetchpriority="low"{% endif %}>
       </picture>
     </li>
     {%- endfor %}
@@ -40,7 +40,7 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
       {%- endfor %}
     </div>
     <div class="tlacitka">
-      <a class="btn btn--plny" href="rozvrh.html">Rozvrh lekcí</a>
+      <a class="btn btn--plny" href="/rozvrh/">Rozvrh lekcí</a>
       <a class="btn btn--svetly" href="#jak-se-zapsat">Jak se zapsat</a>
     </div>
     <a class="hero__whatsapp" href="{{ site.whatsapp }}" target="_blank" rel="noopener">
@@ -78,7 +78,7 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
       <h2 id="omne-nadpis">Jóga mi nasměrovala život</h2>
       <p>Jmenuji se Iva a moc ráda tvořím smysluplné věci a měním skrze jógu pohled svůj i ostatních tak, aby byli maximálně zdraví, šťastní a spokojení, sebejistí a v rovnováze fyzické i emoční.</p>
       <p>Jógu učím od roku 2004 – dospělé, děti i teenagery. Jsem certifikovaná lektorka se specializací na zdravá záda, dětskou a jinovou jógu.</p>
-      <a class="btn btn--obrys" href="o-mne.html">Více o mně</a>
+      <a class="btn btn--obrys" href="/o-mne/">Více o mně</a>
       <p class="velky-citat">Nabízím vám možnost hledat vnitřní klid a rovnováhu v propojení zdravého pohybu tak, abyste se cítili nejlépe, jak jenom můžete a sami sobě dovolíte.</p>
     </div>
     <div class="split__foto">
@@ -92,7 +92,7 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
     {{ oddelovac() }}
     <h2 id="rozvrh-nadpis" class="center">Těším se <em>na</em> vás na těchto lekcích.</h2>
     {% include "components/rozvrh.njk" %}
-    <p class="center poznamka">Kromě otevřených lekcí vypisuji i uzavřené <a href="kurzy.html">kurzy</a>. Ceny najdete v <a href="cenik.html">ceníku</a>.</p>
+    <p class="center poznamka">Kromě otevřených lekcí vypisuji i uzavřené <a href="/kurzy/">kurzy</a>. Ceny najdete v <a href="/cenik/">ceníku</a>.</p>
   </div>
 </section>
 
@@ -102,7 +102,7 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
   {{ oddelovac("oddelovac--nahore") }}
   <div class="wrap center">
     <h2 id="studio-nadpis">V našem domě vznikl nový, prostorný jógový sál,<br> v&nbsp;němž <em>načerpáte množství</em> vjemů, zážitků i okamžiků poznání sebe i ostatních.</h2>
-    <a class="btn btn--obrys" href="studio.html">Prohlédnout studio</a>
+    <a class="btn btn--obrys" href="/studio/">Prohlédnout studio</a>
   </div>
 </section>
 
@@ -118,7 +118,7 @@ ogTitle: "IC Yoga Březnice – jóga pro tělo, mysl i duši"
 <section class="section instagram" aria-labelledby="ig-nadpis">
   <div class="wrap">
     <div class="instagram__hlavicka">
-      <img src="assets/img/ic-yoga-logo.webp" alt="" width="392" height="366" loading="lazy">
+      <img src="/assets/img/ic-yoga-logo.webp" alt="" width="392" height="366" loading="lazy">
       <div>
         <h2 id="ig-nadpis" class="h4"><a href="{{ site.instagram }}" rel="noopener" target="_blank">@{{ site.instagramJmeno }}<span class="visually-hidden"> na Instagramu (otevře se v novém okně)</span></a></h2>
         <p>Co je nového ve studiu i na cestách</p>

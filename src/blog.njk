@@ -12,14 +12,14 @@ description: "Články Ivy Ceradské o józe, zdravých zádech a cestě k psych
     <ul class="ikony-lekci ikony-lekci--dve" role="list">
       <li>
         <a class="ikona-lekce" href="#o-joze">
-          <span class="ikona-lekce__kruh"><img src="assets/ikony/ikona-lotos.svg" alt="" width="120" height="120" loading="lazy"></span>
+          <span class="ikona-lekce__kruh"><img src="/assets/ikony/ikona-lotos.svg" alt="" width="120" height="120" loading="lazy"></span>
           <span class="ikona-lekce__nazev">O józe</span>
           <span class="ikona-lekce__pocet">{{ pocetClanku(wp.oJoze.length) }}</span>
         </a>
       </li>
       <li>
         <a class="ikona-lekce" href="#zazitky-z-cest">
-          <span class="ikona-lekce__kruh"><img src="assets/ikony/ikona-velbloud.svg" alt="" width="120" height="120" loading="lazy"></span>
+          <span class="ikona-lekce__kruh"><img src="/assets/ikony/ikona-velbloud.svg" alt="" width="120" height="120" loading="lazy"></span>
           <span class="ikona-lekce__nazev">Zážitky z cest</span>
           <span class="ikona-lekce__pocet">{{ pocetClanku(wp.zazitkyZCest.length) }}</span>
         </a>
@@ -44,8 +44,8 @@ description: "Články Ivy Ceradské o józe, zdravých zádech a cestě k psych
     {% set zadneText = "Články právě připravuji." %}
     {% include "components/karty-wp.njk" %}
     <div class="center tlacitka">
-      <a class="btn btn--plny" href="pobyty.html">Aktuální pobyty</a>
-      <a class="btn btn--obrys" href="videa.html">Videa z našich cest</a>
+      <a class="btn btn--plny" href="/pobyty/">Aktuální pobyty</a>
+      <a class="btn btn--obrys" href="/videa/">Videa z našich cest</a>
     </div>
   </div>
 </section>

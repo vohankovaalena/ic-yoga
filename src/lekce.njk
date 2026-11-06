@@ -20,7 +20,7 @@ description: "Přehled lekcí jógy v IC Yoga Březnice: vinyasa, jin jang (yin 
               {%- for t in l.rozvrh %}{{ ["", "Po", "Út", "St", "Čt", "Pá", "So", "Ne"][t.den] }} {{ t.od | replace(":", ".") }}–{{ t.do | replace(":", ".") }}{% if not loop.last %} · {% endif %}{% endfor -%}
             {%- else -%}Termín podle domluvy{%- endif -%}
           </p>
-          <h3 class="karta__nadpis"><a href="{{ l.slug }}.html">{{ l.nazev }}</a></h3>
+          <h3 class="karta__nadpis"><a href="/{{ l.slug }}/">{{ l.nazev }}</a></h3>
           <p class="karta__perex">{{ l.perex }}</p>
           <span class="btn btn--plny btn--maly karta__vice" aria-hidden="true">Více o lekci</span>
         </div>
@@ -35,8 +35,8 @@ description: "Přehled lekcí jógy v IC Yoga Březnice: vinyasa, jin jang (yin 
   <div class="wrap center banner-foto__obsah">
     <h2 id="investujte">Investujte do svého těla, mysli i dechu.</h2>
     <div class="tlacitka">
-      <a class="btn btn--plny" href="rozvrh.html">Rozvrh lekcí</a>
-      <a class="btn btn--svetly" href="cenik.html">Ceník</a>
+      <a class="btn btn--plny" href="/rozvrh/">Rozvrh lekcí</a>
+      <a class="btn btn--svetly" href="/cenik/">Ceník</a>
     </div>
   </div>
 </section>

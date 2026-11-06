@@ -21,11 +21,11 @@ const API = `${site.wpUrl.replace(/\/$/, "")}/wp-json/wp/v2`;
 const TIMEOUT = 20000;
 
 /* Rubriky ve WP (slug) → sekce webu. U každé: předpona stránek detailu
-   (kurz-….html) a kam vede drobečková navigace. Videa detail nemají. */
+   (/kurz-…/) a kam vede drobečková navigace. Videa detail nemají. */
 const RUBRIKY = {
-  blog: { slug: "blog", stranka: "clanek", sekce: { nazev: "Blog", odkaz: "blog.html" } },
-  kurzy: { slug: "kurzy_akce", stranka: "kurz", sekce: { nazev: "Kurzy a akce", odkaz: "kurzy.html" } },
-  pobyty: { slug: "pobyty", stranka: "pobyt", sekce: { nazev: "Pobyty", odkaz: "pobyty.html" } },
+  blog: { slug: "blog", stranka: "clanek", sekce: { nazev: "Blog", odkaz: "/blog/" } },
+  kurzy: { slug: "kurzy_akce", stranka: "kurz", sekce: { nazev: "Kurzy a akce", odkaz: "/kurzy/" } },
+  pobyty: { slug: "pobyty", stranka: "pobyt", sekce: { nazev: "Pobyty", odkaz: "/pobyty/" } },
   videa: { slug: "videa" }
 };
 
@@ -111,7 +111,7 @@ function polozka(typ, p, obrazek) {
 
   return {
     ...zaklad,
-    url: `${adresa(RUBRIKY[typ].stranka, p.slug)}.html`,
+    url: `/${adresa(RUBRIKY[typ].stranka, p.slug)}/`,
     sekce: RUBRIKY[typ].sekce,
     perex: zkrat(naText(p.excerpt.rendered)),
     obsah: vycisti(html, nazev),

@@ -19,7 +19,7 @@
         {%- for bunka in radek.bunky %}
         <td>
           {%- for t in bunka %}
-          <a class="rozvrh__lekce rozvrh__lekce--{{ t.barva }}" href="{{ t.slug }}.html">
+          <a class="rozvrh__lekce rozvrh__lekce--{{ t.barva }}" href="/{{ t.slug }}/">
             <span class="rozvrh__nazev">{{ t.nazev }}</span>
             {% if t.pozn %}<span class="rozvrh__pozn">{{ t.pozn }}</span>{% endif %}
             <span class="rozvrh__cas"><time datetime="{{ t.od }}">{{ t.od | replace(":", ".") }}</time>–<time datetime="{{ t.do }}">{{ t.do | replace(":", ".") }}</time></span>
@@ -38,7 +38,7 @@
       <h3 class="rozvrh__den-nazev">{{ den.nazev }}</h3>
       <ul role="list">
         {%- for t in den.lekce %}
-        <li><a class="rozvrh__lekce rozvrh__lekce--{{ t.barva }}" href="{{ t.slug }}.html"><span class="rozvrh__nazev">{{ t.nazev }}{% if t.pozn %} <span class="rozvrh__pozn">({{ t.pozn }})</span>{% endif %}</span> <span class="rozvrh__cas">{{ t.cas }}</span></a></li>
+        <li><a class="rozvrh__lekce rozvrh__lekce--{{ t.barva }}" href="/{{ t.slug }}/"><span class="rozvrh__nazev">{{ t.nazev }}{% if t.pozn %} <span class="rozvrh__pozn">({{ t.pozn }})</span>{% endif %}</span> <span class="rozvrh__cas">{{ t.cas }}</span></a></li>
         {%- endfor %}
       </ul>
     </li>

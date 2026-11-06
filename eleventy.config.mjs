@@ -1,4 +1,14 @@
+import { readFileSync } from "node:fs";
+import { HtmlBasePlugin } from "@11ty/eleventy";
+
+const site = JSON.parse(readFileSync(new URL("./src/_data/site.json", import.meta.url), "utf8"));
+
 export default function (eleventyConfig) {
+  /* Odkazy se v šablonách píšou od kořene (/rozvrh/, /assets/…). Když web
+     běží v podsložce (testovací kopie, site.json → basePath "/ic-yoga/"),
+     plugin jim při sestavení předponu doplní. Na doméně je basePath "/". */
+  eleventyConfig.addPlugin(HtmlBasePlugin);
+
   /* Statické soubory projdou beze změny: assets/css, assets/js, assets/img,
      assets/ikony a assets/fonts. Cesty ve stylopisu i v HTML tak zůstávají platné. */
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
@@ -42,7 +52,7 @@ export default function (eleventyConfig) {
   /* Lekce → strukturovaná data Course s týdenním rozvrhem + drobečky. */
   const DNY = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   eleventyConfig.addFilter("lekceSchema", (l, site) => {
-    const url = `${site.url}/${l.slug}.html`;
+    const url = `${site.url}/${l.slug}/`;
     const instance = {
       "@type": "CourseInstance",
       courseMode: "onsite",
@@ -80,7 +90,7 @@ export default function (eleventyConfig) {
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Domů", item: `${site.url}/` },
-            { "@type": "ListItem", position: 2, name: "Lekce", item: `${site.url}/lekce.html` },
+            { "@type": "ListItem", position: 2, name: "Lekce", item: `${site.url}/lekce/` },
             { "@type": "ListItem", position: 3, name: l.nazev, item: url }
           ]
         }
@@ -89,6 +99,7 @@ export default function (eleventyConfig) {
   });
 
   return {
+    pathPrefix: site.basePath,
     dir: {
       input: "src",
       output: "_site",

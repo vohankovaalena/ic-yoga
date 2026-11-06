@@ -1,32 +1,32 @@
 {
   "vlevo": [
-    { "href": "rozvrh.html", "label": "Rozvrh" },
+    { "href": "/rozvrh/", "label": "Rozvrh" },
     {
       "label": "Lekce",
-      "href": "lekce.html",
+      "href": "/lekce/",
       "deti": [
-        { "href": "lekce.html", "label": "Všechny lekce" },
-        { "href": "cenik.html", "label": "Ceník" },
-        { "href": "individualni-lekce.html", "label": "Individuální lekce" },
-        { "href": "jogova-terapie.html", "label": "Jógová terapie" },
-        { "href": "abeceda-pozic.html", "label": "Abeceda pozic" }
+        { "href": "/lekce/", "label": "Všechny lekce" },
+        { "href": "/cenik/", "label": "Ceník" },
+        { "href": "/individualni-lekce/", "label": "Individuální lekce" },
+        { "href": "/jogova-terapie/", "label": "Jógová terapie" },
+        { "href": "/abeceda-pozic/", "label": "Abeceda pozic" }
       ]
     },
-    { "href": "kurzy.html", "label": "Kurzy/akce" },
-    { "href": "pobyty.html", "label": "Pobyty" }
+    { "href": "/kurzy/", "label": "Kurzy/akce" },
+    { "href": "/pobyty/", "label": "Pobyty" }
   ],
   "vpravo": [
     {
       "label": "O mně",
-      "href": "o-mne.html",
+      "href": "/o-mne/",
       "deti": [
-        { "href": "studio.html", "label": "Studio" },
-        { "href": "caste-dotazy.html", "label": "Časté dotazy" },
-        { "href": "o-mne.html", "label": "O mně" },
-        { "href": "blog.html", "label": "Blog" }
+        { "href": "/studio/", "label": "Studio" },
+        { "href": "/caste-dotazy/", "label": "Časté dotazy" },
+        { "href": "/o-mne/", "label": "O mně" },
+        { "href": "/blog/", "label": "Blog" }
       ]
     },
-    { "href": "videa.html", "label": "Videa z cest" },
-    { "href": "kontakt.html", "label": "Kontakt" }
+    { "href": "/videa/", "label": "Videa z cest" },
+    { "href": "/kontakt/", "label": "Kontakt" }
   ]
 }

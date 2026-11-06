@@ -17,11 +17,11 @@ description: "Aktuální týdenní rozvrh lekcí jógy v Březnici: vinyasa, jin
       </div>
       <div class="info-box">
         <h3>Uzavřené kurzy</h3>
-        <p>Mají dané téma a zpravidla 10 setkání, obvykle v úterý, středu nebo čtvrtek. Aktuální nabídka je v sekci <a href="kurzy.html">Kurzy</a>.</p>
+        <p>Mají dané téma a zpravidla 10 setkání, obvykle v úterý, středu nebo čtvrtek. Aktuální nabídka je v sekci <a href="/kurzy/">Kurzy</a>.</p>
       </div>
       <div class="info-box">
         <h3>Ceny</h3>
-        <p>Jednorázový vstup 110 Kč, permanentky od 80 Kč za lekci. Více v <a href="cenik.html">ceníku</a>.</p>
+        <p>Jednorázový vstup 110 Kč, permanentky od 80 Kč za lekci. Více v <a href="/cenik/">ceníku</a>.</p>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@ description: "Aktuální týdenní rozvrh lekcí jógy v Březnici: vinyasa, jin
       "item": {
         "@type": "Course",
         "name": "{{ t.nazev }}{% if t.pozn %} – {{ t.pozn }}{% endif %}",
-        "url": "{{ site.url }}/{{ t.slug }}.html",
+        "url": "{{ site.url }}/{{ t.slug }}/",
         "description": "Pravidelná lekce jógy v Březnici",
         "provider": { "@id": "{{ site.url }}/#studio" }
       }

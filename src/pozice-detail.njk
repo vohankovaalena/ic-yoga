@@ -4,14 +4,14 @@ pagination:
   size: 1
   addAllPagesToCollections: true
   alias: p
-permalink: "{{ p.slug }}.html"
+permalink: "/{{ p.slug }}/"
 eleventyComputed:
   title: "Pozice {{ p.nazev }} ({{ p.sanskrt }}) – nastavení a účinky | IC Yoga"
   description: "{{ p.perex }} Jak pozici {{ p.nazev | lower }} ({{ p.sanskrt }}) správně nastavit a co vám přinese."
   ogImage: "{{ p.foto }}"
 ---
 {% from "components/macros.njk" import obrazek, drobecky with context %}
-{{ drobecky([{ href: "abeceda-pozic.html", label: "Abeceda pozic" }, { label: p.nazev }]) }}
+{{ drobecky([{ href: "/abeceda-pozic/", label: "Abeceda pozic" }, { label: p.nazev }]) }}
 
 <article class="section detail">
   <div class="wrap">
@@ -24,7 +24,7 @@ eleventyComputed:
     </div>
     <nav class="center tlacitka" aria-label="Další pozice">
       {%- if pagination.href.previous %}<a class="btn btn--obrys" href="{{ pagination.href.previous | replace('/', '') }}">Předchozí pozice</a>{% endif %}
-      <a class="btn btn--plny" href="abeceda-pozic.html">Všechny pozice</a>
+      <a class="btn btn--plny" href="/abeceda-pozic/">Všechny pozice</a>
       {%- if pagination.href.next %}<a class="btn btn--obrys" href="{{ pagination.href.next | replace('/', '') }}">Další pozice</a>{% endif %}
     </nav>
   </div>
@@ -41,6 +41,6 @@ eleventyComputed:
   "inLanguage": "cs",
   "author": { "@type": "Person", "@id": site.url + "/#iva", "name": site.lektorka },
   "publisher": { "@id": site.url + "/#studio" },
-  "mainEntityOfPage": site.url + "/" + p.slug + ".html"
+  "mainEntityOfPage": site.url + "/" + p.slug + "/"
 } | jsonld | safe }}
 </script>

@@ -7,14 +7,14 @@
 {% macro obrazek(jmeno, alt, trida="", hlavni=false) -%}
 {%- set r = obrazky[jmeno] or [1200, 800] -%}
 <picture>
-  <source type="image/webp" srcset="assets/img/{{ jmeno }}.webp">
-  <img class="{{ trida }}" src="assets/img/{{ jmeno }}.jpg" alt="{{ alt }}" width="{{ r[0] }}" height="{{ r[1] }}"{% if hlavni %} fetchpriority="high"{% else %} loading="lazy" decoding="async"{% endif %}>
+  <source type="image/webp" srcset="/assets/img/{{ jmeno }}.webp">
+  <img class="{{ trida }}" src="/assets/img/{{ jmeno }}.jpg" alt="{{ alt }}" width="{{ r[0] }}" height="{{ r[1] }}"{% if hlavni %} fetchpriority="high"{% else %} loading="lazy" decoding="async"{% endif %}>
 </picture>
 {%- endmacro %}
 
 {#- Svislá oranžová linka s mandalou – typický předěl sekcí. -#}
 {% macro oddelovac(trida="") -%}
-<div class="oddelovac {{ trida }}" aria-hidden="true"><img src="assets/ikony/mandala-kvet.svg" alt="" width="37" height="37"></div>
+<div class="oddelovac {{ trida }}" aria-hidden="true"><img src="/assets/ikony/mandala-kvet.svg" alt="" width="37" height="37"></div>
 {%- endmacro %}
 
 {#- Titulek podstránky s fotkou v pozadí (jako na původním webu). -#}
@@ -34,7 +34,7 @@
 {% macro drobecky(polozky) -%}
 <nav class="drobecky wrap" aria-label="Drobečková navigace">
   <ol>
-    <li><a href="index.html">Domů</a></li>
+    <li><a href="/">Domů</a></li>
     {%- for p in polozky %}
     <li>{% if p.href %}<a href="{{ p.href }}">{{ p.label }}</a>{% else %}<span aria-current="page">{{ p.label }}</span>{% endif %}</li>
     {%- endfor %}

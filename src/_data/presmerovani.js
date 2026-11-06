@@ -1,7 +1,7 @@
 /* Přesměrování starých adres WordPressu na nové stránky, aby nezmizely
    pozice ve vyhledávačích ani odkazy z jiných webů.
    GitHub Pages neumí serverové přesměrování (301), proto se pro každou
-   starou adresu vyrobí malá stránka /stara-adresa/index.html, která
+   starou adresu vyrobí malá stránka /stara-adresa/ (index.html), která
    prohlížeč i vyhledávač pošle dál (meta refresh + canonical).
 
    Staré adresy obsahu z WordPressu se skládají podle schématu původního
@@ -16,42 +16,41 @@ const site = nacti("./site.json");
 const lekce = nacti("./lekce.json");
 const pozice = nacti("./pozice.json");
 
+/* [stará adresa, nová adresa]. Nové adresy jsou od kořene webu. */
 const staticke = [
-  ["o-mne", "o-mne.html"],
-  ["o-mne/vzdelani", "o-mne.html#vzdelani"],
-  ["nase-lekce", "lekce.html"],
-  ["rozvrh-lekci", "rozvrh.html"],
-  ["cenik", "cenik.html"],
-  ["nase-studio", "studio.html"],
-  ["kontakt", "kontakt.html"],
-  ["videa", "videa.html"],
-  ["blog", "blog.html"],
-  ["o-joze", "abeceda-pozic.html"],
-  ["kurzy", "kurzy.html"],
-  ["pobyty", "pobyty.html"],
-  ["akce", "kurzy.html"],
-  ["abeceda-pozic", "abeceda-pozic.html"],
-  ["newsletter", "index.html#newsletter"],
-  ["stranky", "index.html"],
-  ...lekce.map((l) => [l.stary, `${l.slug}.html`]),
-  ...pozice.map((p) => [`abeceda-pozic/${p.stary}`, `${p.slug}.html`])
+  ["o-mne/vzdelani", "/o-mne/#vzdelani"],
+  ["nase-lekce", "/lekce/"],
+  ["rozvrh-lekci", "/rozvrh/"],
+  ["nase-studio", "/studio/"],
+  ["o-joze", "/abeceda-pozic/"],
+  ["akce", "/kurzy/"],
+  ["newsletter", "/#newsletter"],
+  ["stranky", "/"],
+  ...lekce.map((l) => [l.stary, `/${l.slug}/`]),
+  ...pozice.map((p) => [`abeceda-pozic/${p.stary}`, `/${p.slug}/`])
 ];
 
-/* Relativní cesta ze /a/b/ zpět do kořene: "../../". */
+/* Relativní cesta ze /a/b/ zpět do kořene: "../../". Relativní odkaz
+   funguje i v testovací kopii v podsložce (basePath). */
 const doKorene = (cesta) => "../".repeat(cesta.split("/").length);
 
+const polozka = (z, na) => ({
+  z,
+  cil: na,
+  na: doKorene(z) + na.slice(1),
+  kanonicka: site.url + na.split("#")[0]
+});
+
 export default async function () {
-  const polozky = staticke.map(([z, na]) => ({
-    z,
-    na: doKorene(z) + na,
-    kanonicka: `${site.url}/${na.split("#")[0]}`
-  }));
+  const polozky = staticke.map(([z, na]) => polozka(z, na));
 
   const wp = await (await import("./wp.js")).default();
   for (const p of [...wp.detaily, ...wp.videa]) {
     const z = p.typ === "blog" ? `${p.datum.slice(0, 10).replaceAll("-", "/")}/${p.slug}` : `${p.typ}/${p.slug}`;
-    const na = p.url || "videa.html";
-    polozky.push({ z, na: doKorene(z) + na, kanonicka: `${site.url}/${na}` });
+    polozky.push(polozka(z, p.url || "/videa/"));
   }
-  return polozky;
+
+  /* Stará adresa, která je zároveň novou (/kontakt/, /cenik/, /o-mne/…),
+     přesměrování nepotřebuje – stránka na ní rovnou je. */
+  return polozky.filter((r) => `/${r.z}/` !== r.cil);
 }
